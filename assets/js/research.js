@@ -9,8 +9,7 @@
     /* Storage is optional. */
   }
   if (choice === "light" || choice === "dark") root.dataset.theme = choice;
-  const isDark = () =>
-    root.dataset.theme ? root.dataset.theme === "dark" : system.matches;
+  const isDark = () => (root.dataset.theme ? root.dataset.theme === "dark" : system.matches);
   const update = () => {
     button.setAttribute("aria-pressed", String(isDark()));
   };
