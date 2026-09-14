@@ -5,6 +5,7 @@
       "authors": "Daichi Kuroda, Maximilien Dreveton, Matthias Grossglauser, Patrick Thiran",
       "year": 2026,
       "label": "Preprint",
+      "summary": "Shows that hierarchical analogues of richness, consistency, and scale invariance can hold jointly, and characterizes the resulting methods.",
       "preprint": true,
       "url": "https://arxiv.org/abs/2609.11173",
       "pdf": "https://arxiv.org/pdf/2609.11173",
@@ -17,6 +18,7 @@
       "authors": "Maximilien Dreveton, Daichi Kuroda, Matthias Grossglauser, Patrick Thiran",
       "year": 2026,
       "label": "JASA",
+      "summary": "Establishes recovery guarantees for bottom-up hierarchical community detection, including optimal exact recovery thresholds at intermediate levels of the hierarchy.",
       "venue": "Journal of the American Statistical Association, 121(554), 1284–1295",
       "url": "https://doi.org/10.1080/01621459.2025.2569711",
       "pdf": "https://arxiv.org/pdf/2306.00833",
@@ -34,6 +36,7 @@
       "authors": "Maximilien Dreveton, Matthias Grossglauser, Daichi Kuroda, Patrick Thiran",
       "year": 2025,
       "label": "Preprint",
+      "summary": "Introduces valid hierarchies and a linkage followed by pruning procedure that recovers the finest valid hierarchy under precise conditions.",
       "preprint": true,
       "url": "https://arxiv.org/abs/2511.18056",
       "pdf": "https://arxiv.org/pdf/2511.18056",
@@ -61,6 +64,7 @@
       "authors": "Daichi Kuroda, Kimmo Kaski, Takashi Shimada",
       "year": 2023,
       "label": "Frontiers in Physics",
+      "summary": "Connects persistent frustration in opinion dynamics to reciprocity norms and local network structure.",
       "venue": "Frontiers in Physics, 11, 1166219",
       "url": "https://doi.org/10.3389/fphy.2023.1166219",
       "key": "kuroda2023frustrated",
@@ -69,20 +73,6 @@
       "pages": "1166219",
       "doi": "10.3389/fphy.2023.1166219",
       "bibtex": "@article{kuroda2023frustrated,\n  title={Frustrated opinion dynamics on real networks and its predictors},\n  author={Kuroda, Daichi and Kaski, Kimmo and Shimada, Takashi},\n  year={2023},\n  journal={Frontiers in Physics},\n  volume={11},\n  pages={1166219},\n  doi={10.3389/fphy.2023.1166219},\n  url={https://doi.org/10.3389/fphy.2023.1166219}\n}\n"
-    },
-    {
-      "title": "Impact of environmental asymmetry on epithelial morphogenesis",
-      "authors": "Kentaro Morikawa, Daichi Kuroda, Yasuhiro Inoue",
-      "year": 2022,
-      "label": "Scientific Reports",
-      "venue": "Scientific Reports, 12, 11326",
-      "url": "https://doi.org/10.1038/s41598-022-15343-y",
-      "key": "morikawa2022impact",
-      "journal": "Scientific Reports",
-      "volume": "12",
-      "pages": "11326",
-      "doi": "10.1038/s41598-022-15343-y",
-      "bibtex": "@article{morikawa2022impact,\n  title={Impact of environmental asymmetry on epithelial morphogenesis},\n  author={Morikawa, Kentaro and Kuroda, Daichi and Inoue, Yasuhiro},\n  year={2022},\n  journal={Scientific Reports},\n  volume={12},\n  pages={11326},\n  doi={10.1038/s41598-022-15343-y},\n  url={https://doi.org/10.1038/s41598-022-15343-y}\n}\n"
     }
   ]
 }

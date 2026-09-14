@@ -1,35 +1,46 @@
 <ol class="paper-list">
-  {% for paper in site.data.research.papers limit: include.limit %}
-    <li class="paper">
+  {% for paper in site.data.research.papers %}
+    <li class="paper" id="{{ paper.key | escape }}">
       <div class="paper-meta">
-        <span class="venue{% if paper.preprint %} preprint{% endif %}">{{ paper.label | escape }}</span
-        ><span>{{ paper.year }}</span>
+        <span>{{ paper.year }}</span>
+        <span class="venue{% if paper.preprint %} preprint{% endif %}">
+          {%- if paper.preprint %}Preprint{% else %}{{ paper.venue | default: paper.label | escape }}{% endif -%}
+        </span>
       </div>
-      <h3>
-        <a href="{{ paper.url | escape }}">{{ paper.title | escape }}</a>
-      </h3>
+      {% if include.heading == 2 %}
+        <h2 class="paper-title">
+          <a href="{{ paper.url | escape }}">{{ paper.title | escape }}</a>
+        </h2>
+      {% else %}
+        <h3 class="paper-title">
+          <a href="{{ paper.url | escape }}">{{ paper.title | escape }}</a>
+        </h3>
+      {% endif %}
       <p class="authors">{{ paper.authors | escape | replace: 'Daichi Kuroda', '<strong>Daichi Kuroda</strong>' }}</p>
-      {% if paper.venue %}
-        <p class="publication-venue">{{ paper.venue | escape }}</p>
+      {% if paper.summary %}
+        <p class="paper-summary">{{ paper.summary | escape }}</p>
       {% endif %}
       <div class="paper-actions">
-        <a href="{{ paper.url | escape }}">
+        <a
+          href="{{ paper.url | escape }}"
+          aria-label="{% if paper.preprint %}Preprint{% else %}Paper{% endif %}: {{ paper.title | escape }}"
+        >
           {%- if paper.preprint %}Preprint{% else %}Paper{% endif %}
           <span aria-hidden="true">↗</span></a
         >
-        {% if paper.pdf -%}
+        {% if paper.pdf %}
           <a href="{{ paper.pdf | escape }}" aria-label="PDF: {{ paper.title | escape }}">PDF</a>
-        {%- endif %}
-        {% if paper.code -%}
+        {% endif %}
+        {% if paper.code %}
           <a href="{{ paper.code | escape }}" aria-label="Code: {{ paper.title | escape }}">Code</a>
-        {%- endif %}
+        {% endif %}
+        <details class="citation">
+          <summary>
+            BibTeX<span class="sr-only"> for {{ paper.title | escape }}</span>
+          </summary>
+          <pre><code>{{ paper.bibtex | escape }}</code></pre>
+        </details>
       </div>
-      <details class="citation">
-        <summary>
-          BibTeX<span class="sr-only"> for {{ paper.title | escape }}</span>
-        </summary>
-        <pre><code>{{ paper.bibtex | escape }}</code></pre>
-      </details>
     </li>
   {% endfor %}
 </ol>

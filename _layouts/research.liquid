@@ -23,23 +23,17 @@
           >dk<span aria-hidden="true">.</span></a
         >
         <nav aria-label="Main navigation">
+          <a href="{{ '/' | relative_url }}#research">Research</a>
           <a
-            href="{{ '/' | relative_url }}"
-            {% if page.title == 'Home' %}
-              aria-current="page"
-            {% endif %}
-            >About</a
-          >
-          <a
-            href="{{ '/publications/' | relative_url }}"
+            href="{% if page.title == 'Home' %}#publications{% else %}{{ '/publications/' | relative_url }}{% endif %}"
             {% if page.title == 'Publications' %}
               aria-current="page"
             {% endif %}
             >Publications</a
           >
-          <a href="mailto:daichi.kuroda@epfl.ch">Contact</a>
+          <a href="#contact">Contact</a>
         </nav>
-        <button class="theme-toggle" type="button" aria-label="Use dark appearance" aria-pressed="false" hidden>
+        <button class="theme-toggle" type="button" aria-label="Dark appearance" aria-pressed="false" hidden>
           <svg
             aria-hidden="true"
             viewBox="0 0 24 24"
@@ -54,11 +48,9 @@
         </button>
       </header>
       <main id="main" tabindex="-1">{{ content }}</main>
-      <footer class="site-footer">
-        <p>Daichi Kuroda <span aria-hidden="true">/</span> Lausanne, Switzerland</p>
-        <a href="https://github.com/daichikuroda/daichikuroda.github.io"
-          >Website source <span aria-hidden="true">↗</span></a
-        >
+      <footer class="site-footer" id="contact" aria-label="Contact">
+        <a class="contact-address" href="mailto:daichi.kuroda@epfl.ch">daichi.kuroda@epfl.ch</a>
+        <p>EPFL · Lausanne, Switzerland</p>
       </footer>
     </div>
   </body>

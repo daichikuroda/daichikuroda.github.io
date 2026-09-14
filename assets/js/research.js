@@ -13,10 +13,6 @@
     root.dataset.theme ? root.dataset.theme === "dark" : system.matches;
   const update = () => {
     button.setAttribute("aria-pressed", String(isDark()));
-    button.setAttribute(
-      "aria-label",
-      `Use ${isDark() ? "light" : "dark"} appearance`,
-    );
   };
   if (button) {
     button.hidden = false;
