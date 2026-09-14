@@ -1,0 +1,88 @@
+{
+  "papers": [
+    {
+      "title": "Hierarchical Clustering Can Jointly Satisfy Richness, Consistency, and Scale Invariance",
+      "authors": "Daichi Kuroda, Maximilien Dreveton, Matthias Grossglauser, Patrick Thiran",
+      "year": 2026,
+      "label": "Preprint",
+      "preprint": true,
+      "url": "https://arxiv.org/abs/2609.11173",
+      "pdf": "https://arxiv.org/pdf/2609.11173",
+      "key": "kuroda2026hierarchical",
+      "eprint": "2609.11173",
+      "bibtex": "@misc{kuroda2026hierarchical,\n  title={Hierarchical Clustering Can Jointly Satisfy Richness, Consistency, and Scale Invariance},\n  author={Kuroda, Daichi and Dreveton, Maximilien and Grossglauser, Matthias and Thiran, Patrick},\n  year={2026},\n  eprint={2609.11173},\n  archivePrefix={arXiv},\n  url={https://arxiv.org/abs/2609.11173}\n}\n"
+    },
+    {
+      "title": "When Does Bottom-Up Beat Top-Down in Hierarchical Community Detection?",
+      "authors": "Maximilien Dreveton, Daichi Kuroda, Matthias Grossglauser, Patrick Thiran",
+      "year": 2026,
+      "label": "JASA",
+      "venue": "Journal of the American Statistical Association, 121(554), 1284–1295",
+      "url": "https://doi.org/10.1080/01621459.2025.2569711",
+      "pdf": "https://arxiv.org/pdf/2306.00833",
+      "code": "https://github.com/daichikuroda/bottom_up_HCD",
+      "key": "dreveton2026bottomup",
+      "journal": "Journal of the American Statistical Association",
+      "volume": "121",
+      "number": "554",
+      "pages": "1284--1295",
+      "doi": "10.1080/01621459.2025.2569711",
+      "bibtex": "@article{dreveton2026bottomup,\n  title={When Does Bottom-Up Beat Top-Down in Hierarchical Community Detection?},\n  author={Dreveton, Maximilien and Kuroda, Daichi and Grossglauser, Matthias and Thiran, Patrick},\n  year={2026},\n  journal={Journal of the American Statistical Association},\n  volume={121},\n  number={554},\n  pages={1284--1295},\n  doi={10.1080/01621459.2025.2569711},\n  url={https://doi.org/10.1080/01621459.2025.2569711}\n}\n"
+    },
+    {
+      "title": "Hierarchical Linkage Clustering Beyond Binary Trees and Ultrametrics",
+      "authors": "Maximilien Dreveton, Matthias Grossglauser, Daichi Kuroda, Patrick Thiran",
+      "year": 2025,
+      "label": "Preprint",
+      "preprint": true,
+      "url": "https://arxiv.org/abs/2511.18056",
+      "pdf": "https://arxiv.org/pdf/2511.18056",
+      "key": "dreveton2025hierarchical",
+      "eprint": "2511.18056",
+      "bibtex": "@misc{dreveton2025hierarchical,\n  title={Hierarchical Linkage Clustering Beyond Binary Trees and Ultrametrics},\n  author={Dreveton, Maximilien and Grossglauser, Matthias and Kuroda, Daichi and Thiran, Patrick},\n  year={2025},\n  eprint={2511.18056},\n  archivePrefix={arXiv},\n  url={https://arxiv.org/abs/2511.18056}\n}\n"
+    },
+    {
+      "title": "Differentiating between Hierarchical and Flat Communities",
+      "authors": "Daichi Kuroda",
+      "year": 2025,
+      "label": "ACM SIGMETRICS PER",
+      "venue": "ACM SIGMETRICS Performance Evaluation Review, 52(4), 9–10",
+      "url": "https://doi.org/10.1145/3725536.3725541",
+      "key": "kuroda2025differentiating",
+      "journal": "ACM SIGMETRICS Performance Evaluation Review",
+      "volume": "52",
+      "number": "4",
+      "pages": "9--10",
+      "doi": "10.1145/3725536.3725541",
+      "bibtex": "@article{kuroda2025differentiating,\n  title={Differentiating between Hierarchical and Flat Communities},\n  author={Kuroda, Daichi},\n  year={2025},\n  journal={ACM SIGMETRICS Performance Evaluation Review},\n  volume={52},\n  number={4},\n  pages={9--10},\n  doi={10.1145/3725536.3725541},\n  url={https://doi.org/10.1145/3725536.3725541}\n}\n"
+    },
+    {
+      "title": "Frustrated opinion dynamics on real networks and its predictors",
+      "authors": "Daichi Kuroda, Kimmo Kaski, Takashi Shimada",
+      "year": 2023,
+      "label": "Frontiers in Physics",
+      "venue": "Frontiers in Physics, 11, 1166219",
+      "url": "https://doi.org/10.3389/fphy.2023.1166219",
+      "key": "kuroda2023frustrated",
+      "journal": "Frontiers in Physics",
+      "volume": "11",
+      "pages": "1166219",
+      "doi": "10.3389/fphy.2023.1166219",
+      "bibtex": "@article{kuroda2023frustrated,\n  title={Frustrated opinion dynamics on real networks and its predictors},\n  author={Kuroda, Daichi and Kaski, Kimmo and Shimada, Takashi},\n  year={2023},\n  journal={Frontiers in Physics},\n  volume={11},\n  pages={1166219},\n  doi={10.3389/fphy.2023.1166219},\n  url={https://doi.org/10.3389/fphy.2023.1166219}\n}\n"
+    },
+    {
+      "title": "Impact of environmental asymmetry on epithelial morphogenesis",
+      "authors": "Kentaro Morikawa, Daichi Kuroda, Yasuhiro Inoue",
+      "year": 2022,
+      "label": "Scientific Reports",
+      "venue": "Scientific Reports, 12, 11326",
+      "url": "https://doi.org/10.1038/s41598-022-15343-y",
+      "key": "morikawa2022impact",
+      "journal": "Scientific Reports",
+      "volume": "12",
+      "pages": "11326",
+      "doi": "10.1038/s41598-022-15343-y",
+      "bibtex": "@article{morikawa2022impact,\n  title={Impact of environmental asymmetry on epithelial morphogenesis},\n  author={Morikawa, Kentaro and Kuroda, Daichi and Inoue, Yasuhiro},\n  year={2022},\n  journal={Scientific Reports},\n  volume={12},\n  pages={11326},\n  doi={10.1038/s41598-022-15343-y},\n  url={https://doi.org/10.1038/s41598-022-15343-y}\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+<ol class="paper-list">
+  {% for paper in site.data.research.papers limit: include.limit %}
+    <li class="paper">
+      <div class="paper-meta">
+        <span class="venue{% if paper.preprint %} preprint{% endif %}">{{ paper.label | escape }}</span
+        ><span>{{ paper.year }}</span>
+      </div>
+      <h3>
+        <a href="{{ paper.url | escape }}">{{ paper.title | escape }}</a>
+      </h3>
+      <p class="authors">{{ paper.authors | escape | replace: 'Daichi Kuroda', '<strong>Daichi Kuroda</strong>' }}</p>
+      {% if paper.venue %}
+        <p class="publication-venue">{{ paper.venue | escape }}</p>
+      {% endif %}
+      <div class="paper-actions">
+        <a href="{{ paper.url | escape }}">
+          {%- if paper.preprint %}Preprint{% else %}Paper{% endif %}
+          <span aria-hidden="true">↗</span></a
+        >
+        {% if paper.pdf -%}
+          <a href="{{ paper.pdf | escape }}" aria-label="PDF: {{ paper.title | escape }}">PDF</a>
+        {%- endif %}
+        {% if paper.code -%}
+          <a href="{{ paper.code | escape }}" aria-label="Code: {{ paper.title | escape }}">Code</a>
+        {%- endif %}
+      </div>
+      <details class="citation">
+        <summary>
+          BibTeX<span class="sr-only"> for {{ paper.title | escape }}</span>
+        </summary>
+        <pre><code>{{ paper.bibtex | escape }}</code></pre>
+      </details>
+    </li>
+  {% endfor %}
+</ol>
