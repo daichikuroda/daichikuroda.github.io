@@ -1,34 +1,33 @@
 ---
-layout: about
-title: about
+layout: research
+title: Home
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
-
-profile:
-  align: right
-  image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
-  more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
-
-selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
-
-announcements:
-  enabled: true # includes a list of news items
-  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
-
-latest_posts:
-  enabled: true
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 3 # leave blank to include all the blog posts
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+<header class="profile" aria-labelledby="name">
+  <h1 id="name">Daichi Kuroda</h1>
+  <p class="role">PhD student · <a href="https://www.epfl.ch/">EPFL</a><br><a href="https://indy.epfl.ch/">Information and Network Dynamics Laboratory</a></p>
+  <div class="profile-links" aria-label="Professional profiles">
+    <a href="mailto:daichi.kuroda@epfl.ch">Email</a>
+    <a href="https://people.epfl.ch/daichi.kuroda?lang=en">EPFL</a>
+    <a href="https://github.com/daichikuroda">GitHub</a>
+    <a href="https://orcid.org/0009-0004-3467-5177">ORCID</a>
+  </div>
+</header>
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+<section class="biography" id="research" aria-label="Research introduction">
+  <p>I study the mathematical foundations of <a href="#kuroda2026hierarchical">hierarchical clustering</a> and <a href="#dreveton2026bottomup">community detection</a>. My work develops definitions and algorithms for uncovering meaningful structure in data and networks, and studies when that structure can be recovered reliably.</p>
+  <p class="advisors">At EPFL, I’m advised by <a href="https://people.epfl.ch/patrick.thiran?lang=en">Patrick Thiran</a> and co-advised by <a href="https://people.epfl.ch/matthias.grossglauser?lang=en">Matthias Grossglauser</a>.</p>
+  <ul class="research-questions">
+    <li>What makes a hierarchy a meaningful representation of data?</li>
+    <li>When can algorithms reliably recover nested communities?</li>
+  </ul>
+</section>
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+<section class="publications-section" id="publications" aria-labelledby="publications-heading">
+  <div class="section-heading">
+    <h2 id="publications-heading">Publications &amp; preprints</h2>
+    <span class="section-note">Newest first</span>
+  </div>
+  {% include research-papers.liquid %}
+</section>
