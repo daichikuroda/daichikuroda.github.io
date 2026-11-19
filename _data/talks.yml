@@ -1,0 +1,27 @@
+# -----------------------------------------------------------------------------
+# Talks and posters — newest first. Shown in "Talks & teaching" on the homepage.
+#
+#   - date: 2026-12-01                 # YYYY-MM-DD (month and year are shown)
+#     title: Title of the talk
+#     event: Conference, workshop or seminar name
+#     event_url: https://...           # optional
+#     location: City, Country          # optional
+#     kind: Talk                       # Talk | Invited talk | Poster | Seminar ...
+#     slides: /assets/files/slides.pdf   # optional (also: video, poster)
+#     draft: true                      # optional: hidden on the live site
+#
+# The section stays hidden on the live site until at least one entry has no `draft: true`.
+# -----------------------------------------------------------------------------
+
+- date: 2026-12-01
+  title: Hierarchical linkage clustering beyond binary trees and ultrametrics
+  event: NeurIPS 2026
+  kind: Poster
+  draft: true # TODO: confirm format (poster/oral), add location and a poster link
+
+- date: 2026-01-01
+  title: Title of an invited or contributed talk
+  event: Seminar / workshop name
+  location: City, Country
+  kind: Talk
+  draft: true # Example placeholder — edit or delete

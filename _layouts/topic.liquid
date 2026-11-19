@@ -1,0 +1,41 @@
+---
+layout: research
+---
+{%- include site-data.liquid -%}
+{%- assign related = site.data.research.papers | where_exp: 'p', 'p.topics contains page.topic' -%}
+{%- assign related_count = related | size -%}
+<article class="topic">
+  <header class="topic-header">
+    <div>
+      <p class="eyebrow">
+        <a href="{{ '/' | relative_url }}#research">Research</a>
+        {%- if page.published == false -%}
+          <span class="draft-tag">Unpublished draft</span>
+        {%- endif %}
+      </p>
+      <h1>{{ page.title }}</h1>
+      {%- if page.lede %}
+        <p class="topic-lede">{{ page.lede }}</p>
+      {%- endif %}
+    </div>
+    {%- if page.icon %}
+      {% include icon.liquid name=page.icon class="topic-art" dot=1.3 %}
+    {%- endif %}
+  </header>
+  <div class="topic-body">
+    <nav class="toc" data-toc></nav>
+    <div class="prose">
+      {{ content }}
+    </div>
+  </div>
+  {%- if related_count > 0 %}
+    <section class="topic-papers" id="papers" aria-labelledby="papers-heading">
+      <div class="section-head">
+        <h2 id="papers-heading">Papers on this topic</h2>
+        <a class="section-link" href="{{ '/publications/' | relative_url }}">All publications →</a>
+      </div>
+      {% include research-papers.liquid topic=page.topic compact=true %}
+    </section>
+  {%- endif %}
+  <a class="back-link" href="{{ '/' | relative_url }}">← Back to the homepage</a>
+</article>

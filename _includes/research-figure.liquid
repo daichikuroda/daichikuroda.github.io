@@ -1,0 +1,25 @@
+{%- comment -%}
+  Figure for research pages.
+  {% include research-figure.liquid src="/assets/img/research/my-figure.png" alt="Short description" caption="**Figure 1.** Caption in Markdown." %}
+  While the image file is missing, the local preview shows a placeholder box and the live site shows nothing.
+{%- endcomment -%}
+{%- assign fig_file = site.static_files | where: 'path', include.src | first -%}
+{%- if fig_file or include.src contains '://' %}
+  <figure class="figure">
+    <img src="{{ include.src | relative_url }}" alt="{{ include.alt | escape }}" loading="lazy">
+    {%- if include.caption %}
+      <figcaption>{{ include.caption | markdownify | remove: '<p>' | remove: '</p>' | strip }}</figcaption>
+    {%- endif %}
+  </figure>
+{%- elsif jekyll.environment != 'production' %}
+  <figure class="figure is-draft">
+    <div class="figure-placeholder">
+      Figure placeholder — add {{ include.src -}}
+      <br>
+      {{ include.alt }}
+    </div>
+    {%- if include.caption %}
+      <figcaption>{{ include.caption | markdownify | remove: '<p>' | remove: '</p>' | strip }}</figcaption>
+    {%- endif %}
+  </figure>
+{%- endif %}

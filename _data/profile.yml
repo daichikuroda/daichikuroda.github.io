@@ -1,0 +1,42 @@
+# -----------------------------------------------------------------------------
+# Profile — shown at the top of the homepage, in the footer, and in link previews.
+# -----------------------------------------------------------------------------
+
+name: Daichi Kuroda
+position: PhD student in Computer Science
+institution: EPFL
+institution_url: https://www.epfl.ch/
+lab: Information and Network Dynamics Laboratory (INDY)
+lab_url: https://indy.epfl.ch/
+location: Lausanne, Switzerland
+email: daichi.kuroda@epfl.ch
+
+advisors:
+  - name: Patrick Thiran
+    url: https://people.epfl.ch/patrick.thiran?lang=en
+    role: advisor
+  - name: Matthias Grossglauser
+    url: https://people.epfl.ch/matthias.grossglauser?lang=en
+    role: co-advisor
+
+# Portrait: put a square image (at least 400×400 px) in assets/img/ and set the
+# path below. While the file is missing, the live site simply shows no photo;
+# the local preview shows an "Add portrait" placeholder instead.
+photo: /assets/img/portrait.jpg
+photo_alt: Portrait of Daichi Kuroda
+
+# Profile links, shown under your name in this order.
+links:
+  - label: Email
+    url: mailto:daichi.kuroda@epfl.ch
+  - label: Google Scholar
+    url: https://scholar.google.com/citations?user=EyGTGNAAAAAJ
+  - label: GitHub
+    url: https://github.com/daichikuroda
+  - label: ORCID
+    url: https://orcid.org/0009-0004-3467-5177
+  - label: EPFL profile
+    url: https://people.epfl.ch/daichi.kuroda?lang=en
+  # Uncomment once you upload a PDF CV to assets/files/:
+  # - label: CV
+  #   url: /assets/files/cv.pdf

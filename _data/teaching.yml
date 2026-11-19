@@ -1,0 +1,28 @@
+# -----------------------------------------------------------------------------
+# Teaching and supervision — newest first. Shown in "Talks & teaching" on the homepage.
+#
+#   - role: Teaching assistant         # Teaching assistant | Supervisor | Lecturer ...
+#     title: Course or project title
+#     code: CS-000                     # optional course code
+#     url: https://...                 # optional course page
+#     terms: Fall 2025, Fall 2024      # free text
+#     note: Short optional detail      # optional
+#     draft: true                      # optional: hidden on the live site
+#
+# The section stays hidden on the live site until at least one entry has no `draft: true`.
+# -----------------------------------------------------------------------------
+
+- role: Teaching assistant
+  title: Reinforcement learning
+  terms: Two editions — add the semesters
+  draft: true # TODO: add the official course name, code and semesters
+
+- role: Teaching assistant
+  title: Large-scale data science course
+  terms: Add the semester
+  draft: true # TODO: add the official course name, code and semester
+
+- role: Supervisor
+  title: Student semester and master's projects
+  note: About nine projects, including one on recommender systems.
+  draft: true # TODO: confirm the count; optionally list notable projects
