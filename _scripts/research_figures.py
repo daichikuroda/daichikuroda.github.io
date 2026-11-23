@@ -1,7 +1,8 @@
-"""Generate Figures 1, 3 and 4 of the hierarchical clustering research page.
+"""Generate the figures of the hierarchical clustering research page.
 
 Usage (from the repository root):  python3 _scripts/research_figures.py assets/img/research
-Writes flat-clusterings.svg (Figure 1), backbone.svg (Figure 3) and incompatible-methods.svg (Figure 4). Figure 1 uses the same
+Writes clustering-at-work.svg (the opening figure), flat-clusterings.svg (Figure 1),
+backbone.svg (Figure 3) and incompatible-methods.svg (Figure 4). Figure 1 uses the same
 points as hierarchy-example.svg (Figure 2): same sub-cluster centers and random seed.
 """
 import math, random, sys
@@ -214,4 +215,163 @@ svg += cluster_tree(236, [1, 2, 3, 5, 4], {1, 2, 3, 5}, AMBER, "(b) Single linka
 svg += cluster_tree(486, [1, 2, 3, 4, 5], {1, 2, 3, 4}, PURPLE, "(c) Weakly locally separated")
 svg.append("</svg>")
 open(f"{OUT}/incompatible-methods.svg", "w").write("\n".join(svg) + "\n")
+print("ok")
+
+
+# ---------------------------------------------------------------- Clustering at work (unnumbered)
+# Top row: clustering on its own (phylogenies, cell types, network communities).
+# Bottom row: clustering inside ML systems (nearest-neighbor search, self-supervised
+# learning, retrieval for language models).
+W, H = 720, 440
+TW, TH = 224, 150
+TILE_BG = "#f5f8f8"
+svg = head(W, H, "Clustering at work",
+           "Six small illustrations. Top row, clustering on its own: a phylogenetic tree with colored clades, cells grouped into cell types, "
+           "and a network split into communities. Bottom row, clustering inside machine-learning systems: nearest-neighbor search that "
+           "visits only the clusters closest to a query, self-supervised learning with cluster assignments as pseudo-labels, and documents "
+           "organized into a tree of clusters and summaries for retrieval.")
+
+
+def tile(ix, row_y, label, body):
+    ox, oy = 12 + ix * (TW + 12), row_y
+    g = [f'<g transform="translate({ox} {oy})">', f'<rect width="{TW}" height="{TH}" rx="12" fill="{TILE_BG}"/>']
+    g += body
+    g.append(text(TW / 2, TH + 22, label, 13, INK, "600", "middle"))
+    g.append("</g>")
+    return g
+
+
+def line(x1, y1, x2, y2, col, w=1.2, op=1.0, dash=None):
+    d = f' stroke-dasharray="{dash}"' if dash else ""
+    return f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{col}" stroke-opacity="{op}" stroke-width="{w}" stroke-linecap="round"{d}/>'
+
+
+def doc(x, y, col, w=26, h=32):
+    g = [f'<path d="M{x} {y}h{w - 8}l8 8v{h - 8}h-{w}z" fill="#ffffff" stroke="{col}" stroke-width="1.3" stroke-linejoin="round"/>']
+    for j in range(3):
+        g.append(line(x + 5, y + 12 + j * 6, x + w - (5 if j % 2 == 0 else 10), y + 12 + j * 6, col, 1.6, 0.5))
+    return g
+
+
+ROW1, ROW2 = 30, 236
+svg.append(text(14, 20, "On its own", 12, MUTED, "600"))
+svg.append(text(14, ROW2 - 10, "Inside machine-learning systems", 12, MUTED, "600"))
+
+# 1. phylogeny (rectangular cladogram, clades colored)
+b = []
+leaves = [24, 40, 56, 76, 92, 112, 128]
+cols = [TEAL, TEAL, TEAL, AMBER, AMBER, PURPLE, PURPLE]
+XL = 186
+def br(d, col):
+    b.append(f'<path d="{d}" fill="none" stroke="{col}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>')
+yA1 = (leaves[0] + leaves[1]) / 2
+br(f"M{XL} {leaves[0]}H150V{leaves[1]}H{XL}", TEAL)
+br(f"M150 {yA1}H118V{leaves[2]}H{XL}", TEAL)
+br(f"M{XL} {leaves[3]}H140V{leaves[4]}H{XL}", AMBER)
+br(f"M{XL} {leaves[5]}H160V{leaves[6]}H{XL}", PURPLE)
+yA = (yA1 + leaves[2]) / 2
+yB = (leaves[3] + leaves[4]) / 2
+yC = (leaves[5] + leaves[6]) / 2
+br(f"M140 {yB}H84V{yC}H160", INK)
+br(f"M118 {yA}H46V{(yB + yC) / 2}H84", INK)
+br(f"M28 {(yA + (yB + yC) / 2) / 2}H46", INK)
+for y, c in zip(leaves, cols):
+    b.append(f'<circle cx="{XL + 7}" cy="{y}" r="4.5" fill="{c}"/>')
+svg += tile(0, ROW1, "Phylogenies", b)
+
+# 2. cell types (embedding-like blobs of cells)
+random.seed(3)
+b = []
+for (cx, cy, sx, sy, col, n) in [(64, 52, 26, 14, TEAL, 16), (156, 44, 18, 16, AMBER, 13), (154, 110, 28, 12, PURPLE, 15), (72, 112, 14, 12, BLUE, 9)]:
+    for _ in range(n):
+        x, y = random.gauss(cx, sx / 1.6), random.gauss(cy, sy / 1.6)
+        b.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5.2" fill="{col}" fill-opacity=".18" stroke="{col}" stroke-width="1"/>')
+        b.append(f'<circle cx="{x + 0.8:.1f}" cy="{y - 0.6:.1f}" r="1.8" fill="{col}"/>')
+svg += tile(1, ROW1, "Cell types", b)
+
+# 3. network communities
+random.seed(5)
+b = []
+nodes = []
+for ci, ((cx, cy), col) in enumerate([((60, 58), TEAL), ((164, 54), AMBER), ((112, 112), PURPLE)]):
+    for k in range(6):
+        a = 2 * math.pi * k / 6 + random.uniform(-0.3, 0.3)
+        r = random.uniform(14, 26)
+        nodes.append((cx + r * math.cos(a), cy + r * 0.8 * math.sin(a), ci, col))
+edges = [(i, j) for i in range(len(nodes)) for j in range(i + 1, len(nodes)) if nodes[i][2] == nodes[j][2] and random.random() < 0.55]
+bridges = [(2, 9), (8, 15), (4, 13)]
+for i, j in edges:
+    b.append(line(nodes[i][0], nodes[i][1], nodes[j][0], nodes[j][1], nodes[i][3], 1.2, 0.55))
+for i, j in bridges:
+    b.append(line(nodes[i][0], nodes[i][1], nodes[j][0], nodes[j][1], MUTED, 1.2, 0.5, "3 3"))
+for x, y, _, col in nodes:
+    b.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="{col}" stroke="{TILE_BG}" stroke-width="1.5"/>')
+svg += tile(2, ROW1, "Network communities", b)
+
+# 4. nearest-neighbor search: the query only visits its two closest clusters
+random.seed(9)
+b = []
+cents = [(46, 40), (112, 30), (184, 44), (40, 112), (110, 92), (180, 116)]
+q = (132, 70)
+order = sorted(range(len(cents)), key=lambda k: (cents[k][0] - q[0]) ** 2 + (cents[k][1] - q[1]) ** 2)
+visited = set(order[:2])
+for _ in range(90):
+    x, y = random.uniform(14, TW - 14), random.uniform(12, TH - 12)
+    k = min(range(len(cents)), key=lambda k: (cents[k][0] - x) ** 2 + (cents[k][1] - y) ** 2)
+    if k in visited:
+        b.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3" fill="{TEAL}"/>')
+    else:
+        b.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.6" fill="#b9c2c7"/>')
+for k, (cx, cy) in enumerate(cents):
+    col = TEAL if k in visited else "#9aa4aa"
+    b.append(f'<path d="M{cx - 5} {cy}h10M{cx} {cy - 5}v10" stroke="{col}" stroke-width="2.2" stroke-linecap="round"/>')
+for k in visited:
+    b.append(line(q[0], q[1], cents[k][0], cents[k][1], AMBER, 1.5, 0.9, "4 3"))
+star = " ".join(f"{q[0] + (9 if i % 2 == 0 else 4) * math.sin(i * math.pi / 5):.1f},{q[1] - (9 if i % 2 == 0 else 4) * math.cos(i * math.pi / 5):.1f}" for i in range(10))
+b.append(f'<polygon points="{star}" fill="{AMBER}" stroke="#ffffff" stroke-width="1.2" stroke-linejoin="round"/>')
+svg += tile(0, ROW2, "Nearest-neighbor search", b)
+
+# 5. self-supervised learning: cluster assignments become pseudo-labels for images
+b = []
+thumbs = [(18, 20, TEAL, "sun"), (18, 62, AMBER, "hill"), (18, 104, PURPLE, "box"), (62, 20, AMBER, "hill"), (62, 62, PURPLE, "box"), (62, 104, TEAL, "sun")]
+for (x, y, col, kind) in thumbs:
+    b.append(f'<rect x="{x}" y="{y}" width="34" height="28" rx="5" fill="#ffffff" stroke="#c9d1d5"/>')
+    if kind == "sun":
+        b.append(f'<circle cx="{x + 17}" cy="{y + 14}" r="7" fill="#9aa4aa"/>')
+    elif kind == "hill":
+        b.append(f'<path d="M{x + 5} {y + 23}L{x + 15} {y + 9}L{x + 22} {y + 17}L{x + 26} {y + 12}L{x + 31} {y + 23}Z" fill="#9aa4aa"/>')
+    else:
+        b.append(f'<rect x="{x + 10}" y="{y + 7}" width="14" height="14" rx="2" fill="#9aa4aa"/>')
+    b.append(f'<circle cx="{x + 33}" cy="{y + 2}" r="5" fill="{col}" stroke="#ffffff" stroke-width="1.5"/>')
+random.seed(4)
+for (cx, cy, col) in [(170, 42, TEAL), (196, 92, AMBER), (152, 104, PURPLE)]:
+    for _ in range(8):
+        b.append(f'<circle cx="{random.gauss(cx, 7):.1f}" cy="{random.gauss(cy, 7):.1f}" r="3" fill="{col}"/>')
+b.append(f'<path d="M104 70C120 70 124 70 136 70" fill="none" stroke="{MUTED}" stroke-width="1.5" marker-end="url(#arr)"/>')
+b.append(f'<path d="M182 122C172 146 104 148 88 137" fill="none" stroke="{MUTED}" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr)"/>')
+b.append(text(134, 132, "pseudo-labels", 10, MUTED, "400", "middle"))
+svg += tile(1, ROW2, "Self-supervised learning", b)
+
+# 6. retrieval for language models: documents organized into a tree of clusters and summaries
+b = []
+xs = [14, 48, 82, 116, 150, 184]
+colsd = [TEAL, TEAL, AMBER, AMBER, PURPLE, PURPLE]
+for x, c in zip(xs, colsd):
+    b += doc(x, 104, c)
+sumx = [(31, TEAL), (99, AMBER), (167, PURPLE)]
+for (x, c), (i1, i2) in zip(sumx, [(0, 1), (2, 3), (4, 5)]):
+    b.append(line(xs[i1] + 13, 104, x + 13, 84, c, 1.4, 0.7))
+    b.append(line(xs[i2] + 13, 104, x + 13, 84, c, 1.4, 0.7))
+    b.append(f'<rect x="{x}" y="58" width="26" height="26" rx="6" fill="{c}" fill-opacity=".16" stroke="{c}" stroke-width="1.3"/>')
+    b.append(line(x + 6, 67, x + 20, 67, c, 1.6, 0.8))
+    b.append(line(x + 6, 74, x + 16, 74, c, 1.6, 0.8))
+    b.append(line(x + 13, 58, 112, 40, INK, 1.4, 0.6))
+b.append(f'<rect x="96" y="14" width="32" height="26" rx="6" fill="#ffffff" stroke="{INK}" stroke-width="1.3"/>')
+b.append(line(103, 23, 121, 23, INK, 1.6, 0.7))
+b.append(line(103, 30, 116, 30, INK, 1.6, 0.7))
+svg += tile(2, ROW2, "Retrieval for language models", b)
+
+svg.insert(4, f'<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="{MUTED}"/></marker></defs>')
+svg.append("</svg>")
+open(f"{OUT}/clustering-at-work.svg", "w").write("\n".join(svg) + "\n")
 print("ok")

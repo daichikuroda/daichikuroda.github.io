@@ -35,6 +35,8 @@ HOW TO EDIT THIS PAGE (this comment is not shown on the site)
 
 ## Clustering is everywhere
 
+{% include research-figure.liquid src="/assets/img/research/clustering-at-work.svg" alt="Six small illustrations: a phylogenetic tree with colored clades, cells grouped into cell types, a network split into communities, a nearest-neighbor search that visits only the clusters closest to a query, images labelled by their cluster for self-supervised learning, and documents organized into a tree of clusters and summaries." caption="Clustering at work. Top: on its own, clustering groups species into clades, cells into cell types, and the nodes of a network into communities. Bottom: inside machine-learning systems, a nearest-neighbor search only visits the clusters closest to the query (star), self-supervised learning uses cluster assignments as pseudo-labels, and retrieval systems for language models organize documents into a tree of clusters and summaries." %}
+
 Clustering is one of the most widely used tasks in machine learning and data analysis. On its own, it helps make sense of data, for example to
 
 - segment customers and markets,
