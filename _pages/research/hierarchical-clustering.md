@@ -78,7 +78,7 @@ The key notion is a transformation that makes a given clustering more pronounced
 > **Theorem** (Kleinberg, 2002). No flat clustering method is simultaneously scale invariant, rich, and consistent.
 {: .theorem}
 
-Any two of the three requirements can be satisfied together. Kleinberg shows this with single linkage, which repeatedly merges the two closest clusters, stopped by one of three rules. Stopping when $$k$$ clusters remain gives scale invariance and consistency, but not richness. Merging only clusters closer than a fixed threshold $$r$$ gives richness and consistency, but not scale invariance. Merging only clusters closer than a fixed fraction of the largest dissimilarity gives scale invariance and richness, but not consistency. Each stopping rule breaks one requirement. As we will see, not stopping at all, and keeping the whole tree, breaks none.
+Any two of the three requirements can be satisfied together. Kleinberg shows this with single linkage, which repeatedly merges the two closest clusters: depending on when it stops, it keeps two of the requirements and breaks the third. As we will see, not stopping at all, and keeping the whole tree, breaks none.
 
 The proof also shows where the conflict lies. Scale invariance and consistency together force the possible outputs of $$f$$ to form an *antichain*: no possible output refines another one. In effect, such a method must commit to a single resolution. For example, it cannot return the two clusters of Figure 1(b) on some data and the five clusters of Figure 1(c) on other data, since the latter refine the former. Richness, however, asks for every partition, including partitions that refine one another.
 
