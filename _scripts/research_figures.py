@@ -1,7 +1,7 @@
-"""Generate Figures 1 and 3 of the hierarchical clustering research page.
+"""Generate Figures 1, 3 and 4 of the hierarchical clustering research page.
 
 Usage (from the repository root):  python3 _scripts/research_figures.py assets/img/research
-Writes flat-clusterings.svg (Figure 1) and backbone.svg (Figure 3). Figure 1 uses the same
+Writes flat-clusterings.svg (Figure 1), backbone.svg (Figure 3) and incompatible-methods.svg (Figure 4). Figure 1 uses the same
 points as hierarchy-example.svg (Figure 2): same sub-cluster centers and random seed.
 """
 import math, random, sys
@@ -160,4 +160,58 @@ svg += tree(10, 290, "m1", "(c) Admissible method 1")
 svg += tree(370, 290, "m2", "(d) Admissible method 2")
 svg.append("</svg>")
 open(f"{OUT}/backbone.svg", "w").write("\n".join(svg) + "\n")
+print("ok")
+
+# ---------------------------------------------------------------- Figure 4
+# The dissimilarity of Example 2 / Lemma 15 in the paper, and the outputs of
+# non-binary single linkage (T_SL) and the weakly locally separated method (T_wloc).
+D = [[0, 1, 2, 4, 3], [1, 0, 4, 5, 6], [2, 4, 0, 5, 6], [4, 5, 6, 0, 7], [3, 6, 6, 7, 0]]
+W, H = 720, 300
+svg = head(W, H, "Two admissible methods that cannot be combined",
+           "Left: a 5 by 5 dissimilarity matrix. Middle: the single linkage hierarchy, with clusters {1,2}, {1,2,3} and {1,2,3,5}. "
+           "Right: the weakly locally separated hierarchy, with clusters {1,2}, {1,2,3} and {1,2,3,4}.")
+cell, mx, my = 30, 46, 58
+for i in range(5):
+    svg.append(text(mx - 12, my + i * cell + 20, str(i + 1), 12, MUTED, "600", "middle"))
+    svg.append(text(mx + i * cell + 15, my - 9, str(i + 1), 12, MUTED, "600", "middle"))
+    for j in range(5):
+        v = D[i][j]
+        shade = 0.04 + 0.5 * (1 - v / 7) if i != j else 0
+        svg.append(f'<rect x="{mx + j*cell}" y="{my + i*cell}" width="{cell}" height="{cell}" fill="{TEAL}" fill-opacity="{shade:.2f}" stroke="#ffffff" stroke-width="1.5"/>')
+        svg.append(text(mx + j * cell + 15, my + i * cell + 20, str(v), 12, INK if i != j else MUTED, "400", "middle"))
+svg.append(text(mx + 75, 262, "(a) Dissimilarity d", 13, INK, "600", "middle"))
+svg.append(f'<line x1="222" y1="28" x2="222" y2="270" stroke="{LINE}"/>')
+svg.append(f'<line x1="472" y1="28" x2="472" y2="270" stroke="{LINE}"/>')
+
+
+def cluster_tree(ox, order, third, third_col, label):
+    """Layered tree: {1,2} under {1,2,3} under third (size 4) under the root."""
+    g = []
+    x = {k: ox + 22 + 44 * i for i, k in enumerate(order)}
+    y_leaf, y12, y123, y4, y_root = 214, 178, 140, 100, 60
+    m12 = (x[1] + x[2]) / 2
+    m123 = (m12 + x[3]) / 2
+    extra = [k for k in third if k not in (1, 2, 3)][0]
+    rest = [k for k in order if k not in third][0]
+    m4 = (m123 + x[extra]) / 2
+    path = lambda d, col, w=2.2: g.append(f'<path d="{d}" fill="none" stroke="{col}" stroke-width="{w}" stroke-linejoin="round" stroke-linecap="round"/>')
+    path(f"M{x[1]} {y_leaf}V{y12}H{x[2]}V{y_leaf}", TEAL)
+    path(f"M{m12} {y12}V{y123}H{x[3]}V{y_leaf}", TEAL)
+    path(f"M{m123} {y123}V{y4}H{x[extra]}V{y_leaf}", third_col)
+    path(f"M{m4} {y4}V{y_root}H{x[rest]}V{y_leaf}M{(m4 + x[rest]) / 2} {y_root}V{y_root - 16}", INK)
+    for k, xx in x.items():
+        g.append(f'<circle cx="{xx}" cy="{y_leaf}" r="4.5" fill="{INK}"/>')
+        g.append(text(xx, y_leaf + 22, str(k), 12, INK, "600", "middle"))
+    g.append(text(m12 - 6, y12 - 7, "{1, 2}", 11, TEAL, "600", "end"))
+    g.append(text(m123 - 6, y123 - 7, "{1, 2, 3}", 11, TEAL, "600", "end"))
+    lab = "{" + ", ".join(str(k) for k in sorted(third)) + "}"
+    g.append(text(m4 - 6, y4 - 7, lab, 11, third_col, "600", "end"))
+    g.append(text(ox + 110, 262, label, 13, INK, "600", "middle"))
+    return g
+
+
+svg += cluster_tree(236, [1, 2, 3, 5, 4], {1, 2, 3, 5}, AMBER, "(b) Single linkage")
+svg += cluster_tree(486, [1, 2, 3, 4, 5], {1, 2, 3, 4}, PURPLE, "(c) Weakly locally separated")
+svg.append("</svg>")
+open(f"{OUT}/incompatible-methods.svg", "w").write("\n".join(svg) + "\n")
 print("ok")

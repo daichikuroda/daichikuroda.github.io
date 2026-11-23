@@ -69,63 +69,91 @@ Hierarchical clustering generalizes clustering: instead of a single partition, i
 
 ## Our results in brief
 
-Beyond these known advantages, my collaborators and I show that hierarchical clustering is a **well-posed** problem ([Kuroda, Dreveton, Grossglauser & Thiran, 2026](#kuroda2026hierarchical)). Hierarchical versions of Kleinberg's three requirements, which no flat clustering method can satisfy together, can all be satisfied by hierarchical clustering methods. We call these methods *admissible*.
+Beyond these known advantages, my collaborators and I show that hierarchical clustering is a **well-posed** problem ([Kuroda, Dreveton, Grossglauser & Thiran, 2026](#kuroda2026hierarchical)): hierarchical versions of Kleinberg's three requirements, which no flat clustering method can satisfy together, can all be satisfied by hierarchical clustering methods. We call these methods *admissible*, and there are uncountably many of them, including a non-binary version of single linkage.
 
-Furthermore, there is no single best way to cluster hierarchically: there are infinitely many (in fact, uncountably many) "best" admissible methods, and none of them is better than the others. Yet they do not disagree arbitrarily. All admissible methods share a common backbone: the clusters that are sufficiently well separated from the rest of the data. Figure 3 illustrates this.
+Furthermore, there is no single best way to cluster hierarchically. No admissible method refines all the others: there are several "best" (maximal) admissible methods, and they are mutually incompatible. Yet they do not disagree arbitrarily. Every admissible method contains a common backbone of well-separated clusters, and admissible methods differ only in how much additional structure they reveal beyond it. Figure 3 illustrates this.
 
-{% include research-figure.liquid src="/assets/img/research/backbone.svg" alt="Four panels: data with two well-separated groups A and B, the shared backbone tree, and two admissible trees that group the middle sub-group of B differently." caption="**Figure 3.** Schematic illustration. (a) Two well-separated groups, A and B. Inside A, the sub-groups A1 and A2 are clearly separated; inside B, the middle sub-group B2 is about as close to B1 as to B3. (b) The backbone: the well-separated clusters, on which admissible methods agree (each leaf is one small group of points). (c, d) Two admissible methods can resolve the ambiguity in B differently, grouping B2 with B1 or with B3. Neither tree refines the other and neither method is better, but both contain the backbone." %}
+{% include research-figure.liquid src="/assets/img/research/backbone.svg" alt="Four panels: data with two well-separated groups A and B, the backbone tree, and two admissible trees that group the middle sub-group of B differently." caption="**Figure 3.** Schematic illustration. (a) Two well-separated groups, A and B. Inside A, the sub-groups A1 and A2 are clearly separated; inside B, the middle sub-group B2 is about as close to B1 as to B3. (b) The backbone: the clusters that are well separated from the rest of the data (each leaf is one small group of points). Admissible methods contain them once the separation is large enough. (c, d) Admissible methods may reveal further clusters, and they need not agree on them: here one groups B2 with B1, the other B2 with B3. No hierarchy can contain both answers. Figure 4 shows a concrete instance from the paper." %}
 
 ## Kleinberg's impossibility theorem
 
-Kleinberg (2002) took an axiomatic approach: rather than proposing yet another algorithm, he asked which properties any clustering method should have. Consider a finite set $$X$$ of $$n \ge 2$$ points and a *dissimilarity* $$d$$ on $$X$$, that is, $$d(x, y) = d(y, x) \ge 0$$, with $$d(x, y) = 0$$ if and only if $$x = y$$. A *clustering function* $$f$$ maps every dissimilarity $$d$$ to a partition $$f(d)$$ of $$X$$. Kleinberg proposed three natural requirements.
+Kleinberg (2002) took an axiomatic approach: rather than proposing yet another algorithm, he asked which properties any clustering method should have. Consider a finite set $$X$$ and a *dissimilarity* $$d$$ on $$X$$, that is, $$d(x, x) = 0$$ and $$d(x, y) = d(y, x) > 0$$ for distinct $$x, y$$ (the triangle inequality is not required). A *flat clustering method* $$f$$ maps every dissimilarity $$d$$ to a partition $$f(d)$$ of $$X$$.
 
-> **Definition** (Kleinberg's axioms).
->
-> - _Scale invariance._ $$f(\alpha \cdot d) = f(d)$$ for every $$d$$ and every $$\alpha > 0$$. The unit of measurement does not matter.
-> - _Richness._ Every partition of $$X$$ equals $$f(d)$$ for some $$d$$. No clustering is ruled out in advance.
-> - _Consistency._ Let $$\Gamma = f(d)$$, and let $$d'$$ shrink the distances within the clusters of $$\Gamma$$ and stretch the distances between them: $$d'(x, y) \le d(x, y)$$ when $$x$$ and $$y$$ are in the same cluster of $$\Gamma$$, and $$d'(x, y) \ge d(x, y)$$ otherwise. Then $$f(d') = \Gamma$$. Making the clusters more pronounced does not change the answer.
+The key notion is a transformation that makes a given clustering more pronounced.
+
+> **Definition** (Strengthening). Let $$\mathcal{C}$$ be a partition of $$X$$. A dissimilarity $$d'$$ is a $$\mathcal{C}$$-*strengthening* of $$d$$ if, for every cluster $$C \in \mathcal{C}$$, it brings points of $$C$$ closer, $$d'(x, y) \le d(x, y)$$ for all $$x, y \in C$$, and pushes them away from the rest, $$d'(x, z) \ge d(x, z)$$ for all $$x \in C$$ and $$z \notin C$$.
 {: .definition}
 
-> **Theorem** (Kleinberg, 2002). For every $$n \ge 2$$, no clustering function satisfies scale invariance, richness, and consistency simultaneously.
+> **Definition** (Kleinberg's axioms). A flat clustering method $$f$$ is
+>
+> - _scale invariant_ if $$f(\beta d) = f(d)$$ for every $$d$$ and every $$\beta > 0$$: the unit of measurement does not matter;
+> - _rich_ if every partition of $$X$$ equals $$f(d)$$ for some $$d$$: no clustering is ruled out in advance;
+> - _consistent_ if $$f(d') = f(d)$$ for every $$d$$ and every $$f(d)$$-strengthening $$d'$$ of $$d$$: making the clusters more pronounced does not change the answer.
+{: .definition}
+
+> **Theorem** (Kleinberg, 2002). No flat clustering method is simultaneously scale invariant, rich, and consistent.
 {: .theorem}
 
-Any two of the three requirements can be satisfied together. Kleinberg shows this with single linkage, which repeatedly merges the two closest clusters, stopped by one of three rules. Stopping when $$k$$ clusters remain gives scale invariance and consistency, but not richness. Merging only clusters closer than a fixed threshold $$r$$ gives richness and consistency, but not scale invariance. Merging only clusters closer than a fixed fraction of the largest distance gives scale invariance and richness, but not consistency.
+Any two of the three requirements can be satisfied together. Kleinberg shows this with single linkage, which repeatedly merges the two closest clusters, stopped by one of three rules. Stopping when $$k$$ clusters remain gives scale invariance and consistency, but not richness. Merging only clusters closer than a fixed threshold $$r$$ gives richness and consistency, but not scale invariance. Merging only clusters closer than a fixed fraction of the largest dissimilarity gives scale invariance and richness, but not consistency. Each stopping rule breaks one requirement. As we will see, not stopping at all, and keeping the whole tree, breaks none.
 
 The proof also shows where the conflict lies. Scale invariance and consistency together force the possible outputs of $$f$$ to form an *antichain*: no possible output refines another one. In effect, such a method must commit to a single resolution. For example, it cannot return the two clusters of Figure 1(b) on some data and the five clusters of Figure 1(c) on other data, since the latter refine the former. Richness, however, asks for every partition, including partitions that refine one another.
 
 ## The hierarchical relaxation
 
-The antichain argument suggests why hierarchies help: a hierarchy does not need to commit to a single resolution, because one output contains partitions at all resolutions. In Figure 2, the two-cluster and the five-cluster answers of Figure 1 sit in the same tree.
+Consistency is the most debated of Kleinberg's axioms, and it is also where hierarchies help. A strengthening of a cluster $$C_1 \cup C_2$$ may shrink the distances inside $$C_1$$ and inside $$C_2$$ much more than between them, so that $$C_1$$ and $$C_2$$ become clusters of their own. A consistent flat method is forced to ignore them. A hierarchy can keep $$C_1 \cup C_2$$ and add $$C_1$$ and $$C_2$$ below it, because nested clusters are allowed. More generally, a hierarchy does not need to commit to a single resolution: in Figure 2, the two-cluster and the five-cluster answers of Figure 1 sit in the same tree.
 
-A *hierarchical clustering method* $$F$$ maps every dissimilarity $$d$$ on $$X$$ to a hierarchy $$F(d)$$ on $$X$$.
-
-> **Definition** (Hierarchy). A _hierarchy_ on $$X$$ is a collection $$\mathcal{H}$$ of non-empty subsets of $$X$$, called clusters, that contains $$X$$ and every singleton $$\{x\}$$, and in which any two clusters are either nested or disjoint: $$C \cap C' \in \{\emptyset, C, C'\}$$ for all $$C, C' \in \mathcal{H}$$.
+> **Definition** (Hierarchy). A _hierarchy_ on $$X$$ is a collection $$\Psi$$ of subsets of $$X$$, called clusters, such that any two clusters are either nested or disjoint (_laminarity_), and that contains the root $$X$$ and every leaf $$\{x\}$$.
 {: .definition}
 
-Kleinberg's three requirements carry over naturally to hierarchies:
+A *hierarchical clustering method* $$T$$ maps every dissimilarity $$d$$ on $$X$$ to a hierarchy $$T(d)$$ on $$X$$. Kleinberg's axioms have natural analogues, in which a partition is required to *appear in* the hierarchy rather than to *be* the output.
 
-- _Scale invariance:_ multiplying all dissimilarities by the same positive factor does not change the hierarchy.
-- _Richness:_ every hierarchy on $$X$$ is the output for some dissimilarity.
-- _Consistency:_ if the dissimilarity changes so that the clusters of the output hierarchy become tighter and better separated, the output hierarchy does not change.
+> **Definition** (Admissibility). A hierarchical clustering method $$T$$ is
+>
+> - _scale invariant_ if $$T(\beta d) = T(d)$$ for every $$d$$ and every $$\beta > 0$$;
+> - _partition-rich_ if for every partition $$\mathcal{C}$$ of $$X$$ there is a dissimilarity $$d$$ such that $$\mathcal{C} \subseteq T(d)$$;
+> - _partition-consistent_ if, whenever a partition $$\mathcal{C}$$ satisfies $$\mathcal{C} \subseteq T(d)$$, it also satisfies $$\mathcal{C} \subseteq T(d')$$ for every $$\mathcal{C}$$-strengthening $$d'$$ of $$d$$;
+> - _permutation invariant_ if relabeling the points relabels the output in the same way.
+>
+> $$T$$ is _admissible_ if it satisfies all four axioms.
+{: .definition}
 
-Check these informal statements against the definitions in the paper, and consider adding the formal definition of hierarchical consistency in a definition box.
-{: .todo}
+Partition consistency says that strengthening a partition found in the hierarchy keeps it in the hierarchy, while new clusters may appear inside it. Permutation invariance is implicit in Kleinberg's framework and is made explicit here: the output may depend only on the dissimilarities, not on the names of the points. These axioms genuinely extend Kleinberg's: a flat method, viewed as a hierarchy with a single level between the root and the leaves, satisfies the hierarchical versions of scale invariance, richness, and consistency exactly when it satisfies Kleinberg's originals.
 
-> **Theorem** (informal; Kuroda, Dreveton, Grossglauser & Thiran, 2026). There exist hierarchical clustering methods that satisfy scale invariance, richness, and consistency simultaneously. In fact, there are uncountably many of them. We call them _admissible_.
+> **Theorem** (Kuroda, Dreveton, Grossglauser & Thiran, 2026). There exist uncountably many admissible hierarchical clustering methods.
 {: .theorem}
 
-We construct several admissible methods, including methods based on well-separated clusters and a non-binary variant of single linkage.
+The proof is constructive. Admissible methods include
+
+- **non-binary single linkage**, which merges all clusters involved in a tie at once, and
+- **separation methods**, which keep a set $$C$$ as a cluster when its internal dissimilarities are small enough compared with its dissimilarities to the rest of the data. For example, with the *global separability*
+
+  $$
+  \rho(d, C) = \frac{\max_{x, y \in C} d(x, y)}{\min_{x \in C,\, z \notin C} d(x, z)},
+  $$
+
+  the method $$T^{\eta}_{\mathrm{glob}}$$ keeps every $$C$$ with $$\rho(d, C) < \eta_{\lvert C \rvert}$$, where the *separation margins* satisfy $$\eta_1 = 1$$ and $$0 < \eta_s \le 1$$ for $$s \ge 2$$. Different margins give different methods, hence uncountably many admissible methods.
+
+In contrast, the non-binary versions of complete, average, Ward, centroid, and median linkage are not admissible. Moreover, no method that always outputs binary trees can be admissible, because it cannot be permutation invariant: three points with identical dissimilarities to all other points cannot be told apart, so they must merge at the same time, which gives a non-binary tree.
 
 ### No single best method
 
-Admissible methods are partially ordered: some return hierarchies that refine the hierarchies of others, adding clusters without contradicting them. This order has no greatest element. Instead, it has uncountably many maximal elements that are incompatible with one another, much like methods 1 and 2 in Figure 3, which resolve the same ambiguity in different ways. So even among the "best" methods, there is no single right answer.
+Admissible methods can be compared: $$T_2$$ *refines* $$T_1$$, written $$T_1 \sqsubseteq T_2$$, if $$T_1(d) \subseteq T_2(d)$$ for every $$d$$, so that $$T_2$$ always reveals at least the clusters of $$T_1$$. For example, $$T^{\eta}_{\mathrm{glob}}$$ is refined by non-binary single linkage. A greatest admissible method, one that refines all others, would be the natural "best" method. It does not exist. Call two methods *compatible* if, on every input, their outputs can be merged into a single hierarchy.
+
+> **Theorem** (Kuroda, Dreveton, Grossglauser & Thiran, 2026). The admissible methods have no greatest element under refinement, but they have maximal elements, and these maximal elements are mutually incompatible. Every admissible method is refined by at least one maximal admissible method.
+{: .theorem}
+
+Figure 4 shows why. On the same data, two admissible methods return clusters that overlap without being nested, so no hierarchy, and hence no method, can contain both outputs.
+
+{% include research-figure.liquid src="/assets/img/research/incompatible-methods.svg" alt="A five-by-five dissimilarity matrix and two trees: single linkage with clusters {1,2}, {1,2,3} and {1,2,3,5}, and the weakly locally separated method with clusters {1,2}, {1,2,3} and {1,2,3,4}." caption="**Figure 4.** Two admissible methods that cannot be combined, an example from the paper. (a) A dissimilarity on five points. (b) Non-binary single linkage returns the clusters {1, 2}, {1, 2, 3} and {1, 2, 3, 5}. (c) The weakly locally separated method, another admissible method, returns {1, 2}, {1, 2, 3} and {1, 2, 3, 4}. The clusters {1, 2, 3, 5} and {1, 2, 3, 4} overlap without being nested, so no admissible method refines both. The two methods still agree on {1, 2} and {1, 2, 3}." %}
 
 ### A common backbone
 
-Yet admissible methods cannot disagree arbitrarily. All of them share a common structure: the hierarchy of sufficiently well-separated clusters, that is, clusters whose points are much closer to one another than to the rest of the data. Moreover, any finite collection of admissible methods shares a nontrivial common backbone. In other words, every admissible method finds the clusters that are clearly there, and admissible methods can only differ on the genuinely ambiguous parts of the data.
+Yet admissible methods cannot disagree arbitrarily. Every one of them contains a backbone of globally well-separated clusters.
 
-Optionally give the precise separation condition behind "sufficiently well separated", or a pointer to the theorem in the paper.
-{: .todo}
+> **Theorem** (Backbone hierarchy; Kuroda, Dreveton, Grossglauser & Thiran, 2026). For every admissible method $$T$$, there is a separation margin sequence $$\eta$$ such that $$T^{\eta}_{\mathrm{glob}} \sqsubseteq T$$, that is, $$T^{\eta}_{\mathrm{glob}}(d) \subseteq T(d)$$ for every dissimilarity $$d$$.
+{: .theorem}
+
+With all margins equal to one, $$T_{\mathrm{glob}}$$ keeps exactly the sets in which every internal dissimilarity is smaller than every dissimilarity to the rest of the data. This is arguably the most conservative notion of a cluster: a set of objects that are more similar to each other than to anything else. Margins below one require this separation to hold by a factor $$1/\eta_{\lvert C \rvert}$$, and the margins may depend on the method. In other words, every admissible method finds the clusters that are clearly there, and admissible methods differ only in how much additional structure they reveal beyond this backbone. Admissible methods are also closed under finite intersection: the clusters on which finitely many admissible methods agree form an admissible method again, which therefore contains a backbone of its own.
 
 ## See also
 
