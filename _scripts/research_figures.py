@@ -2,10 +2,11 @@
 
 Usage (from the repository root):  python3 _scripts/research_figures.py assets/img/research
 Writes clustering-at-work.svg (the opening figure), flat-clusterings.svg (Figure 1),
-backbone.svg (Figure 3), ultrametric.svg (Figure 4) and refinement-order.svg (Figure 5). Figure 1 uses the same
+backbone.svg (Figure 3), ultrametric.svg (Figure 4), refinement-order.svg (Figure 5)
+and well-separated.svg (Figure 6). Figure 1 uses the same
 points as hierarchy-example.svg (Figure 2): same sub-cluster centers and random seed.
 """
-import math, random, sys
+import itertools, math, random, sys
 
 OUT = sys.argv[1]
 TEAL, TEAL2, AMBER, RED, BLUE, PURPLE = "#0d6470", "#4a9aa6", "#b26b12", "#b8433a", "#3b6fb6", "#7b5ea7"
@@ -317,6 +318,110 @@ svg.append(text(xs["e"] + 8, ybar(2) + 4, "{c, d, e}", 11, AMBER, "600", "start"
 svg.append(text(ab - 8, ybar(3) - 7, "{a, b, c, d, e}", 11, PURPLE, "600", "start"))
 svg.append("</svg>")
 open(f"{OUT}/ultrametric.svg", "w").write("\n".join(svg) + "\n")
+
+# ---------------------------------------------------------------- Figure 6: well-separated (globally separated) sets
+# (a) a set whose largest internal distance is smaller than its smallest distance to the rest;
+# (b) a set where this fails; (c) the well-separated sets of a small data set, which are nested.
+# Distances are Euclidean distances in the picture; every claim is checked below.
+W, H = 720, 330
+GREEN, RED = "#2f7d4f", "#b8433a"
+svg = head(W, H, "Well-separated sets",
+           "Three panels. (a) A set of points whose largest internal distance is smaller than its smallest distance to the other points: it is well separated. "
+           "(b) A stretched-out set whose largest internal distance is larger than its distance to a nearby point: it is not well separated. "
+           "(c) A small data set with all its well-separated sets outlined; they are nested and form a hierarchy.")
+
+
+def far_pair(C):
+    return max(((a, b) for a in C for b in C), key=lambda ab: math.dist(*ab))
+
+
+def gap_pair(C, O):
+    return min(((a, z) for a in C for z in O), key=lambda az: math.dist(*az))
+
+
+def well_separated(C, O):
+    return math.dist(*far_pair(C)) < math.dist(*gap_pair(C, O))
+
+
+def seg(a, b, col, dash=None, w=2):
+    ds = f' stroke-dasharray="{dash}"' if dash else ""
+    return f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{col}" stroke-width="{w}" stroke-linecap="round"{ds}/>'
+
+
+def hull_circle(C, col, pad=9, dash="4 4", op=0.08):
+    cx = sum(p[0] for p in C) / len(C); cy = sum(p[1] for p in C) / len(C)
+    r = max(math.dist((cx, cy), p) for p in C) + pad
+    return f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r:.1f}" fill="{col}" fill-opacity="{op}" stroke="{col}" stroke-opacity=".7" stroke-width="1.3" stroke-dasharray="{dash}"/>'
+
+
+def dots(pts, col):
+    return [f'<circle cx="{x:.1f}" cy="{y:.1f}" r="4" fill="{col}"/>' for (x, y) in pts]
+
+
+# legend
+svg.append(seg((150, 26), (176, 26), TEAL))
+svg.append(text(182, 30, "largest distance inside the set", 11, INK, "400"))
+svg.append(seg((390, 26), (416, 26), AMBER, "4 3"))
+svg.append(text(422, 30, "smallest distance to the other points", 11, INK, "400"))
+
+# (a) well separated
+ox, oy = 12, 46
+C = [(ox + 80 + dx, oy + 120 + dy) for dx, dy in [(-14, -6), (-4, -16), (10, -8), (6, 10), (-10, 12)]]
+O = [(ox + x, oy + y) for x, y in [(180, 60), (196, 116), (176, 196), (60, 226), (26, 40), (150, 24)]]
+assert well_separated(C, O)
+svg.append(f'<rect x="{ox}" y="{oy}" width="220" height="244" rx="12" fill="#f5f8f8"/>')
+svg.append(hull_circle(C, TEAL))
+a, b = far_pair(C); g1, g2 = gap_pair(C, O)
+svg.append(seg(g1, g2, AMBER, "4 3"))
+svg += dots(O, "#9aa4aa") + dots(C, TEAL)
+svg.append(seg(a, b, TEAL, None, 2.4))
+svg.append(text(ox + 110, oy + 270, "(a) Well separated", 13, INK, "600", "middle"))
+svg.append(f'<path d="M{ox + 172} {oy + 228}l6 6l12 -14" fill="none" stroke="{GREEN}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>')
+
+# (b) not well separated
+ox = 250
+C = [(ox + 40 + 26 * k, oy + 140 + (6 if k % 2 else -6)) for k in range(6)]
+O = [(ox + x, oy + y) for x, y in [(196, 112), (40, 50), (120, 40), (70, 222), (180, 214)]]
+assert not well_separated(C, O)
+svg.append(f'<rect x="{ox}" y="{oy}" width="220" height="244" rx="12" fill="#f5f8f8"/>')
+cx = sum(p[0] for p in C) / len(C); cy = sum(p[1] for p in C) / len(C)
+svg.append(f'<ellipse cx="{cx:.1f}" cy="{cy:.1f}" rx="80" ry="20" fill="{TEAL}" fill-opacity=".08" stroke="{TEAL}" stroke-opacity=".7" stroke-width="1.3" stroke-dasharray="4 4"/>')
+a, b = far_pair(C); g1, g2 = gap_pair(C, O)
+svg.append(seg(g1, g2, AMBER, "4 3"))
+svg += dots(O, "#9aa4aa") + dots(C, TEAL)
+svg.append(seg((a[0], a[1] + 30), (b[0], b[1] + 30), TEAL, None, 2.4))
+svg.append(seg((a[0], a[1] + 24), (a[0], a[1] + 36), TEAL, None, 2))
+svg.append(seg((b[0], b[1] + 24), (b[0], b[1] + 36), TEAL, None, 2))
+svg.append(text(ox + 110, oy + 270, "(b) Not well separated", 13, INK, "600", "middle"))
+svg.append(f'<path d="M{ox + 178} {oy + 220}l12 12M{ox + 190} {oy + 220}l-12 12" stroke="{RED}" stroke-width="2.6" stroke-linecap="round"/>')
+
+# (c) nested well-separated sets
+ox = 488
+s3 = 12 * math.sqrt(3) / 2
+pair = [(ox + 34, oy + 76), (ox + 44, oy + 82)]
+Lset = pair + [(ox + 54, oy + 104)]
+Rset = [(ox + 104, oy + 80), (ox + 122, oy + 80), (ox + 113, oy + 94)]
+Bset = [(ox + 140, oy + 200), (ox + 160, oy + 200), (ox + 150, oy + 216)]
+allp = Lset + Rset + Bset
+groups = [("pair", pair), ("L", Lset), ("R", Rset), ("B", Bset), ("LR", Lset + Rset)]
+for name, G in groups:
+    assert well_separated(G, [p for p in allp if p not in G]), name
+# brute force: the outlined sets are exactly the nontrivial well-separated sets
+found = {frozenset(c) for k in range(2, len(allp)) for c in itertools.combinations(allp, k)
+         if well_separated(list(c), [q for q in allp if q not in c])}
+assert found == {frozenset(G) for _, G in groups}, found
+svg.append(f'<rect x="{ox}" y="{oy}" width="220" height="244" rx="12" fill="#f5f8f8"/>')
+LR = Lset + Rset
+xs_, ys_ = [q[0] for q in LR], [q[1] for q in LR]
+svg.append(f'<ellipse cx="{(min(xs_) + max(xs_)) / 2:.1f}" cy="{(min(ys_) + max(ys_)) / 2:.1f}" rx="{(max(xs_) - min(xs_)) / 2 + 26:.1f}" ry="{(max(ys_) - min(ys_)) / 2 + 28:.1f}" fill="{PURPLE}" fill-opacity=".05" stroke="{PURPLE}" stroke-opacity=".7" stroke-width="1.3" stroke-dasharray="4 4"/>')
+svg.append(hull_circle(Lset, TEAL, pad=8))
+svg.append(hull_circle(pair, TEAL, pad=6, dash="2 3", op=0.06))
+svg.append(hull_circle(Rset, AMBER, pad=8))
+svg.append(hull_circle(Bset, BLUE, pad=9))
+svg += dots(Lset, TEAL) + dots(Rset, AMBER) + dots(Bset, BLUE)
+svg.append(text(ox + 110, oy + 270, "(c) Nested well-separated sets", 13, INK, "600", "middle"))
+svg.append("</svg>")
+open(f"{OUT}/well-separated.svg", "w").write("\n".join(svg) + "\n")
 
 # ---------------------------------------------------------------- Clustering at work (unnumbered)
 # Top row: clustering on its own (phylogenies, cell types, network communities).
