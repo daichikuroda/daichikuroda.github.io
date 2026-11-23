@@ -104,22 +104,9 @@ Partition consistency says that strengthening a partition found in the hierarchy
 > **Theorem** (Kuroda, Dreveton, Grossglauser & Thiran, 2026). There exist uncountably many admissible hierarchical clustering methods.
 {: .theorem}
 
-The proof is constructive. Admissible methods include
-
-- **non-binary single linkage**, which merges all clusters involved in a tie at once, and
-- **separation methods**, which keep a set $$C$$ as a cluster when its internal dissimilarities are small enough compared with its dissimilarities to the rest of the data. For example, with the *global separability*
-
-  $$
-  \rho(d, C) = \frac{\max_{x, y \in C} d(x, y)}{\min_{x \in C,\, z \notin C} d(x, z)},
-  $$
-
-  the method $$T^{\eta}_{\mathrm{glob}}$$ keeps every $$C$$ with $$\rho(d, C) < \eta_{\lvert C \rvert}$$, where the *separation margins* satisfy $$\eta_1 = 1$$ and $$0 < \eta_s \le 1$$ for $$s \ge 2$$. Different margins give different methods, hence uncountably many admissible methods.
-
-In contrast, the non-binary versions of complete, average, Ward, centroid, and median linkage are not admissible. Moreover, no method that always outputs binary trees can be admissible, because it cannot be permutation invariant: three points with identical dissimilarities to all other points cannot be told apart, so they must merge at the same time, which gives a non-binary tree.
-
 ### No single best method
 
-Admissible methods can be compared: $$T_2$$ *refines* $$T_1$$, written $$T_1 \sqsubseteq T_2$$, if $$T_1(d) \subseteq T_2(d)$$ for every $$d$$, so that $$T_2$$ always reveals at least the clusters of $$T_1$$. For example, $$T^{\eta}_{\mathrm{glob}}$$ is refined by non-binary single linkage. A greatest admissible method, one that refines all others, would be the natural "best" method. It does not exist. Call two methods *compatible* if, on every input, their outputs can be merged into a single hierarchy.
+Admissible methods can be compared: $$T_2$$ *refines* $$T_1$$, written $$T_1 \sqsubseteq T_2$$, if $$T_1(d) \subseteq T_2(d)$$ for every $$d$$, so that $$T_2$$ always reveals at least the clusters of $$T_1$$. A greatest admissible method, one that refines all others, would be the natural "best" method. It does not exist. Call two methods *compatible* if, on every input, their outputs can be merged into a single hierarchy.
 
 > **Theorem** (Kuroda, Dreveton, Grossglauser & Thiran, 2026). The admissible methods have no greatest element under refinement, but they have maximal elements, and these maximal elements are mutually incompatible. Every admissible method is refined by at least one maximal admissible method.
 {: .theorem}
@@ -130,12 +117,18 @@ Figure 4 shows why. On the same data, two admissible methods return clusters tha
 
 ### A common backbone
 
-Yet admissible methods cannot disagree arbitrarily. Every one of them contains a backbone of globally well-separated clusters.
+Yet admissible methods cannot disagree arbitrarily. Every one of them contains a backbone of well-separated clusters. Call a set $$C$$ *well separated with margin* $$\eta \le 1$$ if its largest internal dissimilarity is smaller than $$\eta$$ times its smallest dissimilarity to the rest of the data:
 
-> **Theorem** (Backbone hierarchy; Kuroda, Dreveton, Grossglauser & Thiran, 2026). For every admissible method $$T$$, there is a separation margin sequence $$\eta$$ such that $$T^{\eta}_{\mathrm{glob}} \sqsubseteq T$$, that is, $$T^{\eta}_{\mathrm{glob}}(d) \subseteq T(d)$$ for every dissimilarity $$d$$.
+$$
+\max_{x, y \in C} d(x, y) < \eta \cdot \min_{x \in C,\, z \notin C} d(x, z).
+$$
+
+Given margins $$\eta_1 = 1$$ and $$0 < \eta_s \le 1$$ for $$s \ge 2$$, let $$T^{\eta}_{\mathrm{glob}}(d)$$ collect every set $$C$$ that is well separated with margin $$\eta_{\lvert C \rvert}$$. This is always a hierarchy, and $$T^{\eta}_{\mathrm{glob}}$$ is itself an admissible method.
+
+> **Theorem** (Backbone hierarchy; Kuroda, Dreveton, Grossglauser & Thiran, 2026). For every admissible method $$T$$, there are margins $$\eta$$ such that $$T^{\eta}_{\mathrm{glob}} \sqsubseteq T$$, that is, $$T^{\eta}_{\mathrm{glob}}(d) \subseteq T(d)$$ for every dissimilarity $$d$$.
 {: .theorem}
 
-With all margins equal to one, $$T_{\mathrm{glob}}$$ keeps exactly the sets in which every internal dissimilarity is smaller than every dissimilarity to the rest of the data. This is arguably the most conservative notion of a cluster: a set of objects that are more similar to each other than to anything else. Margins below one require this separation to hold by a factor $$1/\eta_{\lvert C \rvert}$$, and the margins may depend on the method. In other words, every admissible method finds the clusters that are clearly there, and admissible methods differ only in how much additional structure they reveal beyond this backbone. Admissible methods are also closed under finite intersection: the clusters on which finitely many admissible methods agree form an admissible method again, which therefore contains a backbone of its own.
+With all margins equal to one, these are arguably the most conservative clusters: sets of objects that are more similar to each other than to anything else. The margins may depend on the method. In other words, every admissible method finds the clusters that are clearly there, and admissible methods differ only in how much additional structure they reveal beyond this backbone. Admissible methods are also closed under finite intersection: the clusters on which finitely many admissible methods agree form an admissible method again, which therefore contains a backbone of its own.
 
 ## See also
 
