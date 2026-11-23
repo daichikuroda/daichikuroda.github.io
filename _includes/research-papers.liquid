@@ -1,46 +1,71 @@
-<ol class="paper-list">
-  {% for paper in site.data.research.papers %}
+{%- comment -%}
+  Paper list from _data/research.json.
+  Parameters: heading=2 (use <h2> titles), topic="hierarchical-clustering" (filter), compact=true
+{%- endcomment -%}
+{%- assign papers = site.data.research.papers -%}
+{%- if include.topic -%}
+  {%- assign papers = papers | where_exp: 'p', 'p.topics contains include.topic' -%}
+{%- endif -%}
+{%- assign title_tag = 'h3' -%}
+{%- if include.heading == 2 -%}{%- assign title_tag = 'h2' -%}{%- endif -%}
+<ol class="paper-list{% if include.compact %} is-compact{% endif %}">
+  {%- for paper in papers %}
+    {%- assign link_label = 'Paper' -%}
+    {%- if paper.url contains 'arxiv.org' -%}{%- assign link_label = 'arXiv' -%}{%- endif -%}
+    {%- assign authors = paper.authors | escape -%}
+    {%- for name in paper.equal -%}
+      {%- capture starred %}{{ name }}*{% endcapture -%}
+      {%- assign authors = authors | replace: name, starred -%}
+    {%- endfor -%}
+    {%- assign authors = authors | replace: 'Daichi Kuroda', '<strong>Daichi Kuroda</strong>' -%}
     <li class="paper" id="{{ paper.key | escape }}">
       <div class="paper-meta">
-        <span>{{ paper.year }}</span>
-        <span class="venue{% if paper.preprint %} preprint{% endif %}">
-          {%- if paper.preprint %}Preprint{% else %}{{ paper.venue | default: paper.label | escape }}{% endif -%}
+        <span class="badge{% if paper.preprint %} is-preprint{% endif %}">
+          {%- if paper.preprint %}Preprint{% else %}{{ paper.label | escape }}{% endif -%}
         </span>
+        <span>{{ paper.year }}</span>
       </div>
-      {% if include.heading == 2 %}
-        <h2 class="paper-title">
-          <a href="{{ paper.url | escape }}">{{ paper.title | escape }}</a>
-        </h2>
-      {% else %}
-        <h3 class="paper-title">
-          <a href="{{ paper.url | escape }}">{{ paper.title | escape }}</a>
-        </h3>
-      {% endif %}
-      <p class="authors">{{ paper.authors | escape | replace: 'Daichi Kuroda', '<strong>Daichi Kuroda</strong>' }}</p>
-      {% if paper.summary %}
+      <{{ title_tag }} class="paper-title">
+        <a href="{{ paper.url | escape }}">{{ paper.title | escape }}</a>
+      </{{ title_tag }}>
+      <p class="authors">
+        {{ authors -}}
+        {%- if paper.equal %}
+          <span class="equal-note">· *Equal contribution</span>
+        {%- endif %}
+      </p>
+      {%- if paper.venue and include.compact != true %}
+        <p class="venue-line">{{ paper.venue | escape }}</p>
+      {%- endif %}
+      {%- if paper.summary and include.compact != true %}
         <p class="paper-summary">{{ paper.summary | escape }}</p>
-      {% endif %}
+      {%- endif %}
       <div class="paper-actions">
-        <a
-          href="{{ paper.url | escape }}"
-          aria-label="{% if paper.preprint %}Preprint{% else %}Paper{% endif %}: {{ paper.title | escape }}"
+        <a href="{{ paper.url | escape }}">
+          {{- link_label }}
+          <span aria-hidden="true">↗</span><span class="sr-only">: {{ paper.title | escape }}</span></a
         >
-          {%- if paper.preprint %}Preprint{% else %}Paper{% endif %}
-          <span aria-hidden="true">↗</span></a
-        >
-        {% if paper.pdf %}
-          <a href="{{ paper.pdf | escape }}" aria-label="PDF: {{ paper.title | escape }}">PDF</a>
-        {% endif %}
-        {% if paper.code %}
-          <a href="{{ paper.code | escape }}" aria-label="Code: {{ paper.title | escape }}">Code</a>
-        {% endif %}
-        <details class="citation">
-          <summary>
-            BibTeX<span class="sr-only"> for {{ paper.title | escape }}</span>
-          </summary>
-          <pre><code>{{ paper.bibtex | escape }}</code></pre>
-        </details>
+        {%- if paper.pdf %}
+          <a href="{{ paper.pdf | escape }}"
+            >PDF<span class="sr-only">: {{ paper.title | escape }}</span></a
+          >
+        {%- endif %}
+        {%- if paper.code %}
+          <a href="{{ paper.code | escape }}"
+            >Code<span class="sr-only">: {{ paper.title | escape }}</span></a
+          >
+        {%- endif %}
+        {%- if paper.bibtex %}
+          <details class="citation">
+            <summary>
+              BibTeX<span class="sr-only"> for {{ paper.title | escape }}</span>
+            </summary>
+            <div class="bibtex">
+              <pre><code>{{ paper.bibtex | strip | escape }}</code></pre>
+            </div>
+          </details>
+        {%- endif %}
       </div>
     </li>
-  {% endfor %}
+  {%- endfor %}
 </ol>

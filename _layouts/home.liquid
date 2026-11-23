@@ -1,0 +1,123 @@
+---
+layout: research
+---
+{%- include site-data.liquid -%}
+{%- assign profile = site.data.profile -%}
+{%- assign photo_file = site.static_files | where: 'path', profile.photo | first -%}
+{%- assign show_portrait = false -%}
+{%- if photo_file or is_preview -%}{%- assign show_portrait = true -%}{%- endif -%}
+
+<section class="hero{% if show_portrait %} has-portrait{% endif %}" aria-labelledby="name">
+  {%- if photo_file %}
+    <figure class="portrait">
+      <img
+        src="{{ profile.photo | relative_url }}"
+        alt="{{ profile.photo_alt | default: profile.name | escape }}"
+        width="304"
+        height="304"
+      >
+    </figure>
+  {%- elsif is_preview %}
+    <div class="portrait portrait-placeholder is-draft" title="Add {{ profile.photo }} to show your photo">
+      <strong>DK</strong>
+      <span
+        >Add portrait<br>
+        {{ profile.photo | split: '/' | last -}}
+      </span>
+    </div>
+  {%- endif %}
+  <div class="hero-text">
+    <div class="hero-heading">
+      <h1 id="name">{{ profile.name }}</h1>
+      <p class="hero-role">
+        {{ profile.position }} · <a href="{{ profile.institution_url }}">{{ profile.institution }}</a><br>
+        <a href="{{ profile.lab_url }}">{{ profile.lab }}</a>
+      </p>
+    </div>
+    <ul class="link-row" aria-label="Profiles and contact">
+      {%- for link in profile.links %}
+        <li>
+          <a href="{{ link.url | relative_url }}">{{ link.label | escape }}</a>
+        </li>
+      {%- endfor %}
+    </ul>
+  </div>
+  {%- unless show_portrait %}
+    {% include icon.liquid name="dendrogram" class="hero-art" dot=1.15 %}
+  {%- endunless %}
+</section>
+
+<div class="bio">
+  {{ content }}
+  {%- if profile.advisors %}
+    <p class="advisors">
+      {%- for a in profile.advisors -%}
+        {%- if forloop.first %}Advised by {% elsif forloop.last %} and {% else %}, {% endif -%}
+        <a href="{{ a.url }}">{{ a.name }}</a>
+        {%- if a.role and a.role != 'advisor' %} ({{ a.role }}){% endif -%}
+      {%- endfor -%}
+      .
+    </p>
+  {%- endif %}
+</div>
+
+{%- if news_count > 0 %}
+  <section class="section" id="news" aria-labelledby="news-heading">
+    <div class="section-head">
+      <h2 id="news-heading">News</h2>
+      {%- if news_count > 5 %}
+        <a class="section-link" href="{{ '/news/' | relative_url }}">All news →</a>
+      {%- endif %}
+    </div>
+    {% include news-list.liquid limit=5 %}
+  </section>
+{%- endif %}
+
+<section class="section" id="publications" aria-labelledby="publications-heading">
+  <div class="section-head">
+    <h2 id="publications-heading">Publications &amp; preprints</h2>
+    <span class="section-note">Newest first</span>
+  </div>
+  {% include research-papers.liquid %}
+</section>
+
+{%- if talk_count > 0 %}
+  <section class="section" id="talks" aria-labelledby="talks-heading">
+    <div class="section-head">
+      <h2 id="talks-heading">Talks</h2>
+    </div>
+    {% include talks-list.liquid %}
+  </section>
+{%- endif %}
+
+{%- if teaching_section_count > 0 %}
+  <section class="section" id="teaching" aria-labelledby="teaching-heading">
+    <div class="section-head">
+      <h2 id="teaching-heading">
+        {%- if supervision_count > 0 and teaching_count > 0 -%}
+          Teaching &amp; supervision
+        {%- elsif supervision_count > 0 -%}
+          Supervision
+        {%- else -%}
+          Teaching
+        {%- endif -%}
+      </h2>
+    </div>
+    {%- if teaching_count > 0 %}
+      <div class="entry-group">
+        {%- if supervision_count > 0 %}
+          <h3 class="group-title">Courses</h3>
+        {% endif %}
+        {% include teaching-list.liquid %}
+      </div>
+    {%- endif %}
+    {%- if supervision_count > 0 %}
+      <div class="entry-group">
+        {%- if teaching_count > 0 %}
+          <h3 class="group-title">Supervised students</h3>
+        {% endif %}
+        {% include supervision-list.liquid %}
+      </div>
+    {%- endif %}
+  </section>
+{%- endif %}

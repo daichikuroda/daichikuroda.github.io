@@ -1,0 +1,31 @@
+{%- include site-data.liquid -%}
+<ul class="entry-list">
+  {%- for c in teaching_items %}
+    <li class="entry{% if c.draft %} is-draft{% endif %}">
+      <div class="entry-top">
+        <span>
+          {{- c.role | escape -}}
+          {%- if c.draft -%}
+            <span class="draft-tag">Draft</span>
+          {%- endif -%}
+        </span>
+        {%- if c.terms -%}
+          <span>{{ c.terms | escape }}</span>
+        {%- endif -%}
+      </div>
+      <p class="entry-title">
+        {%- if c.url -%}
+          <a href="{{ c.url }}">{{ c.title | escape }}</a>
+        {%- else -%}
+          {{- c.title | escape -}}
+        {%- endif -%}
+        {%- if c.code %}
+          <span class="entry-sub">({{ c.code | escape }})</span>
+        {%- endif -%}
+      </p>
+      {%- if c.note %}
+        <p class="entry-sub">{{ c.note | escape }}</p>
+      {% endif -%}
+    </li>
+  {%- endfor %}
+</ul>

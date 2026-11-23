@@ -1,54 +1,144 @@
 <!doctype html>
+{%- include site-data.liquid -%}
+{%- assign profile = site.data.profile -%}
+{%- assign photo_file = site.static_files | where: 'path', profile.photo | first -%}
+{%- capture page_title -%}{% if page.url == '/' %}{{ profile.name }} · {{ profile.institution }}{% else %}{{ page.title }} · {{ profile.name }}{% endif %}{%- endcapture -%}
+{%- assign page_description = page.description | default: page.lede | default: site.description | strip_newlines | strip -%}
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
-    <title>
-      {% if page.title != 'Home' %}{{ page.title | escape }} · {% endif %}
-      Daichi Kuroda
-    </title>
-    <meta name="description" content="{{ site.description | strip | escape }}">
-    <meta name="author" content="Daichi Kuroda">
+    <title>{{ page_title | escape }}</title>
+    <meta name="description" content="{{ page_description | escape }}">
+    <meta name="author" content="{{ profile.name | escape }}">
     <link rel="canonical" href="{{ page.url | absolute_url }}">
+    <meta property="og:type" content="{% if page.url == '/' %}profile{% else %}article{% endif %}">
+    <meta property="og:title" content="{{ page_title | escape }}">
+    <meta property="og:description" content="{{ page_description | escape }}">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    {%- if photo_file %}
+      <meta property="og:image" content="{{ profile.photo | absolute_url }}">
+    {%- endif %}
+    <meta name="twitter:card" content="summary">
     <link rel="icon" type="image/svg+xml" href="{{ '/assets/img/dk.svg' | relative_url }}">
+    <link rel="preload" href="{{ '/assets/type/source-serif-4.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{{ '/assets/css/research.css' | relative_url }}">
+    {%- unless is_preview %}
+      <style>
+        .todo,
+        .is-draft {
+          display: none !important;
+        }
+      </style>
+    {%- endunless %}
+    <script>
+      try {
+        var t = localStorage.getItem('appearance');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
     <script src="{{ '/assets/js/research.js' | relative_url }}" defer></script>
+    {%- if page.math %}
+      <script>
+        window.MathJax = {
+          tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], tags: 'ams' },
+          options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+        };
+      </script>
+      <script src="{{ site.research_mathjax | default: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js' }}" defer></script>
+    {%- endif %}
+    {%- if page.url == '/' %}
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": {{ profile.name | jsonify }},
+          "jobTitle": {{ profile.position | jsonify }},
+          "email": {{ profile.email | prepend: 'mailto:' | jsonify }},
+          "url": {{ '/' | absolute_url | jsonify }},
+          {% if photo_file %}"image": {{ profile.photo | absolute_url | jsonify }},{% endif %}
+          "affiliation": { "@type": "Organization", "name": {{ profile.institution | jsonify }}, "url": {{ profile.institution_url | jsonify }} },
+          "sameAs": [{% assign first = true %}{% for link in profile.links %}{% unless link.url contains 'mailto:' or link.url contains '/assets/' %}{% unless first %}, {% endunless %}{{ link.url | jsonify }}{% assign first = false %}{% endunless %}{% endfor %}]
+        }
+      </script>
+    {%- endif %}
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    {%- if is_preview %}
+      <div class="preview-banner" role="note">
+        <strong>Local preview.</strong> Yellow drafts and writing prompts are shown here but hidden on the live site.
+      </div>
+    {%- endif %}
     <div class="site-shell">
       <header class="site-header">
-        <a class="monogram" href="{{ '/' | relative_url }}" aria-label="Daichi Kuroda — home">dk<span aria-hidden="true">.</span></a>
-        <nav aria-label="Main navigation">
-          <a href="{{ '/' | relative_url }}#research">Research</a>
+        <a class="monogram" href="{{ '/' | relative_url }}" aria-label="{{ profile.name }} — home">dk<span aria-hidden="true">.</span></a>
+        <nav class="site-nav" aria-label="Main">
+          {%- assign research_page = site.pages | where: 'layout', 'topic' | first -%}
+          {%- if research_page %}
+            <a
+              href="{{ research_page.url | relative_url }}"
+              {% if page.url contains '/research/' %}
+                aria-current="page"
+              {% endif %}
+              >Research</a
+            >
+          {%- endif %}
           <a
-            href="{% if page.title == 'Home' %}#publications{% else %}{{ '/publications/' | relative_url }}{% endif %}"
-            {% if page.title == 'Publications' %}
+            href="{{ '/publications/' | relative_url }}"
+            {% if page.url == '/publications/' %}
               aria-current="page"
             {% endif %}
             >Publications</a
           >
-          <a href="#contact">Contact</a>
+          {%- if news_count > 0 %}
+            <a
+              href="{{ '/news/' | relative_url }}"
+              {% if page.url == '/news/' %}
+                aria-current="page"
+              {% endif %}
+              >News</a
+            >
+          {%- endif %}
+          {%- if talk_count > 0 %}
+            <a href="{{ '/' | relative_url }}#talks">Talks</a>
+          {%- endif %}
+          {%- if teaching_section_count > 0 %}
+            <a href="{{ '/' | relative_url }}#teaching">Teaching</a>
+          {%- endif %}
         </nav>
         <button class="theme-toggle" type="button" aria-label="Dark appearance" aria-pressed="false" hidden>
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            width="19"
-            height="19"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-          >
-            <path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z"/>
-          </svg>
+          {% include icon.liquid name="moon" %}
+          {% include icon.liquid name="sun" %}
         </button>
       </header>
       <main id="main" tabindex="-1">{{ content }}</main>
-      <footer class="site-footer" id="contact" aria-label="Contact">
-        <a class="contact-address" href="mailto:daichi.kuroda@epfl.ch">daichi.kuroda@epfl.ch</a>
-        <p>EPFL · Lausanne, Switzerland</p>
+      <footer class="site-footer" id="contact">
+        <div class="footer-contact">
+          <p class="eyebrow">Contact</p>
+          <a class="footer-email" href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+          <p class="footer-address">
+            {{ profile.lab | escape -}}
+            <br>
+            {{ profile.institution | escape }} · {{ profile.location | escape }}
+          </p>
+        </div>
+        <div class="footer-meta">
+          <ul class="footer-links">
+            {%- for link in profile.links %}
+              {%- unless link.url contains 'mailto:' %}
+                <li>
+                  <a href="{{ link.url | relative_url }}">{{ link.label | escape }}</a>
+                </li>
+              {%- endunless %}
+            {%- endfor %}
+          </ul>
+          <p>
+            © {{ site.time | date: '%Y' }}
+            {{ profile.name }} · Updated {{ site.time | date: '%B %Y' }}
+          </p>
+        </div>
       </footer>
     </div>
   </body>

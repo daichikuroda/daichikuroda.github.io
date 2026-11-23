@@ -1,0 +1,51 @@
+# -----------------------------------------------------------------------------
+# Courses — newest first. Shown under "Teaching & supervision" on the homepage.
+#
+#   - role: Teaching assistant         # Teaching assistant | Supervisor | Lecturer ...
+#     title: Course or project title
+#     code: CS-000                     # optional course code
+#     url: https://...                 # optional course page
+#     terms: Fall 2025, Fall 2026      # free text
+#     note: Short optional detail      # optional
+#     draft: true                      # optional: hidden on the live site
+#
+# The section stays hidden on the live site until at least one entry has no `draft: true`.
+# -----------------------------------------------------------------------------
+
+- role: Teaching assistant
+  title: Networks out of control
+  code: COM-512
+  url: https://edu.epfl.ch/coursebook/en/networks-out-of-control-COM-512
+  terms: Spring 2026
+  note: Master's course, EPFL
+
+- role: Teaching assistant
+  title: Principles of online decision-making
+  code: CS-303
+  url: https://edu.epfl.ch/coursebook/en/principles-of-online-decision-making-CS-303
+  terms: Fall 2025, Fall 2026
+  note: Bachelor's course, EPFL
+
+- role: Teaching assistant
+  title: Large-scale data science for real-world data
+  code: COM-490
+  url: https://edu.epfl.ch/coursebook/fr/large-scale-data-science-for-real-world-data-COM-490
+  terms: Spring 2024, Spring 2025
+  note: Master's course, EPFL
+
+- role: Teaching assistant
+  title: Advanced information, computation, communication I
+  code: CS-101
+  url: https://edu.epfl.ch/coursebook/en/advanced-information-computation-communication-i-CS-101
+  terms: Fall 2024
+  note: Bachelor's course, EPFL
+
+- role: Teaching assistant
+  title: Introduction to Statistical Physics for Social and Economic Systems
+  terms: Spring 2021
+  note: Master's course, University of Tokyo
+
+- role: Teaching assistant
+  title: Mathematical Method VIII
+  terms: Fall 2020
+  note: Bachelor's course, University of Tokyo

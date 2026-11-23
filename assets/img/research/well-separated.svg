@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" font-family="Inter, Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+<title id="t">Well-separated sets</title>
+<desc id="d">Three panels. (a) A set of points whose largest internal distance is smaller than its smallest distance to the other points: it is well separated. (b) A stretched-out set whose largest internal distance is larger than its distance to a nearby point: it is not well separated. (c) A small data set with all its well-separated sets outlined; they are nested and form a hierarchy.</desc>
+<rect width="720" height="330" rx="12" fill="#ffffff"/>
+<line x1="150.0" y1="26.0" x2="176.0" y2="26.0" stroke="#0d6470" stroke-width="2" stroke-linecap="round"/>
+<text x="182.0" y="30.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="start" >largest distance inside the set</text>
+<line x1="390.0" y1="26.0" x2="416.0" y2="26.0" stroke="#b26b12" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 3"/>
+<text x="422.0" y="30.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="start" >smallest distance to the other points</text>
+<rect x="12" y="46" width="220" height="244" rx="12" fill="#f5f8f8"/>
+<circle cx="89.6" cy="164.4" r="24.6" fill="#0d6470" fill-opacity="0.08" stroke="#0d6470" stroke-opacity=".7" stroke-width="1.3" stroke-dasharray="4 4"/>
+<line x1="88.0" y1="150.0" x2="38.0" y2="86.0" stroke="#b26b12" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 3"/>
+<circle cx="192.0" cy="106.0" r="4" fill="#9aa4aa"/>
+<circle cx="208.0" cy="162.0" r="4" fill="#9aa4aa"/>
+<circle cx="188.0" cy="242.0" r="4" fill="#9aa4aa"/>
+<circle cx="72.0" cy="272.0" r="4" fill="#9aa4aa"/>
+<circle cx="38.0" cy="86.0" r="4" fill="#9aa4aa"/>
+<circle cx="162.0" cy="70.0" r="4" fill="#9aa4aa"/>
+<circle cx="78.0" cy="160.0" r="4" fill="#0d6470"/>
+<circle cx="88.0" cy="150.0" r="4" fill="#0d6470"/>
+<circle cx="102.0" cy="158.0" r="4" fill="#0d6470"/>
+<circle cx="98.0" cy="176.0" r="4" fill="#0d6470"/>
+<circle cx="82.0" cy="178.0" r="4" fill="#0d6470"/>
+<line x1="88.0" y1="150.0" x2="82.0" y2="178.0" stroke="#0d6470" stroke-width="2.4" stroke-linecap="round"/>
+<text x="122.0" y="316.0" font-size="13" font-weight="600" fill="#1b2329" text-anchor="middle" >(a) Well separated</text>
+<path d="M184 274l6 6l12 -14" fill="none" stroke="#2f7d4f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="250" y="46" width="220" height="244" rx="12" fill="#f5f8f8"/>
+<ellipse cx="355.0" cy="186.0" rx="80" ry="20" fill="#0d6470" fill-opacity=".08" stroke="#0d6470" stroke-opacity=".7" stroke-width="1.3" stroke-dasharray="4 4"/>
+<line x1="420.0" y1="192.0" x2="446.0" y2="158.0" stroke="#b26b12" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 3"/>
+<circle cx="446.0" cy="158.0" r="4" fill="#9aa4aa"/>
+<circle cx="290.0" cy="96.0" r="4" fill="#9aa4aa"/>
+<circle cx="370.0" cy="86.0" r="4" fill="#9aa4aa"/>
+<circle cx="320.0" cy="268.0" r="4" fill="#9aa4aa"/>
+<circle cx="430.0" cy="260.0" r="4" fill="#9aa4aa"/>
+<circle cx="290.0" cy="180.0" r="4" fill="#0d6470"/>
+<circle cx="316.0" cy="192.0" r="4" fill="#0d6470"/>
+<circle cx="342.0" cy="180.0" r="4" fill="#0d6470"/>
+<circle cx="368.0" cy="192.0" r="4" fill="#0d6470"/>
+<circle cx="394.0" cy="180.0" r="4" fill="#0d6470"/>
+<circle cx="420.0" cy="192.0" r="4" fill="#0d6470"/>
+<line x1="290.0" y1="210.0" x2="420.0" y2="222.0" stroke="#0d6470" stroke-width="2.4" stroke-linecap="round"/>
+<line x1="290.0" y1="204.0" x2="290.0" y2="216.0" stroke="#0d6470" stroke-width="2" stroke-linecap="round"/>
+<line x1="420.0" y1="216.0" x2="420.0" y2="228.0" stroke="#0d6470" stroke-width="2" stroke-linecap="round"/>
+<text x="360.0" y="316.0" font-size="13" font-weight="600" fill="#1b2329" text-anchor="middle" >(b) Not well separated</text>
+<path d="M428 266l12 12M440 266l-12 12" stroke="#b8433a" stroke-width="2.6" stroke-linecap="round"/>
+<rect x="488" y="46" width="220" height="244" rx="12" fill="#f5f8f8"/>
+<ellipse cx="566.0" cy="136.0" rx="70.0" ry="42.0" fill="#7b5ea7" fill-opacity=".05" stroke="#7b5ea7" stroke-opacity=".7" stroke-width="1.3" stroke-dasharray="4 4"/>
+<circle cx="532.0" cy="133.3" r="27.4" fill="#0d6470" fill-opacity="0.08" stroke="#0d6470" stroke-opacity=".7" stroke-width="1.3" stroke-dasharray="4 4"/>
+<circle cx="527.0" cy="125.0" r="11.8" fill="#0d6470" fill-opacity="0.06" stroke="#0d6470" stroke-opacity=".7" stroke-width="1.3" stroke-dasharray="2 3"/>
+<circle cx="601.0" cy="130.7" r="18.1" fill="#b26b12" fill-opacity="0.08" stroke="#b26b12" stroke-opacity=".7" stroke-width="1.3" stroke-dasharray="4 4"/>
+<circle cx="638.0" cy="251.3" r="20.3" fill="#3b6fb6" fill-opacity="0.08" stroke="#3b6fb6" stroke-opacity=".7" stroke-width="1.3" stroke-dasharray="4 4"/>
+<circle cx="522.0" cy="122.0" r="4" fill="#0d6470"/>
+<circle cx="532.0" cy="128.0" r="4" fill="#0d6470"/>
+<circle cx="542.0" cy="150.0" r="4" fill="#0d6470"/>
+<circle cx="592.0" cy="126.0" r="4" fill="#b26b12"/>
+<circle cx="610.0" cy="126.0" r="4" fill="#b26b12"/>
+<circle cx="601.0" cy="140.0" r="4" fill="#b26b12"/>
+<circle cx="628.0" cy="246.0" r="4" fill="#3b6fb6"/>
+<circle cx="648.0" cy="246.0" r="4" fill="#3b6fb6"/>
+<circle cx="638.0" cy="262.0" r="4" fill="#3b6fb6"/>
+<text x="598.0" y="316.0" font-size="13" font-weight="600" fill="#1b2329" text-anchor="middle" >(c) Nested well-separated sets</text>
+</svg>

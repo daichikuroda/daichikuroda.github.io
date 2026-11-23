@@ -1,0 +1,14 @@
+{%- include site-data.liquid -%}
+<ol class="news-list">
+  {%- for item in news_items limit: include.limit %}
+    <li class="news-item{% if item.draft %} is-draft{% endif %}">
+      <time class="news-date" datetime="{{ item.date | date: '%Y-%m' }}">{{ item.date | date: '%b %Y' }}</time>
+      <div class="news-text">
+        {{ item.text | markdownify | remove: '<p>' | remove: '</p>' | strip -}}
+        {%- if item.draft -%}
+          <span class="draft-tag">Draft</span>
+        {%- endif %}
+      </div>
+    </li>
+  {%- endfor %}
+</ol>

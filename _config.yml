@@ -152,6 +152,7 @@ markdown: kramdown
 highlighter: rouge
 kramdown:
   input: GFM
+  hard_wrap: false # line breaks inside a paragraph do not create <br>
   syntax_highlighter_opts:
     css_class: "highlight"
     span:
@@ -198,7 +199,6 @@ exclude:
   - assets/img/publication_preview/
   - _pages/repositories.md
   - _pages/cv.md
-  - _pages/news.md
   - _pages/profiles.md
   - _pages/blog.md
   - _pages/dropdown.md

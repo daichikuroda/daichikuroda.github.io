@@ -1,0 +1,24 @@
+# -----------------------------------------------------------------------------
+# News — newest first. The homepage shows the latest five; /news/ shows all.
+#
+#   - date: 2026-09-10          # YYYY-MM-DD (only month and year are shown)
+#     text: One sentence. Markdown works, e.g. [links](https://example.org) and *emphasis*.
+#     draft: true               # optional: hidden on the live site, visible in local preview
+#
+# Entries marked `draft: true` are placeholders to confirm and fill in.
+# Delete the `draft: true` line to publish an entry.
+# -----------------------------------------------------------------------------
+
+- date: 2026-12-01
+  text: >-
+    Poster at **NeurIPS 2026**: [*Hierarchical Linkage Clustering Beyond Binary Trees and Ultrametrics*](https://arxiv.org/abs/2511.18056),
+    with Maximilien Dreveton, Matthias Grossglauser and Patrick Thiran.
+
+- date: 2026-09-10
+  text: >-
+    New preprint: [*Hierarchical Clustering Can Jointly Satisfy Richness, Consistency, and Scale Invariance*](https://arxiv.org/abs/2609.11173).
+
+- date: 2026-01-01
+  text: >-
+    [*When Does Bottom-Up Beat Top-Down in Hierarchical Community Detection?*](https://doi.org/10.1080/01621459.2025.2569711)
+    appeared in the *Journal of the American Statistical Association*.

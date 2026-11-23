@@ -1,0 +1,41 @@
+# -----------------------------------------------------------------------------
+# Supervised students — newest first. Shown under "Teaching & supervision" on the homepage.
+#
+#   - student: Full name
+#     level: Master's student          # Master's student | Bachelor's student ...
+#     terms: Spring 2026, Fall 2026    # free text
+#     with: Co-supervisor name         # optional
+#     topic: Project title             # optional
+#     draft: true                      # optional: hidden on the live site
+# -----------------------------------------------------------------------------
+
+- student: Charbel Raffoul
+  level: Master's student
+  terms: Fall 2026
+
+- student: Jayati Sood
+  level: Master's student
+  terms: Spring 2026, Fall 2026
+
+- student: Luka Danilovic
+  level: Master's student
+  terms: Fall 2025
+
+- student: Anna Lavrenko
+  level: Master's student
+  terms: Fall 2025
+  with: Oscar Villemaud
+
+- student: Lorenzo Ferri
+  level: Master's student
+  terms: Fall 2024, Spring 2025
+  with: Maximilien Dreveton (Spring 2025)
+
+- student: Nicolas Pablo Gonzalez
+  level: Master's student
+  terms: Spring 2025
+  with: Maximilien Dreveton
+
+- student: Lawrence Khalil George Leitgib
+  level: Bachelor's student
+  terms: Spring 2025
