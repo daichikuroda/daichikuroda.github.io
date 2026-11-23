@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family="Inter, Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+<title id="t">Example of a non-binary hierarchy</title>
+<desc id="d">Left: points forming two clusters, A with two sub-clusters and B with three sub-clusters. Right: the corresponding tree, in which the three sub-clusters of B merge at the same level.</desc>
+<rect width="720" height="300" rx="12" fill="#ffffff"/>
+<text x="24" y="34" font-size="15" font-weight="600" fill="#1b2329">(a)</text>
+<text x="384" y="34" font-size="15" font-weight="600" fill="#1b2329">(b)</text>
+<ellipse cx="116" cy="121" rx="78" ry="58" transform="rotate(42 116 121)" fill="none" stroke="#0d6470" stroke-opacity=".45" stroke-dasharray="5 5" stroke-width="1.5"/>
+<circle cx="256" cy="192" r="70" fill="none" stroke="#b26b12" stroke-opacity=".45" stroke-dasharray="5 5" stroke-width="1.5"/>
+<circle cx="85" cy="92" r="19" fill="#0d6470" fill-opacity=".08" stroke="#0d6470" stroke-opacity=".5" stroke-width="1.2"/>
+<circle cx="148" cy="150" r="19" fill="#0d6470" fill-opacity=".08" stroke="#0d6470" stroke-opacity=".5" stroke-width="1.2"/>
+<circle cx="222" cy="212" r="19" fill="#b26b12" fill-opacity=".08" stroke="#b26b12" stroke-opacity=".5" stroke-width="1.2"/>
+<circle cx="290" cy="212" r="19" fill="#b26b12" fill-opacity=".08" stroke="#b26b12" stroke-opacity=".5" stroke-width="1.2"/>
+<circle cx="256" cy="153" r="19" fill="#b26b12" fill-opacity=".08" stroke="#b26b12" stroke-opacity=".5" stroke-width="1.2"/>
+<circle cx="91.0" cy="91.1" r="3.6" fill="#0d6470"/>
+<circle cx="86.1" cy="97.4" r="3.6" fill="#0d6470"/>
+<circle cx="78.8" cy="96.3" r="3.6" fill="#0d6470"/>
+<circle cx="76.8" cy="89.7" r="3.6" fill="#0d6470"/>
+<circle cx="84.6" cy="84.0" r="3.6" fill="#0d6470"/>
+<circle cx="153.3" cy="148.1" r="3.6" fill="#0d6470"/>
+<circle cx="151.9" cy="160.0" r="3.6" fill="#0d6470"/>
+<circle cx="144.1" cy="155.3" r="3.6" fill="#0d6470"/>
+<circle cx="139.3" cy="142.2" r="3.6" fill="#0d6470"/>
+<circle cx="150.9" cy="142.8" r="3.6" fill="#0d6470"/>
+<circle cx="226.9" cy="214.0" r="3.6" fill="#b26b12"/>
+<circle cx="222.2" cy="219.0" r="3.6" fill="#b26b12"/>
+<circle cx="218.4" cy="216.6" r="3.6" fill="#b26b12"/>
+<circle cx="212.5" cy="207.1" r="3.6" fill="#b26b12"/>
+<circle cx="222.5" cy="202.9" r="3.6" fill="#b26b12"/>
+<circle cx="297.6" cy="212.8" r="3.6" fill="#b26b12"/>
+<circle cx="291.5" cy="217.2" r="3.6" fill="#b26b12"/>
+<circle cx="286.4" cy="217.4" r="3.6" fill="#b26b12"/>
+<circle cx="284.3" cy="206.4" r="3.6" fill="#b26b12"/>
+<circle cx="291.5" cy="203.0" r="3.6" fill="#b26b12"/>
+<circle cx="263.1" cy="152.7" r="3.6" fill="#b26b12"/>
+<circle cx="256.8" cy="162.9" r="3.6" fill="#b26b12"/>
+<circle cx="249.9" cy="159.7" r="3.6" fill="#b26b12"/>
+<circle cx="247.1" cy="146.3" r="3.6" fill="#b26b12"/>
+<circle cx="259.3" cy="146.8" r="3.6" fill="#b26b12"/>
+<text x="85" y="67" font-size="12" text-anchor="middle" fill="#0d6470" font-weight="600">A1</text>
+<text x="148" y="125" font-size="12" text-anchor="middle" fill="#0d6470" font-weight="600">A2</text>
+<text x="222" y="187" font-size="12" text-anchor="middle" fill="#b26b12" font-weight="600">B1</text>
+<text x="290" y="187" font-size="12" text-anchor="middle" fill="#b26b12" font-weight="600">B2</text>
+<text x="256" y="128" font-size="12" text-anchor="middle" fill="#b26b12" font-weight="600">B3</text>
+<line x1="360" y1="40" x2="360" y2="270" stroke="#e3e0d8"/>
+<path d="M420 246V150H480V246" fill="none" stroke="#0d6470" stroke-width="2.2" stroke-linejoin="round"/>
+<path d="M570 246V185H690V246M630 246V185" fill="none" stroke="#b26b12" stroke-width="2.2" stroke-linejoin="round"/>
+<path d="M450 150V70H630V185M540 70V48" fill="none" stroke="#1b2329" stroke-width="2.2" stroke-linejoin="round"/>
+<circle cx="420" cy="246" r="5" fill="#0d6470"/>
+<text x="420" y="270" font-size="12" text-anchor="middle" fill="#0d6470" font-weight="600">A1</text>
+<circle cx="480" cy="246" r="5" fill="#0d6470"/>
+<text x="480" y="270" font-size="12" text-anchor="middle" fill="#0d6470" font-weight="600">A2</text>
+<circle cx="570" cy="246" r="5" fill="#b26b12"/>
+<text x="570" y="270" font-size="12" text-anchor="middle" fill="#b26b12" font-weight="600">B1</text>
+<circle cx="630" cy="246" r="5" fill="#b26b12"/>
+<text x="630" y="270" font-size="12" text-anchor="middle" fill="#b26b12" font-weight="600">B2</text>
+<circle cx="690" cy="246" r="5" fill="#b26b12"/>
+<text x="690" y="270" font-size="12" text-anchor="middle" fill="#b26b12" font-weight="600">B3</text>
+<text x="636" y="178" font-size="11" fill="#8a949b">3-way merge</text>
+<path d="M402 246V48" stroke="#cfcac0" stroke-width="1"/>
+<text x="396" y="150" font-size="11" fill="#8a949b" text-anchor="middle" transform="rotate(-90 396 150)">height</text>
+</svg>
