@@ -55,7 +55,7 @@ Hierarchical clustering generalizes clustering: instead of a single partition, i
 
 Beyond these known advantages, my collaborators and I show that hierarchical clustering is a **well-posed** problem ([Kuroda, Dreveton, Grossglauser & Thiran, 2026](#kuroda2026hierarchical)): hierarchical versions of Kleinberg's three requirements, which no flat clustering method can satisfy together, can all be satisfied by hierarchical clustering methods. We call these methods *admissible*, and there are uncountably many of them.
 
-Furthermore, there is no single best way to cluster hierarchically. Some admissible methods find more clusters than others, but no method finds all the clusters that the others find. Instead, there are several "best" methods, and on some data they find clusters that cannot belong to the same tree. Yet they do not disagree arbitrarily. Every admissible method contains a common backbone of well-separated clusters, and admissible methods differ only in how much additional structure they reveal beyond it. Figure 3 illustrates this.
+Furthermore, there is no single best way to cluster hierarchically. Some admissible methods find more clusters than others, but no method finds all the clusters that the others find. Instead, there are infinitely many "best" methods, and on some data they find clusters that cannot belong to the same tree. Yet they do not disagree arbitrarily. Every admissible method contains a common backbone of well-separated clusters, and admissible methods differ only in how much additional structure they reveal beyond it. Figure 3 illustrates this.
 
 {% include research-figure.liquid src="/assets/img/research/backbone.svg" alt="Four panels: data with two well-separated groups A and B, the backbone tree, and two admissible trees that group the middle sub-group of B differently." caption="**Figure 3.** Schematic illustration. (a) Two well-separated groups, A and B. Inside A, the sub-groups A1 and A2 are clearly separated; inside B, the middle sub-group B2 is about as close to B1 as to B3. (b) The backbone: the clusters that are well separated from the rest of the data (each leaf is one small group of points). Admissible methods contain them once the separation is large enough. (c, d) Admissible methods may reveal further clusters, and they need not agree on them: here one groups B2 with B1, the other B2 with B3. No hierarchy can contain both answers. Figure 4 shows a concrete instance from the paper." %}
 
@@ -104,35 +104,48 @@ Partition consistency says that strengthening a partition found in the hierarchy
 > **Theorem** (Kuroda, Dreveton, Grossglauser & Thiran, 2026). There exist uncountably many admissible hierarchical clustering methods.
 {: .theorem}
 
+One more natural requirement simplifies the picture: when the data are already perfectly hierarchical, a method should return exactly that hierarchy. Perfectly hierarchical data are described by ultrametrics.
+
+> **Definition** (Exact on ultrametrics). A dissimilarity $$u$$ is an _ultrametric_ if $$u(x, z) \le \max\{u(x, y), u(y, z)\}$$ for all $$x, y, z \in X$$. Its balls $$B_u(x, r) = \{y \in X : u(x, y) \le r\}$$ form a hierarchy $$\Psi_u$$, and every hierarchy arises in this way. A hierarchical clustering method $$T$$ is _exact on ultrametrics_ if $$T(u) = \Psi_u$$ for every ultrametric $$u$$. We call $$T$$ _strongly admissible_ if it is admissible and exact on ultrametrics.
+{: .definition}
+
+Strongly admissible methods exist, and the rest of this page focuses on them. Similar results hold for all admissible methods, with small differences that we point out.
+
 ### No single best method
 
-Admissible methods can be compared: $$T_2$$ *refines* $$T_1$$, written $$T_1 \sqsubseteq T_2$$, if $$T_1(d) \subseteq T_2(d)$$ for every $$d$$, so that $$T_2$$ always reveals at least the clusters of $$T_1$$. A greatest admissible method, one that refines all others, would be the natural "best" method. It does not exist. Call two methods *compatible* if, on every input, their outputs can be merged into a single hierarchy.
+Methods can be compared: $$T_2$$ *refines* $$T_1$$, written $$T_1 \sqsubseteq T_2$$, if $$T_1(d) \subseteq T_2(d)$$ for every $$d$$, so that $$T_2$$ always finds at least the clusters of $$T_1$$, and possibly more. Figure 4 shows four strongly admissible methods ordered in this way.
 
-> **Theorem** (Kuroda, Dreveton, Grossglauser & Thiran, 2026). The admissible methods have no greatest element under refinement, but they have maximal elements, and these maximal elements are mutually incompatible. Every admissible method is refined by at least one maximal admissible method.
+{% include research-figure.liquid src="/assets/img/research/refinement-order.svg" alt="A five-by-five dissimilarity matrix and four hierarchies of the same points, ordered from coarse to fine: global separation finds {1,2}; local separation adds {1,2,3}; single linkage adds {1,2,3,5}, while weak local separation adds {1,2,3,4} instead." caption="**Figure 4.** Four strongly admissible methods on the same data, an example from the paper. (a) A dissimilarity on five points. (b) Each arrow points to a finer method, which finds more clusters. At the bottom, global separation finds only {1, 2}; local separation adds {1, 2, 3}. Single linkage then adds {1, 2, 3, 5}, while weak local separation adds {1, 2, 3, 4} instead. These two clusters overlap without being nested, so no method can refine both." %}
+
+A greatest strongly admissible method, one that refines all the others, would be the natural "best" method. It does not exist. Call two methods *compatible* if, on every input, their outputs can be merged into a single hierarchy.
+
+> **Theorem** (Kuroda, Dreveton, Grossglauser & Thiran, 2026). Strongly admissible methods have no greatest element under refinement. Instead, there are infinitely many maximal strongly admissible methods, and they are mutually incompatible. Every strongly admissible method is refined by at least one of them.
 {: .theorem}
 
-Figure 4 shows why. On the same data, two admissible methods return clusters that overlap without being nested, so no hierarchy, and hence no method, can contain both outputs.
-
-{% include research-figure.liquid src="/assets/img/research/incompatible-methods.svg" alt="A five-by-five dissimilarity matrix and two trees: single linkage with clusters {1,2}, {1,2,3} and {1,2,3,5}, and the weakly locally separated method with clusters {1,2}, {1,2,3} and {1,2,3,4}." caption="**Figure 4.** Two admissible methods that cannot be combined, an example from the paper. (a) A dissimilarity on five points. (b) Non-binary single linkage returns the clusters {1, 2}, {1, 2, 3} and {1, 2, 3, 5}. (c) The weakly locally separated method, another admissible method, returns {1, 2}, {1, 2, 3} and {1, 2, 3, 4}. The clusters {1, 2, 3, 5} and {1, 2, 3, 4} overlap without being nested, so no admissible method refines both. The two methods still agree on {1, 2} and {1, 2, 3}." %}
+The top of Figure 4 shows why: single linkage and weak local separation find clusters that overlap without being nested, so no hierarchy, and hence no method, can contain both outputs. For admissible methods, the picture is even richer: there are uncountably long chains of ever finer admissible methods, and uncountably many admissible methods that pairwise cannot be combined. In particular, there are uncountably many maximal admissible methods, again mutually incompatible.
 
 ### A common backbone
 
-Yet admissible methods cannot disagree arbitrarily. Every one of them contains a backbone of well-separated clusters. Call a set $$C$$ *well separated with margin* $$\eta \le 1$$ if its largest internal dissimilarity is smaller than $$\eta$$ times its smallest dissimilarity to the rest of the data:
+Yet strongly admissible methods cannot disagree arbitrarily. Call a set $$C$$ _well separated_ if every dissimilarity inside it is smaller than every dissimilarity between it and the rest of the data:
 
 $$
-\max_{x, y \in C} d(x, y) < \eta \cdot \min_{x \in C,\, z \notin C} d(x, z).
+\max_{x, y \in C} d(x, y) < \min_{x \in C,\, z \notin C} d(x, z).
 $$
 
-Given margins $$\eta_1 = 1$$ and $$0 < \eta_s \le 1$$ for $$s \ge 2$$, let $$T^{\eta}_{\mathrm{glob}}(d)$$ collect every set $$C$$ that is well separated with margin $$\eta_{\lvert C \rvert}$$. This is always a hierarchy, and $$T^{\eta}_{\mathrm{glob}}$$ is itself an admissible method.
+These are arguably the most conservative clusters: sets of objects that are more similar to each other than to anything else. The well-separated sets of any dissimilarity $$d$$ form a hierarchy $$T_{\mathrm{glob}}(d)$$, and $$T_{\mathrm{glob}}$$, the "global separation" method of Figure 4, is itself strongly admissible.
 
-> **Theorem** (Backbone hierarchy; Kuroda, Dreveton, Grossglauser & Thiran, 2026). For every admissible method $$T$$, there are margins $$\eta$$ such that $$T^{\eta}_{\mathrm{glob}} \sqsubseteq T$$, that is, $$T^{\eta}_{\mathrm{glob}}(d) \subseteq T(d)$$ for every dissimilarity $$d$$.
+> **Theorem** (Backbone hierarchy; Kuroda, Dreveton, Grossglauser & Thiran, 2026). Every strongly admissible method $$T$$ refines $$T_{\mathrm{glob}}$$: $$T_{\mathrm{glob}}(d) \subseteq T(d)$$ for every dissimilarity $$d$$. Hence $$T_{\mathrm{glob}}$$ is the coarsest strongly admissible method.
 {: .theorem}
 
-With all margins equal to one, these are arguably the most conservative clusters: sets of objects that are more similar to each other than to anything else. The margins may depend on the method. In other words, every admissible method finds the clusters that are clearly there, and admissible methods differ only in how much additional structure they reveal beyond this backbone. Admissible methods are also closed under finite intersection: the clusters on which finitely many admissible methods agree form an admissible method again, which therefore contains a backbone of its own.
+In other words, every strongly admissible method finds the clusters that are clearly there, and strongly admissible methods differ only in how much additional structure they reveal beyond this common backbone.
 
-## See also
+A similar picture holds for admissible methods, with one difference: an admissible method need not find every well-separated set, only those that are well separated by a margin. More precisely, for every admissible method there are margins $$\eta_1 = 1$$ and $$0 < \eta_s \le 1$$ for $$s \ge 2$$, which depend on the method, such that it finds every set $$C$$ with
 
-In a companion paper ([NeurIPS 2026](#dreveton2026hierarchical)), we study linkage algorithms beyond binary trees: we define valid hierarchies, show that a finest valid hierarchy always exists, and give conditions under which running a linkage algorithm and then pruning the tree recovers it.
+$$
+\max_{x, y \in C} d(x, y) < \eta_{\lvert C \rvert} \cdot \min_{x \in C,\, z \notin C} d(x, z).
+$$
+
+So admissible methods also share a backbone of well-separated clusters, but how well separated a cluster must be depends on the method.
 
 ## References
 

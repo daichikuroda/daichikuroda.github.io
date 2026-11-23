@@ -2,7 +2,7 @@
 
 Usage (from the repository root):  python3 _scripts/research_figures.py assets/img/research
 Writes clustering-at-work.svg (the opening figure), flat-clusterings.svg (Figure 1),
-backbone.svg (Figure 3) and incompatible-methods.svg (Figure 4). Figure 1 uses the same
+backbone.svg (Figure 3) and refinement-order.svg (Figure 4). Figure 1 uses the same
 points as hierarchy-example.svg (Figure 2): same sub-cluster centers and random seed.
 """
 import math, random, sys
@@ -164,59 +164,98 @@ open(f"{OUT}/backbone.svg", "w").write("\n".join(svg) + "\n")
 print("ok")
 
 # ---------------------------------------------------------------- Figure 4
-# The dissimilarity of Example 2 / Lemma 15 in the paper, and the outputs of
-# non-binary single linkage (T_SL) and the weakly locally separated method (T_wloc).
+# The refinement order on the dissimilarity of Example 2 in the paper: each arrow points to a
+# finer method, which adds clusters. Global separation is refined by local separation, which is refined both by non-binary single linkage and by
+# weak local separation. The last two cannot be combined: {1,2,3,5} and {1,2,3,4} overlap.
 D = [[0, 1, 2, 4, 3], [1, 0, 4, 5, 6], [2, 4, 0, 5, 6], [4, 5, 6, 0, 7], [3, 6, 6, 7, 0]]
-W, H = 720, 300
-svg = head(W, H, "Two admissible methods that cannot be combined",
-           "Left: a 5 by 5 dissimilarity matrix. Middle: the single linkage hierarchy, with clusters {1,2}, {1,2,3} and {1,2,3,5}. "
-           "Right: the weakly locally separated hierarchy, with clusters {1,2}, {1,2,3} and {1,2,3,4}.")
-cell, mx, my = 30, 46, 58
+W, H = 720, 520
+RED = "#b8433a"
+svg = head(W, H, "Admissible methods ordered by refinement",
+           "Left: a 5 by 5 dissimilarity matrix. Right: four hierarchies of the same five points, arranged from coarse (bottom) to fine (top). "
+           "Global separation finds {1,2}; local separation adds {1,2,3}; single linkage adds {1,2,3,5}; weak local separation adds {1,2,3,4} instead. "
+           "The two top hierarchies cannot be combined because {1,2,3,5} and {1,2,3,4} overlap without being nested.")
+CLUSTER_COL = {frozenset({1, 2}): TEAL, frozenset({1, 2, 3}): TEAL, frozenset({1, 2, 3, 5}): AMBER, frozenset({1, 2, 3, 4}): PURPLE}
+
+# (a) the dissimilarity matrix
+cell, mx, my = 26, 40, 200
+svg.append(text(mx + 65, my - 34, "(a) Dissimilarity d", 13, INK, "600", "middle"))
 for i in range(5):
-    svg.append(text(mx - 12, my + i * cell + 20, str(i + 1), 12, MUTED, "600", "middle"))
-    svg.append(text(mx + i * cell + 15, my - 9, str(i + 1), 12, MUTED, "600", "middle"))
+    svg.append(text(mx - 10, my + i * cell + 17, str(i + 1), 11, MUTED, "600", "middle"))
+    svg.append(text(mx + i * cell + 13, my - 8, str(i + 1), 11, MUTED, "600", "middle"))
     for j in range(5):
         v = D[i][j]
         shade = 0.04 + 0.5 * (1 - v / 7) if i != j else 0
         svg.append(f'<rect x="{mx + j*cell}" y="{my + i*cell}" width="{cell}" height="{cell}" fill="{TEAL}" fill-opacity="{shade:.2f}" stroke="#ffffff" stroke-width="1.5"/>')
-        svg.append(text(mx + j * cell + 15, my + i * cell + 20, str(v), 12, INK if i != j else MUTED, "400", "middle"))
-svg.append(text(mx + 75, 262, "(a) Dissimilarity d", 13, INK, "600", "middle"))
-svg.append(f'<line x1="222" y1="28" x2="222" y2="270" stroke="{LINE}"/>')
-svg.append(f'<line x1="472" y1="28" x2="472" y2="270" stroke="{LINE}"/>')
+        svg.append(text(mx + j * cell + 13, my + i * cell + 17, str(v), 11, INK if i != j else MUTED, "400", "middle"))
+svg.append(f'<line x1="196" y1="24" x2="196" y2="500" stroke="{LINE}"/>')
 
 
-def cluster_tree(ox, order, third, third_col, label):
-    """Layered tree: {1,2} under {1,2,3} under third (size 4) under the root."""
+def hierarchy_tree(ox, oy, clusters, order, label):
+    """Draw the hierarchy (root, leaves and the given clusters) as a layered tree in a 200x110 box."""
+    leaves = [frozenset({k}) for k in order]
+    nodes = [frozenset(order)] + sorted((frozenset(c) for c in clusters), key=len, reverse=True)
+    def children(n):
+        inner = [m for m in nodes if m < n and not any(m < k < n for k in nodes)]
+        covered = set().union(*inner) if inner else set()
+        return inner + [l for l in leaves if not (l & covered) and l <= n]
+    def depth(n):
+        return sum(1 for m in nodes if n < m)
+    x = {l: ox + 20 + 40 * i for i, l in enumerate(leaves)}
+    y_leaf = oy + 96
+    levels = max(depth(n) for n in nodes) + 1
+    def ypos(n):
+        return oy + 10 + depth(n) * (70 / max(levels, 1))
+    def xpos(n):
+        if n in x:
+            return x[n]
+        ch = children(n)
+        x[n] = sum(xpos(c) for c in ch) / len(ch)
+        return x[n]
     g = []
-    x = {k: ox + 22 + 44 * i for i, k in enumerate(order)}
-    y_leaf, y12, y123, y4, y_root = 214, 178, 140, 100, 60
-    m12 = (x[1] + x[2]) / 2
-    m123 = (m12 + x[3]) / 2
-    extra = [k for k in third if k not in (1, 2, 3)][0]
-    rest = [k for k in order if k not in third][0]
-    m4 = (m123 + x[extra]) / 2
-    path = lambda d, col, w=2.2: g.append(f'<path d="{d}" fill="none" stroke="{col}" stroke-width="{w}" stroke-linejoin="round" stroke-linecap="round"/>')
-    path(f"M{x[1]} {y_leaf}V{y12}H{x[2]}V{y_leaf}", TEAL)
-    path(f"M{m12} {y12}V{y123}H{x[3]}V{y_leaf}", TEAL)
-    path(f"M{m123} {y123}V{y4}H{x[extra]}V{y_leaf}", third_col)
-    path(f"M{m4} {y4}V{y_root}H{x[rest]}V{y_leaf}M{(m4 + x[rest]) / 2} {y_root}V{y_root - 16}", INK)
-    for k, xx in x.items():
-        g.append(f'<circle cx="{xx}" cy="{y_leaf}" r="4.5" fill="{INK}"/>')
-        g.append(text(xx, y_leaf + 22, str(k), 12, INK, "600", "middle"))
-    g.append(text(m12 - 6, y12 - 7, "{1, 2}", 11, TEAL, "600", "end"))
-    g.append(text(m123 - 6, y123 - 7, "{1, 2, 3}", 11, TEAL, "600", "end"))
-    lab = "{" + ", ".join(str(k) for k in sorted(third)) + "}"
-    g.append(text(m4 - 6, y4 - 7, lab, 11, third_col, "600", "end"))
-    g.append(text(ox + 110, 262, label, 13, INK, "600", "middle"))
+    for n in sorted(nodes, key=len):
+        ch = children(n)
+        col = CLUSTER_COL.get(n, INK)
+        yn = ypos(n)
+        xs = [xpos(c) for c in ch]
+        g.append(f'<path d="M{min(xs):.1f} {yn:.1f}H{max(xs):.1f}" stroke="{col}" stroke-width="2" stroke-linecap="round"/>')
+        for c in ch:
+            yc = y_leaf if c in leaves else ypos(c)
+            g.append(f'<path d="M{xpos(c):.1f} {yn:.1f}V{yc:.1f}" stroke="{col}" stroke-width="2" stroke-linecap="round"/>')
+    root = nodes[0]
+    g.append(f'<path d="M{xpos(root):.1f} {ypos(root):.1f}v-10" stroke="{INK}" stroke-width="2" stroke-linecap="round"/>')
+    for l in leaves:
+        g.append(f'<circle cx="{x[l]}" cy="{y_leaf}" r="4" fill="{INK}"/>')
+        g.append(text(x[l], y_leaf + 17, str(next(iter(l))), 11, INK, "600", "middle"))
+    for n in nodes[1:]:
+        col = CLUSTER_COL.get(n, INK)
+        lab = "{" + ",".join(str(k) for k in sorted(n)) + "}"
+        g.append(text(xpos(n) - 5, ypos(n) - 5, lab, 10, col, "600", "end"))
+    g.append(text(ox + 100, oy + 132, label, 12, INK, "600", "middle"))
     return g
 
 
-svg += cluster_tree(236, [1, 2, 3, 5, 4], {1, 2, 3, 5}, AMBER, "(b) Single linkage")
-svg += cluster_tree(486, [1, 2, 3, 4, 5], {1, 2, 3, 4}, PURPLE, "(c) Weakly locally separated")
-svg.append("</svg>")
-open(f"{OUT}/incompatible-methods.svg", "w").write("\n".join(svg) + "\n")
-print("ok")
+def arrow(x1, y1, x2, y2):
+    return f'<path d="M{x1} {y1}L{x2} {y2}" stroke="{MUTED}" stroke-width="1.5" marker-end="url(#arr4)"/>'
 
+
+svg.insert(4, f'<defs><marker id="arr4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="{MUTED}"/></marker></defs>')
+svg.append(text(458, 22, "(b) Hierarchies of d, from fine (top) to coarse (bottom)", 13, INK, "600", "middle"))
+svg += hierarchy_tree(232, 44, [{1, 2}, {1, 2, 3}, {1, 2, 3, 5}], [1, 2, 3, 5, 4], "Single linkage")
+svg += hierarchy_tree(486, 44, [{1, 2}, {1, 2, 3}, {1, 2, 3, 4}], [1, 2, 3, 4, 5], "Weak local separation")
+svg += hierarchy_tree(359, 214, [{1, 2}, {1, 2, 3}], [1, 2, 3, 4, 5], "Local separation")
+svg += hierarchy_tree(359, 370, [{1, 2}], [1, 2, 3, 4, 5], "Global separation")
+svg.append(arrow(459, 368, 459, 352))
+svg.append(arrow(420, 212, 360, 190))
+svg.append(arrow(498, 212, 558, 190))
+svg.append(text(468, 364, "adds {1,2,3}", 10, TEAL, "600", "start"))
+svg.append(text(386, 214, "adds {1,2,3,5}", 10, AMBER, "600", "end"))
+svg.append(text(532, 214, "adds {1,2,3,4}", 10, PURPLE, "600", "start"))
+svg.append(f'<path d="M440 110H478" stroke="{RED}" stroke-width="1.6" stroke-dasharray="4 3"/>')
+svg.append(f'<path d="M453 104l12 12M465 104l-12 12" stroke="{RED}" stroke-width="2" stroke-linecap="round"/>')
+svg.append(text(459, 136, "cannot be", 10, RED, "600", "middle"))
+svg.append(text(459, 148, "combined", 10, RED, "600", "middle"))
+svg.append("</svg>")
+open(f"{OUT}/refinement-order.svg", "w").write("\n".join(svg) + "\n")
 
 # ---------------------------------------------------------------- Clustering at work (unnumbered)
 # Top row: clustering on its own (phylogenies, cell types, network communities).
