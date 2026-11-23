@@ -12,7 +12,8 @@ The al-folio template files remain in the repository but are excluded from the b
 | Bio (Markdown, first paragraph is larger) | `_pages/about.md`                                                               |
 | News                                      | `_data/news.yml`                                                                |
 | Talks and posters                         | `_data/talks.yml`                                                               |
-| Teaching and supervision                  | `_data/teaching.yml`                                                            |
+| Courses taught                            | `_data/teaching.yml`                                                            |
+| Supervised students                       | `_data/supervision.yml`                                                         |
 | Publications (newest first)               | `_data/research.json` (+ `_bibliography/papers.bib`)                            |
 | Hierarchical clustering page              | `_pages/research/hierarchical-clustering.md`                                    |
 | Styles / scripts                          | `assets/css/research.css`, `assets/js/research.js`                              |

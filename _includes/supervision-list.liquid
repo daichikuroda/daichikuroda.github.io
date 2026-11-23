@@ -1,0 +1,26 @@
+{%- include site-data.liquid -%}
+<ul class="entry-list">
+  {%- for s in supervision_items %}
+    <li class="entry{% if s.draft %} is-draft{% endif %}">
+      <div class="entry-top">
+        <span>
+          {{- s.level | escape -}}
+          {%- if s.draft -%}
+            <span class="draft-tag">Draft</span>
+          {%- endif -%}
+        </span>
+        {%- if s.terms -%}
+          <span>{{ s.terms | escape }}</span>
+        {%- endif -%}
+      </div>
+      <p class="entry-title">{{ s.student | escape }}</p>
+      {%- if s.topic or s.with %}
+        <p class="entry-sub">
+          {%- if s.topic %}{{ s.topic | escape }}{% endif -%}
+          {%- if s.topic and s.with %} · {% endif -%}
+          {%- if s.with %}Co-supervised with {{ s.with | escape }}{% endif -%}
+        </p>
+      {% endif -%}
+    </li>
+  {%- endfor %}
+</ul>

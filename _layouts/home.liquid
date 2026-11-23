@@ -90,11 +90,34 @@ layout: research
   </section>
 {%- endif %}
 
-{%- if teaching_count > 0 %}
+{%- if teaching_section_count > 0 %}
   <section class="section" id="teaching" aria-labelledby="teaching-heading">
     <div class="section-head">
-      <h2 id="teaching-heading">Teaching</h2>
+      <h2 id="teaching-heading">
+        {%- if supervision_count > 0 and teaching_count > 0 -%}
+          Teaching &amp; supervision
+        {%- elsif supervision_count > 0 -%}
+          Supervision
+        {%- else -%}
+          Teaching
+        {%- endif -%}
+      </h2>
     </div>
-    {% include teaching-list.liquid %}
+    {%- if teaching_count > 0 %}
+      <div class="entry-group">
+        {%- if supervision_count > 0 %}
+          <h3 class="group-title">Courses</h3>
+        {% endif %}
+        {% include teaching-list.liquid %}
+      </div>
+    {%- endif %}
+    {%- if supervision_count > 0 %}
+      <div class="entry-group">
+        {%- if teaching_count > 0 %}
+          <h3 class="group-title">Supervised students</h3>
+        {% endif %}
+        {% include supervision-list.liquid %}
+      </div>
+    {%- endif %}
   </section>
 {%- endif %}

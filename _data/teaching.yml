@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------
-# Teaching and supervision — newest first. Shown under "Teaching" on the homepage.
+# Courses — newest first. Shown under "Teaching & supervision" on the homepage.
 #
 #   - role: Teaching assistant         # Teaching assistant | Supervisor | Lecturer ...
 #     title: Course or project title
@@ -49,8 +49,3 @@
   title: Mathematical Method VIII
   terms: Fall 2020
   note: Bachelor's course, University of Tokyo
-
-- role: Supervisor
-  title: Student semester and master's projects
-  note: About nine projects, including one on recommender systems.
-  draft: true # TODO: confirm the count; optionally list notable projects
