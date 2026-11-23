@@ -98,8 +98,11 @@
               >News</a
             >
           {%- endif %}
-          {%- if talks_teaching_count > 0 %}
-            <a href="{{ '/' | relative_url }}#talks-teaching">Talks<span class="nav-long"> &amp; teaching</span></a>
+          {%- if talk_count > 0 %}
+            <a href="{{ '/' | relative_url }}#talks">Talks</a>
+          {%- endif %}
+          {%- if teaching_count > 0 %}
+            <a href="{{ '/' | relative_url }}#teaching">Teaching</a>
           {%- endif %}
         </nav>
         <button class="theme-toggle" type="button" aria-label="Dark appearance" aria-pressed="false" hidden>

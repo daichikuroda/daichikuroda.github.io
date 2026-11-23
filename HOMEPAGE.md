@@ -22,7 +22,7 @@ The al-folio template files remain in the repository but are excluded from the b
 ## Drafts and placeholders
 
 - **List entries** (news, talks, teaching) marked `draft: true` are hidden on the live site and shown with a yellow
-  "Draft" tag in local previews. Delete the `draft: true` line to publish an entry. The News and Talks & teaching
+  "Draft" tag in local previews. Delete the `draft: true` line to publish an entry. The News, Talks and Teaching
   sections (and their menu links) appear on the live site as soon as they have at least one published entry.
 - **Writing prompts** are paragraphs followed by `{: .todo}`. They show as yellow boxes in previews and are hidden on
   the live site. Replace each with your text and delete the `{: .todo}` line.

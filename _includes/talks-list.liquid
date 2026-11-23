@@ -1,0 +1,38 @@
+{%- include site-data.liquid -%}
+<ul class="entry-list">
+  {%- for t in talk_items %}
+    <li class="entry{% if t.draft %} is-draft{% endif %}">
+      <div class="entry-top">
+        <span>
+          {{- t.kind | default: 'Talk' -}}
+          {%- if t.draft -%}
+            <span class="draft-tag">Draft</span>
+          {%- endif -%}
+        </span>
+        <time datetime="{{ t.date | date: '%Y-%m' }}">{{ t.date | date: '%b %Y' }}</time>
+      </div>
+      <p class="entry-title">{{ t.title | escape }}</p>
+      <p class="entry-sub">
+        {%- if t.event_url -%}
+          <a href="{{ t.event_url }}">{{ t.event | escape }}</a>
+        {%- else -%}
+          {{- t.event | escape -}}
+        {%- endif -%}
+        {%- if t.location %} · {{ t.location | escape }}{% endif -%}
+        {%- if t.slides or t.poster or t.video %}
+          <span class="entry-links">
+            {%- if t.slides -%}
+              <a href="{{ t.slides | relative_url }}">Slides</a>
+            {%- endif -%}
+            {%- if t.poster -%}
+              <a href="{{ t.poster | relative_url }}">Poster</a>
+            {%- endif -%}
+            {%- if t.video -%}
+              <a href="{{ t.video | relative_url }}">Video</a>
+            {%- endif -%}
+          </span>
+        {%- endif -%}
+      </p>
+    </li>
+  {%- endfor %}
+</ul>
