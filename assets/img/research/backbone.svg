@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 590" font-family="Inter, Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+<title id="t">Different admissible methods share a common backbone</title>
+<desc id="d">Four panels. (a) Points forming two well-separated groups A and B; A has two clearly separated sub-groups, while in B the middle sub-group B2 is about as close to B1 as to B3. (b) The shared backbone: A, A1, A2 and B, with B1, B2 and B3 merging at once. (c) One method groups B1 with B2. (d) Another groups B2 with B3.</desc>
+<rect width="720" height="590" rx="12" fill="#ffffff"/>
+<line x1="360" y1="24" x2="360" y2="566" stroke="#e3e0d8"/>
+<line x1="24" y1="296" x2="696" y2="296" stroke="#e3e0d8"/>
+<ellipse cx="109" cy="115" rx="64" ry="46" transform="rotate(43 109 115)" fill="#0d6470" fill-opacity=".05" stroke="#0d6470" stroke-opacity=".7" stroke-dasharray="5 4" stroke-width="1.4"/>
+<ellipse cx="261" cy="218" rx="92" ry="54" transform="rotate(0 261 218)" fill="#b26b12" fill-opacity=".05" stroke="#b26b12" stroke-opacity=".7" stroke-dasharray="5 4" stroke-width="1.4"/>
+<circle cx="80" cy="88" r="17" fill="none" stroke="#0d6470" stroke-opacity=".75" stroke-width="1.3"/>
+<circle cx="87.4" cy="87.7" r="3.4" fill="#0d6470"/>
+<circle cx="79.8" cy="94.8" r="3.4" fill="#0d6470"/>
+<circle cx="73.9" cy="92.4" r="3.4" fill="#0d6470"/>
+<circle cx="73.4" cy="85.4" r="3.4" fill="#0d6470"/>
+<circle cx="83.6" cy="80.0" r="3.4" fill="#0d6470"/>
+<text x="56.0" y="92.0" font-size="12" font-weight="600" fill="#0d6470" text-anchor="end" >A1</text>
+<circle cx="138" cy="142" r="17" fill="none" stroke="#0d6470" stroke-opacity=".75" stroke-width="1.3"/>
+<circle cx="143.5" cy="140.1" r="3.4" fill="#0d6470"/>
+<circle cx="143.3" cy="149.1" r="3.4" fill="#0d6470"/>
+<circle cx="134.2" cy="143.9" r="3.4" fill="#0d6470"/>
+<circle cx="132.8" cy="133.7" r="3.4" fill="#0d6470"/>
+<circle cx="141.3" cy="135.0" r="3.4" fill="#0d6470"/>
+<text x="114.0" y="146.0" font-size="12" font-weight="600" fill="#0d6470" text-anchor="end" >A2</text>
+<circle cx="209.9" cy="222.9" r="3.4" fill="#b26b12"/>
+<circle cx="207.3" cy="228.2" r="3.4" fill="#b26b12"/>
+<circle cx="202.5" cy="228.2" r="3.4" fill="#b26b12"/>
+<circle cx="199.4" cy="222.3" r="3.4" fill="#b26b12"/>
+<circle cx="208.4" cy="215.3" r="3.4" fill="#b26b12"/>
+<text x="206.0" y="250.0" font-size="12" font-weight="600" fill="#b26b12" text-anchor="middle" >B1</text>
+<circle cx="267.8" cy="214.1" r="3.4" fill="#b26b12"/>
+<circle cx="262.5" cy="221.6" r="3.4" fill="#b26b12"/>
+<circle cx="255.5" cy="217.5" r="3.4" fill="#b26b12"/>
+<circle cx="254.8" cy="205.5" r="3.4" fill="#b26b12"/>
+<circle cx="264.6" cy="207.1" r="3.4" fill="#b26b12"/>
+<text x="260.0" y="240.0" font-size="12" font-weight="600" fill="#b26b12" text-anchor="middle" >B2</text>
+<circle cx="321.3" cy="223.2" r="3.4" fill="#b26b12"/>
+<circle cx="318.1" cy="227.9" r="3.4" fill="#b26b12"/>
+<circle cx="310.1" cy="226.6" r="3.4" fill="#b26b12"/>
+<circle cx="312.1" cy="219.0" r="3.4" fill="#b26b12"/>
+<circle cx="321.7" cy="216.9" r="3.4" fill="#b26b12"/>
+<text x="316.0" y="250.0" font-size="12" font-weight="600" fill="#b26b12" text-anchor="middle" >B3</text>
+<path d="M209 196H257M209 192V200M257 192V200" stroke="#6b757d" stroke-width="1"/>
+<path d="M263 196H313M263 192V200M313 192V200" stroke="#6b757d" stroke-width="1"/>
+<text x="260.0" y="184.0" font-size="11" font-weight="400" fill="#6b757d" text-anchor="middle" >≈ equal gaps</text>
+<text x="24.0" y="280.0" font-size="13" font-weight="600" fill="#1b2329" text-anchor="start" >(a) Data</text>
+<path d="M50 228V150H105V228" transform="translate(370 10)" fill="none" stroke="#0d6470" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M185 228V128H305V228M245 228V128" transform="translate(370 10)" fill="none" stroke="#b26b12" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M77.5 150V64H245V128M161.25 64V44" transform="translate(370 10)" fill="none" stroke="#1b2329" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="420" cy="238" r="5" fill="#0d6470"/>
+<text x="420.0" y="260.0" font-size="12" font-weight="600" fill="#0d6470" text-anchor="middle" >A1</text>
+<circle cx="475" cy="238" r="5" fill="#0d6470"/>
+<text x="475.0" y="260.0" font-size="12" font-weight="600" fill="#0d6470" text-anchor="middle" >A2</text>
+<circle cx="555" cy="238" r="5" fill="#b26b12"/>
+<text x="555.0" y="260.0" font-size="12" font-weight="600" fill="#b26b12" text-anchor="middle" >B1</text>
+<circle cx="615" cy="238" r="5" fill="#b26b12"/>
+<text x="615.0" y="260.0" font-size="12" font-weight="600" fill="#b26b12" text-anchor="middle" >B2</text>
+<circle cx="675" cy="238" r="5" fill="#b26b12"/>
+<text x="675.0" y="260.0" font-size="12" font-weight="600" fill="#b26b12" text-anchor="middle" >B3</text>
+<text x="623.0" y="130.0" font-size="11" font-weight="400" fill="#6b757d" text-anchor="start" >3-way merge</text>
+<text x="384.0" y="280.0" font-size="13" font-weight="600" fill="#1b2329" text-anchor="start" >(b) Shared backbone</text>
+<path d="M50 228V150H105V228" transform="translate(10 290)" fill="none" stroke="#0d6470" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M185 228V178H245V228" transform="translate(10 290)" fill="none" stroke="#7b5ea7" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M215.0 178V128H305V228" transform="translate(10 290)" fill="none" stroke="#b26b12" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M77.5 150V64H260.0V128M168.75 64V44" transform="translate(10 290)" fill="none" stroke="#1b2329" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="60" cy="518" r="5" fill="#0d6470"/>
+<text x="60.0" y="540.0" font-size="12" font-weight="600" fill="#0d6470" text-anchor="middle" >A1</text>
+<circle cx="115" cy="518" r="5" fill="#0d6470"/>
+<text x="115.0" y="540.0" font-size="12" font-weight="600" fill="#0d6470" text-anchor="middle" >A2</text>
+<circle cx="195" cy="518" r="5" fill="#b26b12"/>
+<text x="195.0" y="540.0" font-size="12" font-weight="600" fill="#b26b12" text-anchor="middle" >B1</text>
+<circle cx="255" cy="518" r="5" fill="#b26b12"/>
+<text x="255.0" y="540.0" font-size="12" font-weight="600" fill="#b26b12" text-anchor="middle" >B2</text>
+<circle cx="315" cy="518" r="5" fill="#b26b12"/>
+<text x="315.0" y="540.0" font-size="12" font-weight="600" fill="#b26b12" text-anchor="middle" >B3</text>
+<text x="225.0" y="488.0" font-size="11" font-weight="600" fill="#7b5ea7" text-anchor="middle" >{B1, B2}</text>
+<text x="24.0" y="560.0" font-size="13" font-weight="600" fill="#1b2329" text-anchor="start" >(c) Admissible method 1</text>
+<path d="M50 228V150H105V228" transform="translate(370 290)" fill="none" stroke="#0d6470" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M245 228V178H305V228" transform="translate(370 290)" fill="none" stroke="#7b5ea7" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M185 228V128H275.0V178" transform="translate(370 290)" fill="none" stroke="#b26b12" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M77.5 150V64H230.0V128M153.75 64V44" transform="translate(370 290)" fill="none" stroke="#1b2329" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="420" cy="518" r="5" fill="#0d6470"/>
+<text x="420.0" y="540.0" font-size="12" font-weight="600" fill="#0d6470" text-anchor="middle" >A1</text>
+<circle cx="475" cy="518" r="5" fill="#0d6470"/>
+<text x="475.0" y="540.0" font-size="12" font-weight="600" fill="#0d6470" text-anchor="middle" >A2</text>
+<circle cx="555" cy="518" r="5" fill="#b26b12"/>
+<text x="555.0" y="540.0" font-size="12" font-weight="600" fill="#b26b12" text-anchor="middle" >B1</text>
+<circle cx="615" cy="518" r="5" fill="#b26b12"/>
+<text x="615.0" y="540.0" font-size="12" font-weight="600" fill="#b26b12" text-anchor="middle" >B2</text>
+<circle cx="675" cy="518" r="5" fill="#b26b12"/>
+<text x="675.0" y="540.0" font-size="12" font-weight="600" fill="#b26b12" text-anchor="middle" >B3</text>
+<text x="645.0" y="488.0" font-size="11" font-weight="600" fill="#7b5ea7" text-anchor="middle" >{B2, B3}</text>
+<text x="384.0" y="560.0" font-size="13" font-weight="600" fill="#1b2329" text-anchor="start" >(d) Admissible method 2</text>
+</svg>

@@ -1064,7 +1064,7 @@ mjx-container[display="true"] {
   line-height: 1.55;
 }
 .todo::before {
-  content: "✎ To write — ";
+  content: "✎ To do — ";
   font-weight: 600;
   color: var(--todo-line);
 }
