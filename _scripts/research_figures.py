@@ -2,14 +2,14 @@
 
 Usage (from the repository root):  python3 _scripts/research_figures.py assets/img/research
 Writes clustering-at-work.svg (the opening figure), flat-clusterings.svg (Figure 1),
-backbone.svg (Figure 3) and refinement-order.svg (Figure 4). Figure 1 uses the same
+backbone.svg (Figure 3), ultrametric.svg (Figure 4) and refinement-order.svg (Figure 5). Figure 1 uses the same
 points as hierarchy-example.svg (Figure 2): same sub-cluster centers and random seed.
 """
 import math, random, sys
 
 OUT = sys.argv[1]
 TEAL, TEAL2, AMBER, RED, BLUE, PURPLE = "#0d6470", "#4a9aa6", "#b26b12", "#b8433a", "#3b6fb6", "#7b5ea7"
-INK, MUTED, LINE = "#1b2329", "#6b757d", "#e3e0d8"
+INK, MUTED, LINE, LINE_STRONG = "#1b2329", "#6b757d", "#e3e0d8", "#cfcac0"
 FONT = 'font-family="Inter, Helvetica, Arial, sans-serif"'
 
 
@@ -256,6 +256,67 @@ svg.append(text(459, 136, "cannot be", 10, RED, "600", "middle"))
 svg.append(text(459, 148, "combined", 10, RED, "600", "middle"))
 svg.append("</svg>")
 open(f"{OUT}/refinement-order.svg", "w").write("\n".join(svg) + "\n")
+
+# ---------------------------------------------------------------- Figure 4: ultrametric and its natural hierarchy
+# A 6-point ultrametric: {a,b} merge at 1, {c,d,e} at 2 (a three-way merge), {a,...,e} at 3, all at 4.
+# Each matrix entry equals the height at which the two points first meet in the tree.
+LAB = ["a", "b", "c", "d", "e", "f"]
+U = [[0, 1, 3, 3, 3, 4], [1, 0, 3, 3, 3, 4], [3, 3, 0, 2, 2, 4], [3, 3, 2, 0, 2, 4], [3, 3, 2, 2, 0, 4], [4, 4, 4, 4, 4, 0]]
+LEVEL_COL = {1: TEAL, 2: AMBER, 3: PURPLE, 4: INK}
+W, H = 720, 300
+svg = head(W, H, "An ultrametric and its natural hierarchy",
+           "Left: a 6 by 6 dissimilarity matrix on points a to f, with values 1, 2, 3 and 4 coloured by value. Right: the corresponding tree. "
+           "Points a and b merge at height 1, points c, d and e merge together at height 2, these five points merge at height 3, and all six at height 4. "
+           "Each matrix entry equals the height at which the two points meet in the tree.")
+cell, mx, my = 30, 50, 62
+svg.append(text(mx + 90, 34, "(a) Ultrametric dissimilarity", 13, INK, "600", "middle"))
+for i in range(6):
+    svg.append(text(mx - 12, my + i * cell + 20, LAB[i], 12, MUTED, "600", "middle"))
+    svg.append(text(mx + i * cell + 15, my - 9, LAB[i], 12, MUTED, "600", "middle"))
+    for j in range(6):
+        v = U[i][j]
+        if i == j:
+            svg.append(f'<rect x="{mx + j*cell}" y="{my + i*cell}" width="{cell}" height="{cell}" fill="#f5f8f8" stroke="#ffffff" stroke-width="1.5"/>')
+            svg.append(text(mx + j * cell + 15, my + i * cell + 20, "0", 12, MUTED, "400", "middle"))
+        else:
+            col = LEVEL_COL[v]
+            svg.append(f'<rect x="{mx + j*cell}" y="{my + i*cell}" width="{cell}" height="{cell}" fill="{col}" fill-opacity="{0.32 if v < 4 else 0.12}" stroke="#ffffff" stroke-width="1.5"/>')
+            svg.append(text(mx + j * cell + 15, my + i * cell + 20, str(v), 12, INK, "600", "middle"))
+svg.append(f'<line x1="292" y1="24" x2="292" y2="276" stroke="{LINE}"/>')
+# (b) the tree with a height axis
+ox, base, unit = 360, 246, 46
+xs = {k: ox + 40 + 52 * i for i, k in enumerate(LAB)}
+svg.append(text(ox + 170, 34, "(b) Its natural hierarchy", 13, INK, "600", "middle"))
+svg.append(f'<path d="M{ox} {base}V{base - 4.4 * unit}" stroke="{LINE_STRONG}" stroke-width="1"/>')
+for h in range(0, 5):
+    yy = base - h * unit
+    svg.append(f'<path d="M{ox - 4} {yy}H{ox}" stroke="{LINE_STRONG}" stroke-width="1"/>')
+    svg.append(text(ox - 8, yy + 4, str(h), 11, MUTED, "400", "end"))
+    if h:
+        svg.append(f'<path d="M{ox} {yy}H{ox + 330}" stroke="{LEVEL_COL[h]}" stroke-opacity=".25" stroke-dasharray="3 4"/>')
+svg.append(text(ox - 26, base - 2.2 * unit, "height", 11, MUTED, "400", "middle", f'transform="rotate(-90 {ox - 26} {base - 2.2 * unit})"'))
+def ybar(h):
+    return base - h * unit
+ab = (xs["a"] + xs["b"]) / 2
+cde = xs["d"]
+top5 = (ab + cde) / 2
+root = (top5 + xs["f"]) / 2
+paths = [
+    (f'M{xs["a"]} {base}V{ybar(1)}H{xs["b"]}V{base}', TEAL),
+    (f'M{xs["c"]} {base}V{ybar(2)}H{xs["e"]}V{base}M{xs["d"]} {base}V{ybar(2)}', AMBER),
+    (f'M{ab} {ybar(1)}V{ybar(3)}H{cde}V{ybar(2)}', PURPLE),
+    (f'M{top5} {ybar(3)}V{ybar(4)}H{xs["f"]}V{base}M{root} {ybar(4)}V{ybar(4) - 12}', INK),
+]
+for d_, col in paths:
+    svg.append(f'<path d="{d_}" fill="none" stroke="{col}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>')
+for k, x in xs.items():
+    svg.append(f'<circle cx="{x}" cy="{base}" r="5" fill="{INK}"/>')
+    svg.append(text(x, base + 22, k, 12, INK, "600", "middle"))
+svg.append(text(ab - 6, ybar(1) - 7, "{a, b}", 11, TEAL, "600", "end"))
+svg.append(text(xs["e"] + 8, ybar(2) + 4, "{c, d, e}", 11, AMBER, "600", "start"))
+svg.append(text(ab - 8, ybar(3) - 7, "{a, b, c, d, e}", 11, PURPLE, "600", "start"))
+svg.append("</svg>")
+open(f"{OUT}/ultrametric.svg", "w").write("\n".join(svg) + "\n")
 
 # ---------------------------------------------------------------- Clustering at work (unnumbered)
 # Top row: clustering on its own (phylogenies, cell types, network communities).
