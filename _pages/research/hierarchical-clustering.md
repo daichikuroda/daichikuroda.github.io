@@ -35,27 +35,9 @@ HOW TO EDIT THIS PAGE (this comment is not shown on the site)
 
 ## Clustering is everywhere
 
-{% include research-figure.liquid src="/assets/img/research/clustering-at-work.svg" alt="Six small illustrations: a phylogenetic tree with colored clades, cells grouped into cell types, a network split into communities, a nearest-neighbor search that visits only the clusters closest to a query, images labelled by their cluster for self-supervised learning, and documents organized into a tree of clusters and summaries." caption="Clustering at work. Top: on its own, clustering groups species into clades, cells into cell types, and the nodes of a network into communities. Bottom: inside machine-learning systems, a nearest-neighbor search only visits the clusters closest to the query (star), self-supervised learning uses cluster assignments as pseudo-labels, and retrieval systems for language models organize documents into a tree of clusters and summaries." %}
+{% include research-figure.liquid src="/assets/img/research/clustering-at-work.svg" alt="Six small illustrations: a phylogenetic tree with colored clades, cells grouped into cell types, a network split into communities, a nearest-neighbor search that visits only the clusters closest to a query, images labelled by their cluster for self-supervised learning, and documents organized into a tree of clusters and summaries." caption="Clustering at work: on its own (top) and inside machine learning systems (bottom)." %}
 
-Clustering is one of the most widely used tasks in machine learning and data analysis. On its own, it helps make sense of data, for example to
-
-- segment customers and markets,
-- organize documents, news, and search results by topic,
-- discover cell types in single-cell RNA-sequencing data, and group genes with similar expression profiles,
-- reconstruct phylogenies and taxonomies,
-- detect communities in social and biological networks,
-- segment images into regions.
-
-It is also a building block of many more elaborate machine learning systems:
-
-- **nearest-neighbor search** at scale, where inverted-file indexes cluster a database so that each query only visits a few clusters (Jégou et al., 2011; Johnson et al., 2019);
-- **vector quantization and model compression**, for example letting the weights of a neural network share a few cluster centroids (Han et al., 2016);
-- **self-supervised representation learning**, where cluster assignments serve as pseudo-labels for training (Caron et al., 2018, 2020);
-- **pseudo-labeling** in semi-supervised learning and domain adaptation;
-- **data curation**, for example removing near-duplicates from web-scale training sets (Abbas et al., 2023);
-- **retrieval-augmented generation**, where documents are organized into a tree of clusters and summaries (Sarthi et al., 2024);
-- **extreme multi-label classification**, where millions of labels are organized into a tree by clustering (Prabhu et al., 2018);
-- **active learning, anomaly detection, and speaker diarization**.
+Clustering is one of the most widely used tasks in machine learning and data analysis. On its own, it helps make sense of data, from grouping species into clades and cells into cell types to finding communities in networks. It is also a building block of larger machine learning systems: it speeds up nearest-neighbor search (Jégou et al., 2011; Johnson et al., 2019), provides pseudo-labels for self-supervised learning (Caron et al., 2018, 2020), and organizes documents for retrieval by language models (Sarthi et al., 2024).
 
 ## …but ill-posed
 
@@ -165,11 +147,8 @@ In a companion paper ([NeurIPS 2026](#dreveton2026hierarchical)), we study linka
 
 - J. Kleinberg. An impossibility theorem for clustering. _Advances in Neural Information Processing Systems 15_ (NIPS), 2002.
 - D. Kuroda, M. Dreveton, M. Grossglauser, and P. Thiran. [Hierarchical clustering can jointly satisfy richness, consistency, and scale invariance](https://arxiv.org/abs/2609.11173). arXiv:2609.11173, 2026.
-- A. Abbas, K. Tirumala, D. Simig, S. Ganguli, and A. S. Morcos. SemDeDup: Data-efficient learning at web-scale through semantic deduplication. arXiv, 2023.
 - M. Caron, P. Bojanowski, A. Joulin, and M. Douze. Deep clustering for unsupervised learning of visual features. _ECCV_, 2018.
 - M. Caron, I. Misra, J. Mairal, P. Goyal, P. Bojanowski, and A. Joulin. Unsupervised learning of visual features by contrasting cluster assignments. _NeurIPS_, 2020.
-- S. Han, H. Mao, and W. J. Dally. Deep compression: Compressing deep neural networks with pruning, trained quantization and Huffman coding. _ICLR_, 2016.
 - H. Jégou, M. Douze, and C. Schmid. Product quantization for nearest neighbor search. _IEEE Transactions on Pattern Analysis and Machine Intelligence_, 2011.
 - J. Johnson, M. Douze, and H. Jégou. Billion-scale similarity search with GPUs. _IEEE Transactions on Big Data_, 2019.
-- Y. Prabhu, A. Kag, S. Harsola, R. Agrawal, and M. Varma. Parabel: Partitioned label trees for extreme classification with application to dynamic search advertising. _The Web Conference (WWW)_, 2018.
 - P. Sarthi, S. Abdullah, A. Tuli, S. Khanna, A. Goldie, and C. D. Manning. RAPTOR: Recursive abstractive processing for tree-organized retrieval. _ICLR_, 2024.
