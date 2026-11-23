@@ -163,21 +163,22 @@ svg.append("</svg>")
 open(f"{OUT}/backbone.svg", "w").write("\n".join(svg) + "\n")
 print("ok")
 
-# ---------------------------------------------------------------- Figure 4
+# ---------------------------------------------------------------- Figure 5
 # The refinement order on the dissimilarity of Example 2 in the paper: each arrow points to a
-# finer method, which adds clusters. Global separation is refined by local separation, which is refined both by non-binary single linkage and by
-# Bryant-Berry stable clusters. The last two cannot be combined: {1,2,3,5} and {1,2,3,4} overlap.
+# finer method, which adds clusters. Global separation is refined both by non-binary single
+# linkage and by Bryant-Berry stable clusters. These two cannot be combined: {1,2,3,5} and
+# {1,2,3,4} overlap.
 D = [[0, 1, 2, 4, 3], [1, 0, 4, 5, 6], [2, 4, 0, 5, 6], [4, 5, 5, 0, 7], [3, 6, 6, 7, 0]]
-W, H = 720, 520
+W, H = 720, 380
 RED = "#b8433a"
 svg = head(W, H, "Admissible methods ordered by refinement",
-           "Left: a 5 by 5 dissimilarity matrix. Right: four hierarchies of the same five points, arranged from coarse (bottom) to fine (top). "
-           "Global separation finds {1,2}; local separation adds {1,2,3}; single linkage adds {1,2,3,5}; stable clusters add {1,2,3,4} instead. "
+           "Left: a 5 by 5 dissimilarity matrix. Right: three hierarchies of the same five points, arranged from coarse (bottom) to fine (top). "
+           "Global separation finds {1,2}; single linkage adds {1,2,3} and {1,2,3,5}; stable clusters add {1,2,3} and {1,2,3,4} instead. "
            "The two top hierarchies cannot be combined because {1,2,3,5} and {1,2,3,4} overlap without being nested.")
 CLUSTER_COL = {frozenset({1, 2}): TEAL, frozenset({1, 2, 3}): TEAL, frozenset({1, 2, 3, 5}): AMBER, frozenset({1, 2, 3, 4}): PURPLE}
 
 # (a) the dissimilarity matrix
-cell, mx, my = 26, 40, 200
+cell, mx, my = 26, 40, 140
 svg.append(text(mx + 65, my - 34, "(a) Dissimilarity d", 13, INK, "600", "middle"))
 for i in range(5):
     svg.append(text(mx - 10, my + i * cell + 17, str(i + 1), 11, MUTED, "600", "middle"))
@@ -187,7 +188,7 @@ for i in range(5):
         shade = 0.04 + 0.5 * (1 - v / 7) if i != j else 0
         svg.append(f'<rect x="{mx + j*cell}" y="{my + i*cell}" width="{cell}" height="{cell}" fill="{TEAL}" fill-opacity="{shade:.2f}" stroke="#ffffff" stroke-width="1.5"/>')
         svg.append(text(mx + j * cell + 13, my + i * cell + 17, str(v), 11, INK if i != j else MUTED, "400", "middle"))
-svg.append(f'<line x1="196" y1="24" x2="196" y2="500" stroke="{LINE}"/>')
+svg.append(f'<line x1="196" y1="24" x2="196" y2="360" stroke="{LINE}"/>')
 
 
 def hierarchy_tree(ox, oy, clusters, order, label):
@@ -242,14 +243,13 @@ svg.insert(4, f'<defs><marker id="arr4" viewBox="0 0 10 10" refX="8" refY="5" ma
 svg.append(text(458, 22, "(b) Hierarchies of d, from fine (top) to coarse (bottom)", 13, INK, "600", "middle"))
 svg += hierarchy_tree(232, 44, [{1, 2}, {1, 2, 3}, {1, 2, 3, 5}], [1, 2, 3, 5, 4], "Single linkage")
 svg += hierarchy_tree(486, 44, [{1, 2}, {1, 2, 3}, {1, 2, 3, 4}], [1, 2, 3, 4, 5], "Stable clusters")
-svg += hierarchy_tree(359, 214, [{1, 2}, {1, 2, 3}], [1, 2, 3, 4, 5], "Local separation")
-svg += hierarchy_tree(359, 370, [{1, 2}], [1, 2, 3, 4, 5], "Global separation")
-svg.append(arrow(459, 368, 459, 352))
-svg.append(arrow(420, 212, 360, 190))
-svg.append(arrow(498, 212, 558, 190))
-svg.append(text(468, 364, "adds {1,2,3}", 10, TEAL, "600", "start"))
-svg.append(text(386, 214, "adds {1,2,3,5}", 10, AMBER, "600", "end"))
-svg.append(text(532, 214, "adds {1,2,3,4}", 10, PURPLE, "600", "start"))
+svg += hierarchy_tree(359, 214, [{1, 2}], [1, 2, 3, 4, 5], "Global separation")
+svg.append(arrow(432, 214, 376, 190))
+svg.append(arrow(486, 214, 542, 190))
+svg.append(text(366, 212, "adds {1,2,3}", 10, TEAL, "600", "end"))
+svg.append(text(366, 225, "and {1,2,3,5}", 10, AMBER, "600", "end"))
+svg.append(text(552, 212, "adds {1,2,3}", 10, TEAL, "600", "start"))
+svg.append(text(552, 225, "and {1,2,3,4}", 10, PURPLE, "600", "start"))
 svg.append(f'<path d="M440 110H478" stroke="{RED}" stroke-width="1.6" stroke-dasharray="4 3"/>')
 svg.append(f'<path d="M453 104l12 12M465 104l-12 12" stroke="{RED}" stroke-width="2" stroke-linecap="round"/>')
 svg.append(text(459, 136, "cannot be", 10, RED, "600", "middle"))
