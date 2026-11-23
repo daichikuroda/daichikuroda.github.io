@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" font-family="Inter, Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
 <title id="t">Admissible methods ordered by refinement</title>
-<desc id="d">Left: a 5 by 5 dissimilarity matrix. Right: four hierarchies of the same five points, arranged from coarse (bottom) to fine (top). Global separation finds {1,2}; local separation adds {1,2,3}; single linkage adds {1,2,3,5}; weak local separation adds {1,2,3,4} instead. The two top hierarchies cannot be combined because {1,2,3,5} and {1,2,3,4} overlap without being nested.</desc>
+<desc id="d">Left: a 5 by 5 dissimilarity matrix. Right: four hierarchies of the same five points, arranged from coarse (bottom) to fine (top). Global separation finds {1,2}; local separation adds {1,2,3}; single linkage adds {1,2,3,5}; stable clusters add {1,2,3,4} instead. The two top hierarchies cannot be combined because {1,2,3,5} and {1,2,3,4} overlap without being nested.</desc>
 <rect width="720" height="520" rx="12" fill="#ffffff"/>
 <defs><marker id="arr4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6b757d"/></marker></defs>
 <text x="105.0" y="166.0" font-size="13" font-weight="600" fill="#1b2329" text-anchor="middle" >(a) Dissimilarity d</text>
@@ -46,8 +46,8 @@
 <text x="53.0" y="295.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="middle" >4</text>
 <rect x="66" y="278" width="26" height="26" fill="#0d6470" fill-opacity="0.18" stroke="#ffffff" stroke-width="1.5"/>
 <text x="79.0" y="295.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="middle" >5</text>
-<rect x="92" y="278" width="26" height="26" fill="#0d6470" fill-opacity="0.11" stroke="#ffffff" stroke-width="1.5"/>
-<text x="105.0" y="295.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="middle" >6</text>
+<rect x="92" y="278" width="26" height="26" fill="#0d6470" fill-opacity="0.18" stroke="#ffffff" stroke-width="1.5"/>
+<text x="105.0" y="295.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="middle" >5</text>
 <rect x="118" y="278" width="26" height="26" fill="#0d6470" fill-opacity="0.00" stroke="#ffffff" stroke-width="1.5"/>
 <text x="131.0" y="295.0" font-size="11" font-weight="400" fill="#6b757d" text-anchor="middle" >0</text>
 <rect x="144" y="278" width="26" height="26" fill="#0d6470" fill-opacity="0.04" stroke="#ffffff" stroke-width="1.5"/>
@@ -119,7 +119,7 @@
 <text x="586.0" y="66.5" font-size="10" font-weight="600" fill="#7b5ea7" text-anchor="end" >{1,2,3,4}</text>
 <text x="551.0" y="84.0" font-size="10" font-weight="600" fill="#0d6470" text-anchor="end" >{1,2,3}</text>
 <text x="521.0" y="101.5" font-size="10" font-weight="600" fill="#0d6470" text-anchor="end" >{1,2}</text>
-<text x="586.0" y="176.0" font-size="12" font-weight="600" fill="#1b2329" text-anchor="middle" >Weak local separation</text>
+<text x="586.0" y="176.0" font-size="12" font-weight="600" fill="#1b2329" text-anchor="middle" >Stable clusters</text>
 <path d="M379.0 270.7H419.0" stroke="#0d6470" stroke-width="2" stroke-linecap="round"/>
 <path d="M379.0 270.7V310.0" stroke="#0d6470" stroke-width="2" stroke-linecap="round"/>
 <path d="M419.0 270.7V310.0" stroke="#0d6470" stroke-width="2" stroke-linecap="round"/>

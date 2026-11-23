@@ -166,13 +166,13 @@ print("ok")
 # ---------------------------------------------------------------- Figure 4
 # The refinement order on the dissimilarity of Example 2 in the paper: each arrow points to a
 # finer method, which adds clusters. Global separation is refined by local separation, which is refined both by non-binary single linkage and by
-# weak local separation. The last two cannot be combined: {1,2,3,5} and {1,2,3,4} overlap.
-D = [[0, 1, 2, 4, 3], [1, 0, 4, 5, 6], [2, 4, 0, 5, 6], [4, 5, 6, 0, 7], [3, 6, 6, 7, 0]]
+# Bryant-Berry stable clusters. The last two cannot be combined: {1,2,3,5} and {1,2,3,4} overlap.
+D = [[0, 1, 2, 4, 3], [1, 0, 4, 5, 6], [2, 4, 0, 5, 6], [4, 5, 5, 0, 7], [3, 6, 6, 7, 0]]
 W, H = 720, 520
 RED = "#b8433a"
 svg = head(W, H, "Admissible methods ordered by refinement",
            "Left: a 5 by 5 dissimilarity matrix. Right: four hierarchies of the same five points, arranged from coarse (bottom) to fine (top). "
-           "Global separation finds {1,2}; local separation adds {1,2,3}; single linkage adds {1,2,3,5}; weak local separation adds {1,2,3,4} instead. "
+           "Global separation finds {1,2}; local separation adds {1,2,3}; single linkage adds {1,2,3,5}; stable clusters add {1,2,3,4} instead. "
            "The two top hierarchies cannot be combined because {1,2,3,5} and {1,2,3,4} overlap without being nested.")
 CLUSTER_COL = {frozenset({1, 2}): TEAL, frozenset({1, 2, 3}): TEAL, frozenset({1, 2, 3, 5}): AMBER, frozenset({1, 2, 3, 4}): PURPLE}
 
@@ -241,7 +241,7 @@ def arrow(x1, y1, x2, y2):
 svg.insert(4, f'<defs><marker id="arr4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="{MUTED}"/></marker></defs>')
 svg.append(text(458, 22, "(b) Hierarchies of d, from fine (top) to coarse (bottom)", 13, INK, "600", "middle"))
 svg += hierarchy_tree(232, 44, [{1, 2}, {1, 2, 3}, {1, 2, 3, 5}], [1, 2, 3, 5, 4], "Single linkage")
-svg += hierarchy_tree(486, 44, [{1, 2}, {1, 2, 3}, {1, 2, 3, 4}], [1, 2, 3, 4, 5], "Weak local separation")
+svg += hierarchy_tree(486, 44, [{1, 2}, {1, 2, 3}, {1, 2, 3, 4}], [1, 2, 3, 4, 5], "Stable clusters")
 svg += hierarchy_tree(359, 214, [{1, 2}, {1, 2, 3}], [1, 2, 3, 4, 5], "Local separation")
 svg += hierarchy_tree(359, 370, [{1, 2}], [1, 2, 3, 4, 5], "Global separation")
 svg.append(arrow(459, 368, 459, 352))

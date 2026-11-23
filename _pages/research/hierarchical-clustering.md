@@ -109,20 +109,20 @@ One more natural requirement simplifies the picture: when the data are already p
 > **Definition** (Exact on ultrametrics). A dissimilarity $$u$$ is an _ultrametric_ if $$u(x, z) \le \max\{u(x, y), u(y, z)\}$$ for all $$x, y, z \in X$$. Its balls $$B_u(x, r) = \{y \in X : u(x, y) \le r\}$$ form a hierarchy $$\Psi_u$$, and every hierarchy arises in this way. A hierarchical clustering method $$T$$ is _exact on ultrametrics_ if $$T(u) = \Psi_u$$ for every ultrametric $$u$$. We call $$T$$ _strongly admissible_ if it is admissible and exact on ultrametrics.
 {: .definition}
 
-Strongly admissible methods exist, and the rest of this page focuses on them. Similar results hold for all admissible methods, with small differences that we point out.
+There are also uncountably many strongly admissible methods, and the rest of this page focuses on them. Similar results hold for all admissible methods, with small differences that we point out.
 
 ### No single best method
 
 Methods can be compared: $$T_2$$ *refines* $$T_1$$, written $$T_1 \sqsubseteq T_2$$, if $$T_1(d) \subseteq T_2(d)$$ for every $$d$$, so that $$T_2$$ always finds at least the clusters of $$T_1$$, and possibly more. Figure 4 shows four strongly admissible methods ordered in this way.
 
-{% include research-figure.liquid src="/assets/img/research/refinement-order.svg" alt="A five-by-five dissimilarity matrix and four hierarchies of the same points, ordered from coarse to fine: global separation finds {1,2}; local separation adds {1,2,3}; single linkage adds {1,2,3,5}, while weak local separation adds {1,2,3,4} instead." caption="**Figure 4.** Four strongly admissible methods on the same data, an example from the paper. (a) A dissimilarity on five points. (b) Each arrow points to a finer method, which finds more clusters. At the bottom, global separation finds only {1, 2}; local separation adds {1, 2, 3}. Single linkage then adds {1, 2, 3, 5}, while weak local separation adds {1, 2, 3, 4} instead. These two clusters overlap without being nested, so no method can refine both." %}
+{% include research-figure.liquid src="/assets/img/research/refinement-order.svg" alt="A five-by-five dissimilarity matrix and four hierarchies of the same points, ordered from coarse to fine: global separation finds {1,2}; local separation adds {1,2,3}; single linkage adds {1,2,3,5}, while stable clusters add {1,2,3,4} instead." caption="**Figure 4.** Four strongly admissible methods on the same data, an example from the paper. (a) A dissimilarity on five points. (b) Each arrow points to a finer method, which finds more clusters. At the bottom, global separation finds only {1, 2}; local separation adds {1, 2, 3}. Single linkage then adds {1, 2, 3, 5}, while the stable clusters of Bryant and Berry (2001) add {1, 2, 3, 4} instead. These two clusters overlap without being nested, so no method can refine both." %}
 
 A greatest strongly admissible method, one that refines all the others, would be the natural "best" method. It does not exist. Call two methods *compatible* if, on every input, their outputs can be merged into a single hierarchy.
 
-> **Theorem** (Kuroda, Dreveton, Grossglauser & Thiran, 2026). Strongly admissible methods have no greatest element under refinement. Instead, there are infinitely many maximal strongly admissible methods, and they are mutually incompatible. Every strongly admissible method is refined by at least one of them.
+> **Theorem** (Kuroda, Dreveton, Grossglauser & Thiran, 2026). Strongly admissible methods have no greatest element under refinement. Instead, there are uncountably many maximal strongly admissible methods, and they are mutually incompatible. Every strongly admissible method is refined by at least one of them.
 {: .theorem}
 
-The top of Figure 4 shows why: single linkage and weak local separation find clusters that overlap without being nested, so no hierarchy, and hence no method, can contain both outputs. For admissible methods, the picture is even richer: there are uncountably long chains of ever finer admissible methods, and uncountably many admissible methods that pairwise cannot be combined. In particular, there are uncountably many maximal admissible methods, again mutually incompatible.
+The top of Figure 4 shows why: single linkage and stable clusters find clusters that overlap without being nested, so no hierarchy, and hence no method, can contain both outputs. In fact, strongly admissible methods form uncountably long chains of ever finer methods, and uncountably many of them pairwise cannot be combined. The same holds for admissible methods, which also have uncountably many maximal elements that are mutually incompatible.
 
 ### A common backbone
 
@@ -139,16 +139,17 @@ These are arguably the most conservative clusters: sets of objects that are more
 
 In other words, every strongly admissible method finds the clusters that are clearly there, and strongly admissible methods differ only in how much additional structure they reveal beyond this common backbone.
 
-A similar picture holds for admissible methods, with one difference: an admissible method need not find every well-separated set, only those that are well separated by a margin. More precisely, for every admissible method there are margins $$\eta_1 = 1$$ and $$0 < \eta_s \le 1$$ for $$s \ge 2$$, which depend on the method, such that it finds every set $$C$$ with
+A similar picture holds for admissible methods, with one difference: an admissible method need not find every well-separated set, only those that are well separated by a margin. More precisely, for every admissible method there are margins $$0 < \eta_s \le 1$$, one for each cluster size $$s$$, which depend on the method, such that it finds every set $$C$$ with
 
 $$
 \max_{x, y \in C} d(x, y) < \eta_{\lvert C \rvert} \cdot \min_{x \in C,\, z \notin C} d(x, z).
 $$
 
-So admissible methods also share a backbone of well-separated clusters, but how well separated a cluster must be depends on the method.
+Any finite collection of admissible methods therefore shares a common backbone, obtained with the smallest of their margins. Unlike strongly admissible methods, however, admissible methods have no coarsest member: no cluster other than the root and the single points is found by all of them.
 
 ## References
 
+- D. Bryant and V. Berry. A structured family of clustering and tree construction methods. _Advances in Applied Mathematics_, 27(4):705–732, 2001.
 - J. Kleinberg. An impossibility theorem for clustering. _Advances in Neural Information Processing Systems 15_ (NIPS), 2002.
 - D. Kuroda, M. Dreveton, M. Grossglauser, and P. Thiran. [Hierarchical clustering can jointly satisfy richness, consistency, and scale invariance](https://arxiv.org/abs/2609.11173). arXiv:2609.11173, 2026.
 - M. Caron, P. Bojanowski, A. Joulin, and M. Douze. Deep clustering for unsupervised learning of visual features. _ECCV_, 2018.
