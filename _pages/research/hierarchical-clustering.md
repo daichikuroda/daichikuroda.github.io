@@ -9,7 +9,6 @@ description: >-
   Daichi Kuroda's research on the foundations of hierarchical clustering: why clustering is ill-posed,
   Kleinberg's impossibility theorem, and how hierarchical clustering escapes it.
 topic: hierarchical-clustering # papers in _data/research.json with this topic are listed at the bottom
-icon: dendrogram
 math: true
 
 # Set to `false` to hide this page (and the "Research" menu link) from the live site.

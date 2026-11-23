@@ -6,6 +6,7 @@ description: News and updates from Daichi Kuroda.
 ---
 
 {%- include site-data.liquid -%}
+
 <header class="page-intro">
   <p class="eyebrow">Updates</p>
   <h1>News</h1>
