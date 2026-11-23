@@ -75,13 +75,16 @@
       <header class="site-header">
         <a class="monogram" href="{{ '/' | relative_url }}" aria-label="{{ profile.name }} — home">dk<span aria-hidden="true">.</span></a>
         <nav class="site-nav" aria-label="Main">
-          <a
-            href="{{ '/' | relative_url }}#research"
-            {% if page.url contains '/research/' %}
-              aria-current="page"
-            {% endif %}
-            >Research</a
-          >
+          {%- assign research_page = site.pages | where: 'layout', 'topic' | first -%}
+          {%- if research_page %}
+            <a
+              href="{{ research_page.url | relative_url }}"
+              {% if page.url contains '/research/' %}
+                aria-current="page"
+              {% endif %}
+              >Research</a
+            >
+          {%- endif %}
           <a
             href="{{ '/publications/' | relative_url }}"
             {% if page.url == '/publications/' %}
