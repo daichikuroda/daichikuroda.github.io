@@ -8,7 +8,7 @@ description: Publications and preprints by Daichi Kuroda on hierarchical cluster
 <header class="page-intro">
   <p class="eyebrow">Research output</p>
   <h1>Publications &amp; preprints</h1>
-  <p>Hierarchical clustering, community detection, and network science. Newest first.</p>
+  <p>Hierarchical clustering, community detection, network science, and epithelial morphogenesis. Newest first.</p>
 </header>
 <section class="paper-section" aria-label="Publications in reverse chronological order">
   {% include research-papers.liquid heading=2 %}
