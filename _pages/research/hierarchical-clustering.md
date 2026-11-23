@@ -120,7 +120,7 @@ Methods can be compared: $$T_2$$ *refines* $$T_1$$, written $$T_1 \sqsubseteq T_
 
 {% include research-figure.liquid src="/assets/img/research/refinement-order.svg" alt="A five-by-five dissimilarity matrix and three hierarchies of the same points, ordered from coarse to fine: global separation finds {1,2}; single linkage adds {1,2,3} and {1,2,3,5}, while stable clusters add {1,2,3} and {1,2,3,4} instead." caption="**Figure 7.** Three strongly admissible methods on the same data, an example from the paper. (a) A dissimilarity on five points. (b) Each arrow points to a finer method, which finds more clusters. At the bottom, global separation finds only {1, 2}. Single linkage adds {1, 2, 3} and {1, 2, 3, 5}, while the stable clusters of Bryant and Berry (2001) add {1, 2, 3} and {1, 2, 3, 4} instead. The clusters {1, 2, 3, 5} and {1, 2, 3, 4} overlap without being nested, so no method can refine both." %}
 
-A greatest strongly admissible method, one that refines all the others, would be the natural "best" method. It does not exist. Call two methods *compatible* if, on every input, their outputs can be merged into a single hierarchy.
+A greatest strongly admissible method, one that refines all the others, would be the natural "best" method. However, it does not exist. Call two methods *compatible* if, on every input, their outputs can be merged into a single hierarchy.
 
 > **Theorem** (Kuroda, Dreveton, Grossglauser & Thiran, 2026). Strongly admissible methods have no greatest element under refinement. Instead, there are uncountably many maximal strongly admissible methods, and they are mutually incompatible. Every strongly admissible method is refined by at least one of them.
 {: .theorem}
