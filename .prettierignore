@@ -12,3 +12,6 @@ _sass/tabler-icons/*.scss
 _scripts/*
 # Research pages: free-form writing with math and kramdown attributes ({: .definition})
 _pages/research/*.md
+# Unused al-folio template files that do not follow the formatter
+_layouts/bib.liquid
+assets/js/distillpub/transforms.v2.js
