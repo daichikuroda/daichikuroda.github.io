@@ -80,8 +80,6 @@ The key notion is a transformation that makes a given clustering more pronounced
 
 Any two of the three requirements can be satisfied together. Kleinberg shows this with single linkage, which repeatedly merges the two closest clusters: depending on when it stops, it keeps two of the requirements and breaks the third. As we will see, not stopping at all, and keeping the whole tree, breaks none.
 
-The proof also shows where the conflict lies. Scale invariance and consistency together force the possible outputs of $$f$$ to form an *antichain*: no possible output refines another one. In effect, such a method must commit to a single resolution. For example, it cannot return the two clusters of Figure 1(b) on some data and the five clusters of Figure 1(c) on other data, since the latter refine the former. Richness, however, asks for every partition, including partitions that refine one another.
-
 ## The hierarchical relaxation
 
 Consistency is the most debated of Kleinberg's axioms, and it is also where hierarchies help. A strengthening of a cluster $$C_1 \cup C_2$$ may shrink the distances inside $$C_1$$ and inside $$C_2$$ much more than between them, so that $$C_1$$ and $$C_2$$ become clusters of their own. A consistent flat method is forced to ignore them. A hierarchy can keep $$C_1 \cup C_2$$ and add $$C_1$$ and $$C_2$$ below it, because nested clusters are allowed. More generally, a hierarchy does not need to commit to a single resolution: in Figure 2, the two-cluster and the five-cluster answers of Figure 1 sit in the same tree.
