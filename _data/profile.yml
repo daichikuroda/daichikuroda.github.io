@@ -25,6 +25,9 @@ advisors:
 photo: /assets/img/portrait.jpg
 photo_alt: Portrait of Daichi Kuroda
 
+# Homepage sections. Set to true to show the Talks section (and its menu link) again.
+show_talks: false
+
 # Profile links, shown under your name in this order.
 links:
   - label: Email

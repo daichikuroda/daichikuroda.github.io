@@ -16,4 +16,5 @@
 {%- endif -%}
 {%- assign news_count = news_items | size -%}
 {%- assign talk_count = talk_items | size -%}
+{%- if site.data.profile.show_talks == false -%}{%- assign talk_count = 0 -%}{%- endif -%}
 {%- assign teaching_count = teaching_items | size -%}

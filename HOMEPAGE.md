@@ -25,6 +25,7 @@ The al-folio template files remain in the repository but are excluded from the b
   sections (and their menu links) appear on the live site as soon as they have at least one published entry.
 - **Writing prompts** are paragraphs followed by `{: .todo}`. They show as yellow boxes in previews and are hidden on
   the live site. Replace each with your text and delete the `{: .todo}` line.
+- **Talks**: hidden for now by `show_talks: false` in `_data/profile.yml`; set it to `true` to show the section.
 - **Portrait**: add a square image as `assets/img/portrait.jpg` (or change `photo:` in `_data/profile.yml`).
   Without the file, the live site shows a small dendrogram illustration in its place.
 - **Research page**: `_pages/research/hierarchical-clustering.md` has `published: false`, so it is not built on the
