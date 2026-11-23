@@ -11,9 +11,8 @@
 
 - date: 2026-12-01
   text: >-
-    *Hierarchical Linkage Clustering Beyond Binary Trees and Ultrametrics*, with Maximilien Dreveton,
-    Matthias Grossglauser and Patrick Thiran, was accepted at **NeurIPS 2026**.
-  draft: true # TODO: set the month you got the acceptance (or the conference month)
+    Poster at **NeurIPS 2026**: [*Hierarchical Linkage Clustering Beyond Binary Trees and Ultrametrics*](https://arxiv.org/abs/2511.18056),
+    with Maximilien Dreveton, Matthias Grossglauser and Patrick Thiran.
 
 - date: 2026-09-10
   text: >-
@@ -23,9 +22,3 @@
   text: >-
     [*When Does Bottom-Up Beat Top-Down in Hierarchical Community Detection?*](https://doi.org/10.1080/01621459.2025.2569711)
     appeared in the *Journal of the American Statistical Association*.
-  draft: true # TODO: confirm the month
-
-- date: 2026-01-01
-  text: >-
-    Gave a talk on … at … ([slides](/assets/files/slides.pdf)).
-  draft: true # Example placeholder — edit or delete

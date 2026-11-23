@@ -12,9 +12,8 @@ topic: hierarchical-clustering # papers in _data/research.json with this topic a
 icon: dendrogram
 math: true
 
-# This page is hidden from the live site until you change the line below to `published: true`.
-# Preview it locally with:  bundle exec jekyll serve --unpublished
-published: false
+# Set to `false` to hide this page (and the "Research" menu link) from the live site.
+published: true
 ---
 
 {% comment %}
