@@ -2,8 +2,8 @@
 
 Usage (from the repository root):  python3 _scripts/research_figures.py assets/img/research
 Writes clustering-at-work.svg (the opening figure), flat-clusterings.svg (Figure 1),
-backbone.svg (Figure 3), hierarchy.svg (Figure 4), axioms.svg (Figure 5), ultrametric.svg (Figure 6),
-refinement-order.svg (Figure 7) and well-separated.svg (Figure 8). Figure 1 uses the same
+backbone.svg (Figure 3), kleinberg-axioms.svg (Figure 4), hierarchy.svg (Figure 5), axioms.svg (Figure 6),
+ultrametric.svg (Figure 7), refinement-order.svg (Figure 8) and well-separated.svg (Figure 9). Figure 1 uses the same
 points as hierarchy-example.svg (Figure 2): same sub-cluster centers and random seed.
 """
 import itertools, math, random, sys
@@ -164,7 +164,7 @@ svg.append("</svg>")
 open(f"{OUT}/backbone.svg", "w").write("\n".join(svg) + "\n")
 print("ok")
 
-# ---------------------------------------------------------------- Figure 7
+# ---------------------------------------------------------------- Figure 8: the refinement order
 # The refinement order on the dissimilarity of Example 2 in the paper: each arrow points to a
 # finer method, which adds clusters. Global separation is refined both by non-binary single
 # linkage and by Bryant-Berry stable clusters. These two cannot be combined: {1,2,3,5} and
@@ -258,7 +258,7 @@ svg.append(text(459, 148, "combined", 10, RED, "600", "middle"))
 svg.append("</svg>")
 open(f"{OUT}/refinement-order.svg", "w").write("\n".join(svg) + "\n")
 
-# ---------------------------------------------------------------- Figure 6: ultrametric and its natural hierarchy
+# ---------------------------------------------------------------- Figure 7: ultrametric and its natural hierarchy
 # A 6-point ultrametric: {a,b} merge at 1, {c,d,e} at 2 (a three-way merge), {a,...,e} at 3, all at 4.
 # Each matrix entry equals the height at which the two points first meet in the tree.
 LAB = ["a", "b", "c", "d", "e", "f"]
@@ -319,7 +319,7 @@ svg.append(text(ab - 8, ybar(3) - 7, "{a, b, c, d, e}", 11, PURPLE, "600", "star
 svg.append("</svg>")
 open(f"{OUT}/ultrametric.svg", "w").write("\n".join(svg) + "\n")
 
-# ---------------------------------------------------------------- Figure 8: well-separated (globally separated) sets
+# ---------------------------------------------------------------- Figure 9: well-separated (globally separated) sets
 # (a) a set whose largest internal distance is smaller than its smallest distance to the rest;
 # (b) a set where this fails; (c) the well-separated sets of a small data set, which are nested.
 # Distances are Euclidean distances in the picture; every claim is checked below.
@@ -454,7 +454,142 @@ ARROW_DEF = (f'<defs><marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" mar
              f'orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="{MUTED}"/></marker></defs>')
 
 
-# ---------------------------------------------------------------- Figure 4: what a hierarchy is
+# ---------------------------------------------------------------- Figure 4: Kleinberg's axioms (flat clustering)
+# Same panel layout as the admissibility figure (Figure 6). The consistency panel uses the same data as the
+# partition-consistency panel there, so the two figures can be compared directly.
+W, H = 720, 470
+PW, PH = 348, 206
+svg = head(W, H, "Strengthening and Kleinberg's three axioms",
+           "Four panels, each showing data before and after a change. Strengthening: distances inside each cluster shrink and distances between clusters grow. "
+           "Scale invariance: enlarging all distances keeps the same clusters. "
+           "Richness: for any chosen grouping of the points, some data make this grouping the output. "
+           "Consistency: after pulling the points of each cluster together and pushing clusters apart, the output must stay exactly the same, "
+           "even though one cluster now looks like two groups.")
+svg.insert(4, ARROW_DEF)
+
+
+def kpanel(ix, iy, title):
+    ox, oy = 12 + ix * (PW + 12), 12 + iy * (PH + 28)
+    svg.append(f'<rect x="{ox}" y="{oy}" width="{PW}" height="{PH}" rx="12" fill="#f5f8f8"/>')
+    svg.append(text(ox + 14, oy + 22, title, 13, INK, "600"))
+    return ox, oy
+
+
+def seg2(a, b, col, dash=None, w=1.8):
+    da = f' stroke-dasharray="{dash}"' if dash else ""
+    return f'<path d="M{a[0]:.1f} {a[1]:.1f}L{b[0]:.1f} {b[1]:.1f}" stroke="{col}" stroke-width="{w}"{da} stroke-linecap="round"/>'
+
+
+# 1. strengthening of the partition {A, B}: one distance inside A (solid) shrinks, one distance
+#    between A and B (dashed) grows; every pairwise distance is checked below.
+ox, oy = kpanel(0, 0, "Strengthening")
+shapeA = [(-20, -12), (6, -20), (18, 8), (-8, 18)]
+shapeB = [(0, -12), (11, 7), (-11, 7)]
+def place2(c, shape, s):
+    return [(c[0] + s * x, c[1] + s * y) for x, y in shape]
+A0, B0 = place2((ox + 46, oy + 94), shapeA, 1.0), place2((ox + 110, oy + 94), shapeB, 1.0)
+A1, B1 = place2((ox + 216, oy + 94), shapeA, 0.55), place2((ox + 310, oy + 94), shapeB, 0.7)
+for i in range(len(shapeA)):
+    for j in range(len(shapeA)):
+        assert math.dist(A1[i], A1[j]) <= math.dist(A0[i], A0[j]) + 1e-9
+    for k in range(len(shapeB)):
+        assert math.dist(A1[i], B1[k]) >= math.dist(A0[i], B0[k]) - 1e-9
+for i in range(len(shapeB)):
+    for j in range(len(shapeB)):
+        assert math.dist(B1[i], B1[j]) <= math.dist(B0[i], B0[j]) + 1e-9
+for (A_, B_, pad, lab_dy) in [(A0, B0, 11, 0), (A1, B1, 9, 0)]:
+    svg.append(outline(A_, TEAL, pad=pad))
+    svg.append(outline(B_, AMBER, pad=pad))
+    svg.append(seg2(A_[0], A_[2], TEAL))          # x - y, inside A
+    svg.append(seg2(A_[2], B_[2], MUTED, "3 3"))   # y - z, between A and B
+    for q in A_:
+        svg += pt(*q, TEAL, r=3.8)
+    for q in B_:
+        svg += pt(*q, AMBER, r=3.8)
+    for q, lab, dx, dy in [(A_[0], "x", -9, -4), (A_[2], "y", 4, 15), (B_[2], "z", -4, 15)]:
+        svg.append(text(q[0] + dx, q[1] + dy, lab, 10, INK, "600", "middle", 'font-style="italic"'))
+svg.append(text(ox + 46, oy + 140, "A", 11, TEAL, "600", "middle"))
+svg.append(text(ox + 110, oy + 140, "B", 11, AMBER, "600", "middle"))
+svg.append(text(ox + 216, oy + 140, "A", 11, TEAL, "600", "middle"))
+svg.append(text(ox + 310, oy + 140, "B", 11, AMBER, "600", "middle"))
+svg += big_arrow(ox + 146, ox + 186, oy + 98, "strengthen")
+svg.append(seg2((ox + 62, oy + PH - 34), (ox + 84, oy + PH - 34), TEAL))
+svg.append(text(ox + 90, oy + PH - 30, "same cluster: distances shrink", 11, INK))
+svg.append(seg2((ox + 62, oy + PH - 16), (ox + 84, oy + PH - 16), MUTED, "3 3"))
+svg.append(text(ox + 90, oy + PH - 12, "different clusters: distances grow", 11, INK))
+
+# 2. scale invariance: as in the admissibility figure, but the output is just the partition
+ox, oy = kpanel(1, 0, "Scale invariance")
+for (cx, cy, k) in [(ox + 40, oy + 96, 0.8), (ox + 222, oy + 84, 1.6)]:
+    q = place2((cx, cy), [(0, 0), (12, 8), (-6, 14), (44, 4), (52, 16)], k)
+    svg.append(outline(q[:3], TEAL, pad=7 * k))
+    svg.append(outline(q[3:], AMBER, pad=7 * k))
+    for (x, y) in q:
+        svg += pt(x, y, TEAL if (x, y) in q[:3] else AMBER)
+svg += big_arrow(ox + 104, ox + 186, oy + 104, "all distances × 2")
+svg.append(text(ox + PW / 2, oy + PH - 16, "Same clusters at any scale.", 11, INK, "400", "middle"))
+
+# 3. richness
+ox, oy = kpanel(0, 1, "Richness")
+cols = {1: TEAL, 2: AMBER, 3: AMBER, 4: TEAL, 5: AMBER, 6: PURPLE}
+ring = {i: (ox + 70 + 38 * math.cos(2 * math.pi * (i - 1) / 6 - math.pi / 2), oy + 104 + 38 * math.sin(2 * math.pi * (i - 1) / 6 - math.pi / 2)) for i in range(1, 7)}
+for i, (x, y) in ring.items():
+    svg += pt(x, y, cols[i], str(i), dy=-9)
+svg.append(text(ox + 70, oy + 172, "any grouping", 10, MUTED, "400", "middle"))
+svg += big_arrow(ox + 128, ox + 186, oy + 104, "some data")
+pos = {1: (220, 76), 4: (236, 90), 2: (290, 70), 3: (306, 84), 5: (292, 98), 6: (252, 150)}
+pp = {i: (ox + x, oy + y) for i, (x, y) in pos.items()}
+svg.append(outline([pp[1], pp[4]], TEAL, pad=10))
+svg.append(outline([pp[2], pp[3], pp[5]], AMBER, pad=10))
+svg.append(outline([pp[6]], PURPLE, pad=9))
+for i, (x, y) in pp.items():
+    svg += pt(x, y, cols[i], str(i), dy=-9)
+svg.append(text(ox + PW / 2, oy + PH - 16, "Every grouping is the output for some data.", 11, INK, "400", "middle"))
+
+# 4. consistency: the same before/after data as the partition-consistency panel of the
+#    admissibility figure; a flat method must return exactly {A, B} again.
+ox, oy = kpanel(1, 1, "Consistency")
+ringA = [(ox + 56 + 30 * math.cos(2 * math.pi * k / 6), oy + 100 + 30 * math.sin(2 * math.pi * k / 6)) for k in range(6)]
+A1_before, A2_before = ringA[0::2], ringA[1::2]
+B_before = [(ox + 120, oy + 92), (ox + 128, oy + 110), (ox + 112, oy + 112)]
+A1_after = [(ox + 206 + dx, oy + 100 + dy) for dx, dy in [(0, -5), (-4.5, 3), (4.5, 3)]]
+A2_after = [(ox + 228 + dx, oy + 100 + dy) for dx, dy in [(0, 5), (-4.5, -3), (4.5, -3)]]
+B_after = [(x + 206, y) for (x, y) in B_before]
+before_A, after_A = A1_before + A2_before, A1_after + A2_after
+for i in range(6):
+    for j in range(6):
+        assert math.dist(after_A[i], after_A[j]) <= math.dist(before_A[i], before_A[j]) + 1e-9
+    for k in range(3):
+        assert math.dist(after_A[i], B_after[k]) >= math.dist(before_A[i], B_before[k]) - 1e-9
+svg.append(outline(before_A, TEAL, pad=10))
+svg.append(outline(B_before, AMBER, pad=9))
+for q in A1_before:
+    svg += pt(*q, TEAL)
+for q in A2_before:
+    svg += pt(*q, TEAL, hollow=True)
+for q in B_before:
+    svg += pt(*q, AMBER)
+svg += big_arrow(ox + 144, ox + 184, oy + 104, "strengthen")
+svg.append(outline(after_A, TEAL, pad=10))
+svg.append(outline(B_after, AMBER, pad=9))
+for q in A1_after:
+    svg += pt(*q, TEAL, r=3.4)
+for q in A2_after:
+    svg += pt(*q, TEAL, hollow=True, r=3.4)
+for q in B_after:
+    svg += pt(*q, AMBER)
+svg.append(text(ox + 56, oy + 152, "A", 11, TEAL, "600", "middle"))
+svg.append(text(ox + 120, oy + 136, "B", 11, AMBER, "600", "middle"))
+svg.append(text(ox + 217, oy + 136, "A", 11, TEAL, "600", "middle"))
+svg.append(text(ox + 326, oy + 136, "B", 11, AMBER, "600", "middle"))
+svg.append(text(ox + 217, oy + 76, "now two groups", 10, MUTED, "400", "middle"))
+svg.append(text(ox + PW / 2, oy + PH - 30, "The output must stay exactly A and B,", 11, INK, "400", "middle"))
+svg.append(text(ox + PW / 2, oy + PH - 16, "even though A now looks like two groups.", 11, INK, "400", "middle"))
+svg.append("</svg>")
+open(f"{OUT}/kleinberg-axioms.svg", "w").write("\n".join(svg) + "\n")
+
+
+# ---------------------------------------------------------------- Figure 5: what a hierarchy is
 W, H = 720, 290
 svg = head(W, H, "A hierarchy as nested clusters and as a tree",
            "Three panels. (a) Seven points a to g with nested clusters: {a,b} inside {a,b,c}, {f,g} inside {d,e,f,g}, all inside the whole set. "
@@ -515,7 +650,7 @@ svg.append("</svg>")
 open(f"{OUT}/hierarchy.svg", "w").write("\n".join(svg) + "\n")
 
 
-# ---------------------------------------------------------------- Figure 5: the four axioms
+# ---------------------------------------------------------------- Figure 6: the four axioms
 W, H = 720, 470
 PW, PH = 348, 206
 svg = head(W, H, "The four axioms of admissibility",
