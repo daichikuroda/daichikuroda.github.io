@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" font-family="Inter, Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
 <title id="t">Strengthening and Kleinberg's three axioms</title>
-<desc id="d">Four panels, each showing data before and after a change. Strengthening: distances inside each cluster shrink and distances between clusters grow. Scale invariance: enlarging all distances keeps the same clusters. Richness: for any chosen grouping of the points, some data make this grouping the output. Consistency: after pulling the points of each cluster together and pushing clusters apart, the output must stay exactly the same, even though one cluster now looks like two groups.</desc>
+<desc id="d">Four panels, each showing data before and after a change. Strengthening: distances inside each cluster shrink and distances between clusters grow. Scale invariance: enlarging all distances keeps the same clusters. Richness: for any chosen grouping of the points, some data make this grouping the output. Consistency: after pulling the points of each cluster together and pushing clusters apart, the output stays the same.</desc>
 <rect width="720" height="470" rx="12" fill="#ffffff"/>
 <defs><marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6b757d"/></marker></defs>
 <rect x="12" y="12" width="348" height="206" rx="12" fill="#f5f8f8"/>
@@ -100,32 +100,31 @@
 <ellipse cx="428.0" cy="346.0" rx="40.0" ry="36.0" fill="#0d6470" fill-opacity="0.08" stroke="#0d6470" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
 <ellipse cx="492.0" cy="348.0" rx="17.0" ry="19.0" fill="#b26b12" fill-opacity="0.08" stroke="#b26b12" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
 <circle cx="458.0" cy="346.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="443.0" cy="372.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
 <circle cx="413.0" cy="372.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="398.0" cy="346.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
 <circle cx="413.0" cy="320.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
-<circle cx="443.0" cy="372.0" r="4.2" fill="#ffffff" stroke="#0d6470" stroke-width="1.6"/>
-<circle cx="398.0" cy="346.0" r="4.2" fill="#ffffff" stroke="#0d6470" stroke-width="1.6"/>
-<circle cx="443.0" cy="320.0" r="4.2" fill="#ffffff" stroke="#0d6470" stroke-width="1.6"/>
+<circle cx="443.0" cy="320.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
 <circle cx="492.0" cy="338.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
 <circle cx="500.0" cy="356.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
 <circle cx="484.0" cy="358.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
 <path d="M516 350H556" stroke="#6b757d" stroke-width="1.6" marker-end="url(#arrA)"/>
 <text x="536.0" y="342.0" font-size="10" font-weight="400" fill="#6b757d" text-anchor="middle" >strengthen</text>
-<ellipse cx="589.0" cy="346.0" rx="25.5" ry="15.0" fill="#0d6470" fill-opacity="0.08" stroke="#0d6470" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
-<ellipse cx="698.0" cy="348.0" rx="17.0" ry="19.0" fill="#b26b12" fill-opacity="0.08" stroke="#b26b12" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
-<circle cx="578.0" cy="341.0" r="3.4" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
-<circle cx="573.5" cy="349.0" r="3.4" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
-<circle cx="582.5" cy="349.0" r="3.4" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
-<circle cx="600.0" cy="351.0" r="3.4" fill="#ffffff" stroke="#0d6470" stroke-width="1.6"/>
-<circle cx="595.5" cy="343.0" r="3.4" fill="#ffffff" stroke="#0d6470" stroke-width="1.6"/>
-<circle cx="604.5" cy="343.0" r="3.4" fill="#ffffff" stroke="#0d6470" stroke-width="1.6"/>
-<circle cx="698.0" cy="338.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
-<circle cx="706.0" cy="356.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
-<circle cx="690.0" cy="358.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<ellipse cx="589.0" cy="346.0" rx="20.0" ry="18.4" fill="#0d6470" fill-opacity="0.08" stroke="#0d6470" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<ellipse cx="688.0" cy="344.1" rx="13.6" ry="15.0" fill="#b26b12" fill-opacity="0.08" stroke="#b26b12" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<circle cx="601.0" cy="346.0" r="3.6" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="595.0" cy="356.4" r="3.6" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="583.0" cy="356.4" r="3.6" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="577.0" cy="346.0" r="3.6" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="583.0" cy="335.6" r="3.6" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="595.0" cy="335.6" r="3.6" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="688.0" cy="337.1" r="3.6" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<circle cx="693.6" cy="349.7" r="3.6" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<circle cx="682.4" cy="351.1" r="3.6" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
 <text x="428.0" y="398.0" font-size="11" font-weight="600" fill="#0d6470" text-anchor="middle" >A</text>
 <text x="492.0" y="382.0" font-size="11" font-weight="600" fill="#b26b12" text-anchor="middle" >B</text>
 <text x="589.0" y="382.0" font-size="11" font-weight="600" fill="#0d6470" text-anchor="middle" >A</text>
-<text x="698.0" y="382.0" font-size="11" font-weight="600" fill="#b26b12" text-anchor="middle" >B</text>
-<text x="589.0" y="322.0" font-size="10" font-weight="400" fill="#6b757d" text-anchor="middle" >now two groups</text>
-<text x="546.0" y="422.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="middle" >The output must stay exactly A and B,</text>
-<text x="546.0" y="436.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="middle" >even though A now looks like two groups.</text>
+<text x="688.0" y="382.0" font-size="11" font-weight="600" fill="#b26b12" text-anchor="middle" >B</text>
+<text x="546.0" y="422.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="middle" >Clusters made tighter and further apart</text>
+<text x="546.0" y="436.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="middle" >are found again: the output stays A and B.</text>
 </svg>

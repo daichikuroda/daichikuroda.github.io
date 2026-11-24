@@ -455,16 +455,14 @@ ARROW_DEF = (f'<defs><marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" mar
 
 
 # ---------------------------------------------------------------- Figure 4: Kleinberg's axioms (flat clustering)
-# Same panel layout as the admissibility figure (Figure 6). The consistency panel uses the same data as the
-# partition-consistency panel there, so the two figures can be compared directly.
+# Same panel layout as the admissibility figure (Figure 6).
 W, H = 720, 470
 PW, PH = 348, 206
 svg = head(W, H, "Strengthening and Kleinberg's three axioms",
            "Four panels, each showing data before and after a change. Strengthening: distances inside each cluster shrink and distances between clusters grow. "
            "Scale invariance: enlarging all distances keeps the same clusters. "
            "Richness: for any chosen grouping of the points, some data make this grouping the output. "
-           "Consistency: after pulling the points of each cluster together and pushing clusters apart, the output must stay exactly the same, "
-           "even though one cluster now looks like two groups.")
+           "Consistency: after pulling the points of each cluster together and pushing clusters apart, the output stays the same.")
 svg.insert(4, ARROW_DEF)
 
 
@@ -546,45 +544,41 @@ for i, (x, y) in pp.items():
     svg += pt(x, y, cols[i], str(i), dy=-9)
 svg.append(text(ox + PW / 2, oy + PH - 16, "Every grouping is the output for some data.", 11, INK, "400", "middle"))
 
-# 4. consistency: the same before/after data as the partition-consistency panel of the
-#    admissibility figure; a flat method must return exactly {A, B} again.
+# 4. consistency: both clusters are made tighter and pushed apart (a strengthening of the output);
+#    the output must be the same partition {A, B}.
 ox, oy = kpanel(1, 1, "Consistency")
 ringA = [(ox + 56 + 30 * math.cos(2 * math.pi * k / 6), oy + 100 + 30 * math.sin(2 * math.pi * k / 6)) for k in range(6)]
-A1_before, A2_before = ringA[0::2], ringA[1::2]
 B_before = [(ox + 120, oy + 92), (ox + 128, oy + 110), (ox + 112, oy + 112)]
-A1_after = [(ox + 206 + dx, oy + 100 + dy) for dx, dy in [(0, -5), (-4.5, 3), (4.5, 3)]]
-A2_after = [(ox + 228 + dx, oy + 100 + dy) for dx, dy in [(0, 5), (-4.5, -3), (4.5, -3)]]
-B_after = [(x + 206, y) for (x, y) in B_before]
-before_A, after_A = A1_before + A2_before, A1_after + A2_after
+A_after = [(ox + 217 + 0.4 * (x - ox - 56), oy + 100 + 0.4 * (y - oy - 100)) for (x, y) in ringA]
+cB = (ox + 120, oy + 104.67)
+B_after = [(ox + 316 + 0.7 * (x - cB[0]), oy + 100 + 0.7 * (y - cB[1])) for (x, y) in B_before]
 for i in range(6):
     for j in range(6):
-        assert math.dist(after_A[i], after_A[j]) <= math.dist(before_A[i], before_A[j]) + 1e-9
+        assert math.dist(A_after[i], A_after[j]) <= math.dist(ringA[i], ringA[j]) + 1e-9
     for k in range(3):
-        assert math.dist(after_A[i], B_after[k]) >= math.dist(before_A[i], B_before[k]) - 1e-9
-svg.append(outline(before_A, TEAL, pad=10))
+        assert math.dist(A_after[i], B_after[k]) >= math.dist(ringA[i], B_before[k]) - 1e-9
+for i in range(3):
+    for j in range(3):
+        assert math.dist(B_after[i], B_after[j]) <= math.dist(B_before[i], B_before[j]) + 1e-9
+svg.append(outline(ringA, TEAL, pad=10))
 svg.append(outline(B_before, AMBER, pad=9))
-for q in A1_before:
+for q in ringA:
     svg += pt(*q, TEAL)
-for q in A2_before:
-    svg += pt(*q, TEAL, hollow=True)
 for q in B_before:
     svg += pt(*q, AMBER)
 svg += big_arrow(ox + 144, ox + 184, oy + 104, "strengthen")
-svg.append(outline(after_A, TEAL, pad=10))
-svg.append(outline(B_after, AMBER, pad=9))
-for q in A1_after:
-    svg += pt(*q, TEAL, r=3.4)
-for q in A2_after:
-    svg += pt(*q, TEAL, hollow=True, r=3.4)
+svg.append(outline(A_after, TEAL, pad=8))
+svg.append(outline(B_after, AMBER, pad=8))
+for q in A_after:
+    svg += pt(*q, TEAL, r=3.6)
 for q in B_after:
-    svg += pt(*q, AMBER)
+    svg += pt(*q, AMBER, r=3.6)
 svg.append(text(ox + 56, oy + 152, "A", 11, TEAL, "600", "middle"))
 svg.append(text(ox + 120, oy + 136, "B", 11, AMBER, "600", "middle"))
 svg.append(text(ox + 217, oy + 136, "A", 11, TEAL, "600", "middle"))
-svg.append(text(ox + 326, oy + 136, "B", 11, AMBER, "600", "middle"))
-svg.append(text(ox + 217, oy + 76, "now two groups", 10, MUTED, "400", "middle"))
-svg.append(text(ox + PW / 2, oy + PH - 30, "The output must stay exactly A and B,", 11, INK, "400", "middle"))
-svg.append(text(ox + PW / 2, oy + PH - 16, "even though A now looks like two groups.", 11, INK, "400", "middle"))
+svg.append(text(ox + 316, oy + 136, "B", 11, AMBER, "600", "middle"))
+svg.append(text(ox + PW / 2, oy + PH - 30, "Clusters made tighter and further apart", 11, INK, "400", "middle"))
+svg.append(text(ox + PW / 2, oy + PH - 16, "are found again: the output stays A and B.", 11, INK, "400", "middle"))
 svg.append("</svg>")
 open(f"{OUT}/kleinberg-axioms.svg", "w").write("\n".join(svg) + "\n")
 
