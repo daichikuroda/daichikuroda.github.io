@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" font-family="Inter, Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+<title id="t">Strengthening and Kleinberg's three axioms</title>
+<desc id="d">Four panels, each showing data before and after a change. Strengthening: distances inside each cluster shrink and distances between clusters grow. Scale invariance: enlarging all distances keeps the same clusters. Richness: for any chosen grouping of the points, some data make this grouping the output. Consistency: after pulling the points of each cluster together and pushing clusters apart, the output stays the same.</desc>
+<rect width="720" height="470" rx="12" fill="#ffffff"/>
+<defs><marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6b757d"/></marker></defs>
+<rect x="12" y="12" width="348" height="206" rx="12" fill="#f5f8f8"/>
+<text x="26.0" y="34.0" font-size="13" font-weight="600" fill="#1b2329" text-anchor="start" >Strengthening</text>
+<ellipse cx="57.0" cy="105.0" rx="30.0" ry="30.0" fill="#0d6470" fill-opacity="0.08" stroke="#0d6470" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<ellipse cx="122.0" cy="103.5" rx="22.0" ry="20.5" fill="#b26b12" fill-opacity="0.08" stroke="#b26b12" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<path d="M38.0 94.0L76.0 114.0" stroke="#0d6470" stroke-width="1.8" stroke-linecap="round"/>
+<path d="M76.0 114.0L111.0 113.0" stroke="#6b757d" stroke-width="1.8" stroke-dasharray="3 3" stroke-linecap="round"/>
+<circle cx="38.0" cy="94.0" r="3.8" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="64.0" cy="86.0" r="3.8" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="76.0" cy="114.0" r="3.8" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="50.0" cy="124.0" r="3.8" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="122.0" cy="94.0" r="3.8" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<circle cx="133.0" cy="113.0" r="3.8" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<circle cx="111.0" cy="113.0" r="3.8" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<text x="29.0" y="90.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" font-style="italic">x</text>
+<text x="80.0" y="129.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" font-style="italic">y</text>
+<text x="107.0" y="128.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" font-style="italic">z</text>
+<ellipse cx="227.4" cy="105.5" rx="19.5" ry="19.5" fill="#0d6470" fill-opacity="0.08" stroke="#0d6470" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<ellipse cx="322.0" cy="104.2" rx="16.7" ry="15.7" fill="#b26b12" fill-opacity="0.08" stroke="#b26b12" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<path d="M217.0 99.4L237.9 110.4" stroke="#0d6470" stroke-width="1.8" stroke-linecap="round"/>
+<path d="M237.9 110.4L314.3 110.9" stroke="#6b757d" stroke-width="1.8" stroke-dasharray="3 3" stroke-linecap="round"/>
+<circle cx="217.0" cy="99.4" r="3.8" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="231.3" cy="95.0" r="3.8" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="237.9" cy="110.4" r="3.8" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="223.6" cy="115.9" r="3.8" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="322.0" cy="97.6" r="3.8" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<circle cx="329.7" cy="110.9" r="3.8" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<circle cx="314.3" cy="110.9" r="3.8" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<text x="208.0" y="95.4" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" font-style="italic">x</text>
+<text x="241.9" y="125.4" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" font-style="italic">y</text>
+<text x="310.3" y="125.9" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" font-style="italic">z</text>
+<text x="58.0" y="152.0" font-size="11" font-weight="600" fill="#0d6470" text-anchor="middle" >A</text>
+<text x="122.0" y="152.0" font-size="11" font-weight="600" fill="#b26b12" text-anchor="middle" >B</text>
+<text x="228.0" y="152.0" font-size="11" font-weight="600" fill="#0d6470" text-anchor="middle" >A</text>
+<text x="322.0" y="152.0" font-size="11" font-weight="600" fill="#b26b12" text-anchor="middle" >B</text>
+<path d="M158 110H198" stroke="#6b757d" stroke-width="1.6" marker-end="url(#arrA)"/>
+<text x="178.0" y="102.0" font-size="10" font-weight="400" fill="#6b757d" text-anchor="middle" >strengthen</text>
+<path d="M74.0 184.0L96.0 184.0" stroke="#0d6470" stroke-width="1.8" stroke-linecap="round"/>
+<text x="102.0" y="188.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="start" >same cluster: distances shrink</text>
+<path d="M74.0 202.0L96.0 202.0" stroke="#6b757d" stroke-width="1.8" stroke-dasharray="3 3" stroke-linecap="round"/>
+<text x="102.0" y="206.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="start" >different clusters: distances grow</text>
+<rect x="372" y="12" width="348" height="206" rx="12" fill="#f5f8f8"/>
+<text x="386.0" y="34.0" font-size="13" font-weight="600" fill="#1b2329" text-anchor="start" >Scale invariance</text>
+<ellipse cx="414.4" cy="113.6" rx="12.8" ry="11.2" fill="#0d6470" fill-opacity="0.08" stroke="#0d6470" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<ellipse cx="450.4" cy="116.0" rx="8.8" ry="10.4" fill="#b26b12" fill-opacity="0.08" stroke="#b26b12" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<circle cx="412.0" cy="108.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="421.6" cy="114.4" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="407.2" cy="119.2" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="447.2" cy="111.2" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<circle cx="453.6" cy="120.8" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<ellipse cx="598.8" cy="107.2" rx="25.6" ry="22.4" fill="#0d6470" fill-opacity="0.08" stroke="#0d6470" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<ellipse cx="670.8" cy="112.0" rx="17.6" ry="20.8" fill="#b26b12" fill-opacity="0.08" stroke="#b26b12" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<circle cx="594.0" cy="96.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="613.2" cy="108.8" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="584.4" cy="118.4" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="664.4" cy="102.4" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<circle cx="677.2" cy="121.6" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<path d="M476 116H558" stroke="#6b757d" stroke-width="1.6" marker-end="url(#arrA)"/>
+<text x="517.0" y="108.0" font-size="10" font-weight="400" fill="#6b757d" text-anchor="middle" >all distances × 2</text>
+<text x="546.0" y="202.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="middle" >Same clusters at any scale.</text>
+<rect x="12" y="246" width="348" height="206" rx="12" fill="#f5f8f8"/>
+<text x="26.0" y="268.0" font-size="13" font-weight="600" fill="#1b2329" text-anchor="start" >Richness</text>
+<circle cx="82.0" cy="312.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<text x="82.0" y="303.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" >1</text>
+<circle cx="114.9" cy="331.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<text x="114.9" y="322.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" >2</text>
+<circle cx="114.9" cy="369.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<text x="114.9" y="360.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" >3</text>
+<circle cx="82.0" cy="388.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<text x="82.0" y="379.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" >4</text>
+<circle cx="49.1" cy="369.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<text x="49.1" y="360.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" >5</text>
+<circle cx="49.1" cy="331.0" r="4.2" fill="#7b5ea7" stroke="#7b5ea7" stroke-width="0"/>
+<text x="49.1" y="322.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" >6</text>
+<text x="82.0" y="418.0" font-size="10" font-weight="400" fill="#6b757d" text-anchor="middle" >any grouping</text>
+<path d="M140 350H198" stroke="#6b757d" stroke-width="1.6" marker-end="url(#arrA)"/>
+<text x="169.0" y="342.0" font-size="10" font-weight="400" fill="#6b757d" text-anchor="middle" >some data</text>
+<ellipse cx="240.0" cy="329.0" rx="18.0" ry="17.0" fill="#0d6470" fill-opacity="0.08" stroke="#0d6470" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<ellipse cx="310.0" cy="330.0" rx="18.0" ry="24.0" fill="#b26b12" fill-opacity="0.08" stroke="#b26b12" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<ellipse cx="264.0" cy="396.0" rx="9.0" ry="9.0" fill="#7b5ea7" fill-opacity="0.08" stroke="#7b5ea7" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<circle cx="232.0" cy="322.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<text x="232.0" y="313.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" >1</text>
+<circle cx="248.0" cy="336.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<text x="248.0" y="327.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" >4</text>
+<circle cx="302.0" cy="316.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<text x="302.0" y="307.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" >2</text>
+<circle cx="318.0" cy="330.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<text x="318.0" y="321.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" >3</text>
+<circle cx="304.0" cy="344.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<text x="304.0" y="335.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" >5</text>
+<circle cx="264.0" cy="396.0" r="4.2" fill="#7b5ea7" stroke="#7b5ea7" stroke-width="0"/>
+<text x="264.0" y="387.0" font-size="10" font-weight="600" fill="#1b2329" text-anchor="middle" >6</text>
+<text x="186.0" y="436.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="middle" >Every grouping is the output for some data.</text>
+<rect x="372" y="246" width="348" height="206" rx="12" fill="#f5f8f8"/>
+<text x="386.0" y="268.0" font-size="13" font-weight="600" fill="#1b2329" text-anchor="start" >Consistency</text>
+<ellipse cx="428.0" cy="346.0" rx="40.0" ry="36.0" fill="#0d6470" fill-opacity="0.08" stroke="#0d6470" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<ellipse cx="492.0" cy="348.0" rx="17.0" ry="19.0" fill="#b26b12" fill-opacity="0.08" stroke="#b26b12" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<circle cx="458.0" cy="346.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="443.0" cy="372.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="413.0" cy="372.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="398.0" cy="346.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="413.0" cy="320.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="443.0" cy="320.0" r="4.2" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="492.0" cy="338.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<circle cx="500.0" cy="356.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<circle cx="484.0" cy="358.0" r="4.2" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<path d="M516 350H556" stroke="#6b757d" stroke-width="1.6" marker-end="url(#arrA)"/>
+<text x="536.0" y="342.0" font-size="10" font-weight="400" fill="#6b757d" text-anchor="middle" >strengthen</text>
+<ellipse cx="589.0" cy="346.0" rx="20.0" ry="18.4" fill="#0d6470" fill-opacity="0.08" stroke="#0d6470" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<ellipse cx="688.0" cy="344.1" rx="13.6" ry="15.0" fill="#b26b12" fill-opacity="0.08" stroke="#b26b12" stroke-opacity=".75" stroke-width="1.3" stroke-dasharray="4 4"/>
+<circle cx="601.0" cy="346.0" r="3.6" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="595.0" cy="356.4" r="3.6" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="583.0" cy="356.4" r="3.6" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="577.0" cy="346.0" r="3.6" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="583.0" cy="335.6" r="3.6" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="595.0" cy="335.6" r="3.6" fill="#0d6470" stroke="#0d6470" stroke-width="0"/>
+<circle cx="688.0" cy="337.1" r="3.6" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<circle cx="693.6" cy="349.7" r="3.6" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<circle cx="682.4" cy="351.1" r="3.6" fill="#b26b12" stroke="#b26b12" stroke-width="0"/>
+<text x="428.0" y="398.0" font-size="11" font-weight="600" fill="#0d6470" text-anchor="middle" >A</text>
+<text x="492.0" y="382.0" font-size="11" font-weight="600" fill="#b26b12" text-anchor="middle" >B</text>
+<text x="589.0" y="382.0" font-size="11" font-weight="600" fill="#0d6470" text-anchor="middle" >A</text>
+<text x="688.0" y="382.0" font-size="11" font-weight="600" fill="#b26b12" text-anchor="middle" >B</text>
+<text x="546.0" y="422.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="middle" >Clusters made tighter and further apart</text>
+<text x="546.0" y="436.0" font-size="11" font-weight="400" fill="#1b2329" text-anchor="middle" >are found again: the output stays A and B.</text>
+</svg>
