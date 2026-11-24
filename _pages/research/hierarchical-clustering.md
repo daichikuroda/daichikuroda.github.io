@@ -51,7 +51,7 @@ Hierarchical clustering generalizes clustering: instead of a single partition, i
 
 ## Our results in brief
 
-Beyond these known advantages, my collaborators and I show that hierarchical clustering is a **well-posed** problem ([Kuroda, Dreveton, Grossglauser & Thiran, 2026](#kuroda2026hierarchical)): hierarchical versions of Kleinberg's three requirements, which no flat clustering method can satisfy together, can all be satisfied by hierarchical clustering methods. We call these methods *admissible*, and there are uncountably many of them.
+Beyond these known advantages, my collaborators and I show that hierarchical clustering is a **well-posed** problem ([Kuroda, Dreveton, Grossglauser & Thiran, 2026](#kuroda2026hierarchical)): hierarchical versions of Kleinberg's three requirements, which no flat clustering method can satisfy together, can all be satisfied by hierarchical clustering methods. We call these methods *admissible*, and there are infinitely many of them.
 
 Furthermore, there is no single best way to cluster hierarchically. Some admissible methods find more clusters than others, but no method finds all the clusters that the others find. Instead, there are infinitely many "best" methods, and on some data they find clusters that cannot belong to the same tree. These methods are therefore genuinely different, which is useful in practice: it leaves room to choose the method that best suits the task at hand. Yet they do not disagree arbitrarily. Every admissible method contains a common backbone of well-separated clusters, and admissible methods differ only in how much additional structure they reveal beyond it. Figure 3 illustrates this.
 
