@@ -2,8 +2,9 @@
 
 Usage (from the repository root):  python3 _scripts/research_figures.py assets/img/research
 Writes clustering-at-work.svg (the opening figure), flat-clusterings.svg (Figure 1),
-backbone.svg (Figure 3), kleinberg-axioms.svg (Figure 4), hierarchy.svg (Figure 5), axioms.svg (Figure 6),
-ultrametric.svg (Figure 7), refinement-order.svg (Figure 8) and well-separated.svg (Figure 9). Figure 1 uses the same
+backbone.svg (Figure 3), kleinberg-axioms.svg (Figure 4), flat-consistency.svg (Figure 5),
+hierarchy.svg (Figure 6), axioms.svg (Figure 7), ultrametric.svg (Figure 8), refinement-order.svg (Figure 9)
+and well-separated.svg (Figure 10). Figure 1 uses the same
 points as hierarchy-example.svg (Figure 2): same sub-cluster centers and random seed.
 """
 import itertools, math, random, sys
@@ -164,7 +165,7 @@ svg.append("</svg>")
 open(f"{OUT}/backbone.svg", "w").write("\n".join(svg) + "\n")
 print("ok")
 
-# ---------------------------------------------------------------- Figure 8: the refinement order
+# ---------------------------------------------------------------- Figure 9: the refinement order
 # The refinement order on the dissimilarity of Example 2 in the paper: each arrow points to a
 # finer method, which adds clusters. Global separation is refined both by non-binary single
 # linkage and by Bryant-Berry stable clusters. These two cannot be combined: {1,2,3,5} and
@@ -258,7 +259,7 @@ svg.append(text(459, 148, "combined", 10, RED, "600", "middle"))
 svg.append("</svg>")
 open(f"{OUT}/refinement-order.svg", "w").write("\n".join(svg) + "\n")
 
-# ---------------------------------------------------------------- Figure 7: ultrametric and its natural hierarchy
+# ---------------------------------------------------------------- Figure 8: ultrametric and its natural hierarchy
 # A 6-point ultrametric: {a,b} merge at 1, {c,d,e} at 2 (a three-way merge), {a,...,e} at 3, all at 4.
 # Each matrix entry equals the height at which the two points first meet in the tree.
 LAB = ["a", "b", "c", "d", "e", "f"]
@@ -319,7 +320,7 @@ svg.append(text(ab - 8, ybar(3) - 7, "{a, b, c, d, e}", 11, PURPLE, "600", "star
 svg.append("</svg>")
 open(f"{OUT}/ultrametric.svg", "w").write("\n".join(svg) + "\n")
 
-# ---------------------------------------------------------------- Figure 9: well-separated (globally separated) sets
+# ---------------------------------------------------------------- Figure 10: well-separated (globally separated) sets
 # (a) a set whose largest internal distance is smaller than its smallest distance to the rest;
 # (b) a set where this fails; (c) the well-separated sets of a small data set, which are nested.
 # Distances are Euclidean distances in the picture; every claim is checked below.
@@ -455,7 +456,7 @@ ARROW_DEF = (f'<defs><marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" mar
 
 
 # ---------------------------------------------------------------- Figure 4: Kleinberg's axioms (flat clustering)
-# Same panel layout as the admissibility figure (Figure 6).
+# Same panel layout as the admissibility figure (Figure 7).
 W, H = 720, 470
 PW, PH = 348, 206
 svg = head(W, H, "Strengthening and Kleinberg's three axioms",
@@ -583,7 +584,112 @@ svg.append("</svg>")
 open(f"{OUT}/kleinberg-axioms.svg", "w").write("\n".join(svg) + "\n")
 
 
-# ---------------------------------------------------------------- Figure 5: what a hierarchy is
+# ---------------------------------------------------------------- Figure 5: the problem with consistency for flat clustering
+# A strengthening of the partition {C1 u C2, C3} that turns C1 and C2 into groups of their own.
+# A consistent flat method must still return exactly {C1 u C2, C3}; a hierarchy can add C1 and C2.
+W, H = 720, 262
+svg = head(W, H, "Why consistency is a problem for flat clustering",
+           "Three panels. (a) Data with two clusters: a loose ring of six points, three filled and three hollow, and a small group of three points. "
+           "(b) After a strengthening, the filled and hollow points form two tight groups next to each other and the small group is further away; "
+           "a consistent flat method must still return the same two clusters. "
+           "(c) On the same data, a hierarchy keeps the big cluster and adds the two tight groups inside it.")
+
+
+def cname(i, extra=None, idx2=None):
+    """Italic C with subscript i, optionally followed by ' u C_idx2'."""
+    s = f'<tspan font-style="italic">C</tspan><tspan font-size="8" dy="3">{i}</tspan>'
+    if idx2 is not None:
+        s += f'<tspan dy="-3"> ∪ </tspan><tspan font-style="italic">C</tspan><tspan font-size="8" dy="3">{idx2}</tspan>'
+    return s
+
+
+def ring_pts(cx, cy, R):
+    pts_ = [(cx + R * math.cos(math.pi / 6 + math.pi * k / 3), cy + R * math.sin(math.pi / 6 + math.pi * k / 3)) for k in range(6)]
+    return pts_[0::2], pts_[1::2]
+
+
+def tri(cx, cy, r, up=True):
+    s_ = -1 if up else 1
+    return [(cx + r * math.cos(math.pi / 2 + 2 * math.pi * k / 3) * (1 if up else -1), cy + s_ * r * math.sin(math.pi / 2 + 2 * math.pi * k / 3)) for k in range(3)]
+
+
+# relative coordinates inside a panel
+C1_0, C2_0 = ring_pts(70, 98, 40)
+C3_0 = tri(156, 98, 11)
+C1_1, C2_1 = tri(36, 100, 5, up=True), tri(62, 100, 5, up=False)
+C3_1 = tri(200, 100, 7)
+A0, A1_ = C1_0 + C2_0, C1_1 + C2_1
+for i in range(6):
+    for j in range(6):
+        assert math.dist(A1_[i], A1_[j]) <= math.dist(A0[i], A0[j]) + 1e-9
+    for k in range(3):
+        assert math.dist(A1_[i], C3_1[k]) >= math.dist(A0[i], C3_0[k]) - 1e-9
+for i in range(3):
+    for j in range(3):
+        assert math.dist(C3_1[i], C3_1[j]) <= math.dist(C3_0[i], C3_0[j]) + 1e-9
+# after the strengthening, C1 and C2 are groups of their own: each is tighter than its distance to the rest
+for G, O in [(C1_1, C2_1 + C3_1), (C2_1, C1_1 + C3_1)]:
+    assert max(math.dist(p, q) for p in G for q in G) < min(math.dist(p, q) for p in G for q in O)
+
+
+def draw(ox, oy, c1, c2, c3, r=4.2):
+    g = []
+    for q in c1:
+        g += pt(ox + q[0], oy + q[1], TEAL, r=r)
+    for q in c2:
+        g += pt(ox + q[0], oy + q[1], TEAL, hollow=True, r=r)
+    for q in c3:
+        g += pt(ox + q[0], oy + q[1], AMBER, r=r)
+    return g
+
+
+def sh(ox, oy, P_):
+    return [(ox + x, oy + y) for x, y in P_]
+
+
+oy = 12
+PW3, PH3 = 226, 210
+for ix, label in enumerate(["(a) Before", "(b) After: flat clustering", "(c) After: hierarchy"]):
+    ox = 12 + ix * (PW3 + 12)
+    svg.append(f'<rect x="{ox}" y="{oy}" width="{PW3}" height="{PH3}" rx="12" fill="#f5f8f8"/>')
+    svg.append(text(ox + PW3 / 2, oy + PH3 + 26, label, 13, INK, "600", "middle"))
+
+# (a)
+ox = 12
+svg.append(outline(sh(ox, oy, A0), TEAL, pad=12))
+svg.append(outline(sh(ox, oy, C3_0), AMBER, pad=9))
+svg += draw(ox, oy, C1_0, C2_0, C3_0)
+svg.append(text(ox + 70, oy + 168, cname(1, idx2=2), 12, TEAL, "600", "middle"))
+svg.append(text(ox + 156, oy + 134, cname(3), 12, AMBER, "600", "middle"))
+
+# (b) a consistent flat method returns the same partition
+ox = 12 + PW3 + 12
+svg.append(outline(sh(ox, oy, A1_), TEAL, pad=10))
+svg.append(outline(sh(ox, oy, C3_1), AMBER, pad=8))
+svg += draw(ox, oy, C1_1, C2_1, C3_1, r=3.8)
+svg.append(text(ox + 49, oy + 134, cname(1, idx2=2), 12, TEAL, "600", "middle"))
+svg.append(text(ox + 200, oy + 132, cname(3), 12, AMBER, "600", "middle"))
+svg.append(text(ox + PW3 / 2, oy + 170, "A consistent flat method must return", 11, INK, "400", "middle"))
+svg.append(text(ox + PW3 / 2, oy + 186, "the same two clusters.", 11, INK, "400", "middle"))
+
+# (c) a hierarchy keeps C1 u C2 and adds C1 and C2
+ox = 12 + 2 * (PW3 + 12)
+svg.append(outline(sh(ox, oy, A1_), TEAL, pad=13))
+svg.append(outline(sh(ox, oy, C1_1), TEAL, pad=5, dash="2 3", op=0.14))
+svg.append(outline(sh(ox, oy, C2_1), TEAL, pad=5, dash="2 3", op=0.14))
+svg.append(outline(sh(ox, oy, C3_1), AMBER, pad=8))
+svg += draw(ox, oy, C1_1, C2_1, C3_1, r=3.8)
+svg.append(text(ox + 34, oy + 74, cname(1), 12, TEAL, "600", "middle"))
+svg.append(text(ox + 64, oy + 74, cname(2), 12, TEAL, "600", "middle"))
+svg.append(text(ox + 49, oy + 137, cname(1, idx2=2), 12, TEAL, "600", "middle"))
+svg.append(text(ox + 200, oy + 132, cname(3), 12, AMBER, "600", "middle"))
+svg.append(text(ox + PW3 / 2, oy + 170, "A hierarchy keeps both clusters", 11, INK, "400", "middle"))
+svg.append(text(ox + PW3 / 2, oy + 186, "and adds the two new groups.", 11, INK, "400", "middle"))
+svg.append("</svg>")
+open(f"{OUT}/flat-consistency.svg", "w").write("\n".join(svg) + "\n")
+
+
+# ---------------------------------------------------------------- Figure 6: what a hierarchy is
 W, H = 720, 290
 svg = head(W, H, "A hierarchy as nested clusters and as a tree",
            "Three panels. (a) Seven points a to g with nested clusters: {a,b} inside {a,b,c}, {f,g} inside {d,e,f,g}, all inside the whole set. "
@@ -644,7 +750,7 @@ svg.append("</svg>")
 open(f"{OUT}/hierarchy.svg", "w").write("\n".join(svg) + "\n")
 
 
-# ---------------------------------------------------------------- Figure 6: the four axioms
+# ---------------------------------------------------------------- Figure 7: the four axioms
 W, H = 720, 470
 PW, PH = 348, 206
 svg = head(W, H, "The four axioms of admissibility",
